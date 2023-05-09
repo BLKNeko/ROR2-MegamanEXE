@@ -19,6 +19,9 @@ namespace MegamanEXEMod.Modules.Survivors
         //used when registering your survivor's language tokens
         public override string survivorTokenPrefix => HENRY_PREFIX;
 
+        internal static SkillDef TesteSkill1;
+        internal static SkillDef TesteSkill2;
+
         public override BodyInfo bodyInfo { get; set; } = new BodyInfo
         {
             bodyName = "MegamanEXEBody",
@@ -40,6 +43,7 @@ namespace MegamanEXEMod.Modules.Survivors
 
         public override CustomRendererInfo[] customRendererInfos { get; set; } = new CustomRendererInfo[] 
         {
+                /*
                 new CustomRendererInfo
                 {
                     childName = "SwordModel",
@@ -52,6 +56,32 @@ namespace MegamanEXEMod.Modules.Survivors
                 new CustomRendererInfo
                 {
                     childName = "Model",
+                }
+                */
+
+            new CustomRendererInfo
+                {
+                    childName = "BMC",
+                },
+                new CustomRendererInfo
+                {
+                    childName = "BMM",
+                },
+                new CustomRendererInfo
+                {
+                    childName = "HML",
+                },
+                new CustomRendererInfo
+                {
+                    childName = "MMC",
+                },
+                new CustomRendererInfo
+                {
+                    childName = "EXEBuster",
+                },
+                new CustomRendererInfo
+                {
+                    childName = "EXESword",
                 }
         };
 
@@ -84,11 +114,19 @@ namespace MegamanEXEMod.Modules.Survivors
             //example of how to create a hitbox
             //Transform hitboxTransform = childLocator.FindChild("SwordHitbox");
             //Modules.Prefabs.SetupHitbox(prefabCharacterModel.gameObject, hitboxTransform, "Sword");
+
+            //example of how to create a hitbox
+            Transform hitboxTransform = childLocator.FindChild("EXESwordHB");
+            Modules.Prefabs.SetupHitbox(prefabCharacterModel.gameObject, hitboxTransform, "EXESwordHB");
         }
 
         public override void InitializeSkills()
         {
             Modules.Skills.CreateSkillFamilies(bodyPrefab);
+            Modules.Skills.CreateFirstExtraSkillFamily(bodyPrefab);
+            Modules.Skills.CreateSecondExtraSkillFamily(bodyPrefab);
+            Modules.Skills.CreateThirdExtraSkillFamily(bodyPrefab);
+            Modules.Skills.CreateFourthExtraSkillFamily(bodyPrefab);
             string prefix = MegamanEXEPlugin.DEVELOPER_PREFIX;
 
             #region Primary
@@ -96,7 +134,7 @@ namespace MegamanEXEMod.Modules.Survivors
             SkillDef primarySkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo(prefix + "_HENRY_BODY_PRIMARY_SLASH_NAME",
                                                                                       prefix + "_HENRY_BODY_PRIMARY_SLASH_DESCRIPTION",
                                                                                       Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texPrimaryIcon"),
-                                                                                      new EntityStates.SerializableEntityStateType(typeof(SkillStates.SlashCombo)),
+                                                                                      new EntityStates.SerializableEntityStateType(typeof(SkillStates.BusterEXE)),
                                                                                       "Weapon",
                                                                                       true));
 
@@ -188,6 +226,61 @@ namespace MegamanEXEMod.Modules.Survivors
 
             Modules.Skills.AddSpecialSkills(bodyPrefab, bombSkillDef);
             #endregion
+
+            TesteSkill1 = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "_HENRY_BODY_SECONDARY_GUN_NAME",
+                skillNameToken = prefix + "_HENRY_BODY_SECONDARY_GUN_NAME",
+                skillDescriptionToken = prefix + "_HENRY_BODY_SECONDARY_GUN_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texSecondaryIcon"),
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Shoot)),
+                activationStateMachineName = "Slide",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = false,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = true,
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+            });
+
+            TesteSkill2 = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "_HENRY_BODY_SPECIAL_BOMB_NAME",
+                skillNameToken = prefix + "_HENRY_BODY_SPECIAL_BOMB_NAME",
+                skillDescriptionToken = prefix + "_HENRY_BODY_SPECIAL_BOMB_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texSpecialIcon"),
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.ThrowBomb)),
+                activationStateMachineName = "Slide",
+                baseMaxStock = 1,
+                baseRechargeInterval = 10f,
+                beginSkillCooldownOnSkillEnd = false,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = true,
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = true,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1
+            });
+
+
+            Skills.AddFirstExtraSkill(bodyPrefab, TesteSkill2);
+            Skills.AddSecondExtraSkill(bodyPrefab, TesteSkill2);
+            Skills.AddThirdExtraSkill(bodyPrefab, TesteSkill2);
+            Skills.AddFourthExtraSkill(bodyPrefab, TesteSkill2);
         }
         
         public override void InitializeSkins()

@@ -1,6 +1,8 @@
 ﻿using EntityStates;
+using MegamanEXEMod.Modules.Survivors;
 using RoR2;
 using UnityEngine;
+using ExtraSkillSlots;
 
 namespace MegamanEXEMod.SkillStates
 {
@@ -18,6 +20,9 @@ namespace MegamanEXEMod.SkillStates
         private float fireTime;
         private bool hasFired;
         private string muzzleString;
+        private ExtraSkillLocator extraskillLocator;
+
+        
 
         public override void OnEnter()
         {
@@ -27,11 +32,18 @@ namespace MegamanEXEMod.SkillStates
             base.characterBody.SetAimTimer(2f);
             this.muzzleString = "Muzzle";
 
+            extraskillLocator = base.GetComponent<ExtraSkillLocator>();
+
             base.PlayAnimation("LeftArm, Override", "ShootGun", "ShootGun.playbackRate", 1.8f);
         }
 
         public override void OnExit()
         {
+
+            //base.skillLocator.utility.SetSkillOverride(base.skillLocator.utility, MegamanEXE.TesteSkill1, GenericSkill.SkillOverridePriority.Contextual);
+            extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, MegamanEXE.TesteSkill1, GenericSkill.SkillOverridePriority.Contextual);
+
+
             base.OnExit();
         }
 
