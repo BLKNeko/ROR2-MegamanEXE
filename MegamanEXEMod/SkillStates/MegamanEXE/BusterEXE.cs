@@ -10,7 +10,7 @@ namespace MegamanEXEMod.SkillStates
     {
         public static float damageCoefficient = 0.8f;
         public static float procCoefficient = 1f;
-        public static float baseDuration = 1f;
+        public static float baseDuration = 0.7f;
         public static float force = 800f;
         public static float recoil = 3f;
         public static float range = 256f;
@@ -45,7 +45,7 @@ namespace MegamanEXEMod.SkillStates
             base.PlayAnimation("Gesture, Override", "ShootPose", "attackSpeed", this.duration);
 
             GameObject.Find("EXEBuster").transform.localScale = new Vector3(1, 1, 1);
-            GameObject.Find("EXEBuster").transform.localScale = new Vector3(1, 1, 1);
+            GameObject.Find("EXEBuster").GetComponent<MeshRenderer>().enabled = true;
             GameObject.Find("EXESword").transform.localScale = new Vector3(0, 0, 0);
             GameObject.Find("EXESword").GetComponent<MeshRenderer>().enabled = false;
 

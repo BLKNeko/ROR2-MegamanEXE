@@ -9,12 +9,15 @@ namespace MegamanEXEMod.Modules
     internal static class Projectiles
     {
         internal static GameObject bombPrefab;
+        internal static GameObject MiniBombProjectile;
 
         internal static void RegisterProjectiles()
         {
             CreateBomb();
+            CreateMiniBombProjectile();
 
             AddProjectile(bombPrefab);
+            AddProjectile(MiniBombProjectile);
         }
 
         internal static void AddProjectile(GameObject projectileToAdd)
@@ -40,6 +43,24 @@ namespace MegamanEXEMod.Modules
             ProjectileController bombController = bombPrefab.GetComponent<ProjectileController>();
             if (Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("HenryBombGhost") != null) bombController.ghostPrefab = CreateGhostPrefab("HenryBombGhost");
             bombController.startSound = "";
+        }
+
+        private static void CreateMiniBombProjectile()
+        {
+
+            MiniBombProjectile = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("prefabs/projectiles/CommandoGrenadeProjectile"), "Prefabs/Projectiles/BombProjectile", true, "C:\\Users\\test\\Documents\\ror2mods\\MegamanXVile\\MegamanXVile\\MegamanXVile\\MegamanXVile.cs", "RegisterCharacter", 155);
+
+            // just setting the numbers to 1 as the entitystate will take care of those
+            MiniBombProjectile.GetComponent<ProjectileController>().procCoefficient = 1f;
+            MiniBombProjectile.GetComponent<ProjectileDamage>().damage = 1f;
+            MiniBombProjectile.GetComponent<ProjectileDamage>().damageType = DamageType.Generic;
+
+            // register it for networking
+            if (MiniBombProjectile) PrefabAPI.RegisterNetworkPrefab(MiniBombProjectile);
+
+            ProjectileController MBController = MiniBombProjectile.GetComponent<ProjectileController>();
+            if (Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("MBGhost") != null) MBController.ghostPrefab = CreateGhostPrefab("BMBGhost");
+            MBController.startSound = "";
         }
 
         private static void InitializeImpactExplosion(ProjectileImpactExplosion projectileImpactExplosion)

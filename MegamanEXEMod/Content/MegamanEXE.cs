@@ -21,6 +21,8 @@ namespace MegamanEXEMod.Modules.Survivors
 
         internal static SkillDef TesteSkill1;
         internal static SkillDef TesteSkill2;
+        internal static SkillDef CyberSwordSkillDef;
+        internal static SkillDef MiniBombSkillDef;
 
         public override BodyInfo bodyInfo { get; set; } = new BodyInfo
         {
@@ -29,14 +31,20 @@ namespace MegamanEXEMod.Modules.Survivors
             subtitleNameToken = HENRY_PREFIX + "SUBTITLE",
 
             characterPortrait = Assets.mainAssetBundle.LoadAsset<Texture>("texHenryIcon"),
-            bodyColor = Color.white,
+            bodyColor = new Color(0f, 0.05f, 0.21f),
 
             crosshair = Modules.Assets.LoadCrosshair("Standard"),
             podPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/SurvivorPod"),
 
-            maxHealth = 110f,
+            maxHealth = 100f,
             healthRegen = 1.5f,
-            armor = 0f,
+            armor = 15f,
+            moveSpeedGrowth = 0.05f,
+            damage = 15f,
+            shieldGrowth = 0.25f,
+            jumpPowerGrowth = 0.25f,
+            critGrowth = 0.1f,
+            attackSpeedGrowth = 0.003f,
 
             jumpCount = 1,
         };
@@ -116,8 +124,9 @@ namespace MegamanEXEMod.Modules.Survivors
             //Modules.Prefabs.SetupHitbox(prefabCharacterModel.gameObject, hitboxTransform, "Sword");
 
             //example of how to create a hitbox
-            Transform hitboxTransform = childLocator.FindChild("EXESwordHB");
-            Modules.Prefabs.SetupHitbox(prefabCharacterModel.gameObject, hitboxTransform, "EXESwordHB");
+            Transform hitboxTransformEXES = childLocator.FindChild("EXESwordHB");
+            Modules.Prefabs.SetupHitbox(prefabCharacterModel.gameObject, hitboxTransformEXES, "EXESwordHB");
+            hitboxTransformEXES.localScale = new Vector3(4f, 4f, 4f);
         }
 
         public override void InitializeSkills()
@@ -150,7 +159,7 @@ namespace MegamanEXEMod.Modules.Survivors
                 skillDescriptionToken = prefix + "_HENRY_BODY_SECONDARY_GUN_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texSecondaryIcon"),
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Shoot)),
-                activationStateMachineName = "Slide",
+                activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 1f,
                 beginSkillCooldownOnSkillEnd = false,
@@ -160,7 +169,7 @@ namespace MegamanEXEMod.Modules.Survivors
                 interruptPriority = EntityStates.InterruptPriority.Skill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = false,
+                mustKeyPress = true,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
@@ -178,13 +187,13 @@ namespace MegamanEXEMod.Modules.Survivors
                 skillNameToken = prefix + "_HENRY_BODY_UTILITY_ROLL_NAME",
                 skillDescriptionToken = prefix + "_HENRY_BODY_UTILITY_ROLL_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texUtilityIcon"),
-                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Roll)),
-                activationStateMachineName = "Body",
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.SendChip)),
+                activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 4f,
+                baseRechargeInterval = 2f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
-                forceSprintDuringState = true,
+                forceSprintDuringState = false,
                 fullRestockOnAssign = true,
                 interruptPriority = EntityStates.InterruptPriority.PrioritySkill,
                 resetCooldownTimerOnUse = false,
@@ -233,7 +242,7 @@ namespace MegamanEXEMod.Modules.Survivors
                 skillNameToken = prefix + "_HENRY_BODY_SECONDARY_GUN_NAME",
                 skillDescriptionToken = prefix + "_HENRY_BODY_SECONDARY_GUN_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texSecondaryIcon"),
-                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Shoot)),
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Cannon)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
                 baseRechargeInterval = 1f,
@@ -258,8 +267,8 @@ namespace MegamanEXEMod.Modules.Survivors
                 skillNameToken = prefix + "_HENRY_BODY_SPECIAL_BOMB_NAME",
                 skillDescriptionToken = prefix + "_HENRY_BODY_SPECIAL_BOMB_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texSpecialIcon"),
-                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.ThrowBomb)),
-                activationStateMachineName = "Slide",
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.BusterEXE)),
+                activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 10f,
                 beginSkillCooldownOnSkillEnd = false,
@@ -276,11 +285,59 @@ namespace MegamanEXEMod.Modules.Survivors
                 stockToConsume = 1
             });
 
+            CyberSwordSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "_HENRY_BODY_SPECIAL_BOMB_NAME",
+                skillNameToken = prefix + "_HENRY_BODY_SPECIAL_BOMB_NAME",
+                skillDescriptionToken = prefix + "_HENRY_BODY_SPECIAL_BOMB_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texPrimaryIcon"),
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.CyberSword)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 3,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = false,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = true,
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = true,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1
+            });
+
+            MiniBombSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "_HENRY_BODY_SPECIAL_BOMB_NAME",
+                skillNameToken = prefix + "_HENRY_BODY_SPECIAL_BOMB_NAME",
+                skillDescriptionToken = prefix + "_HENRY_BODY_SPECIAL_BOMB_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texSpecialIcon"),
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.MiniBomb)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 5,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = false,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = true,
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = true,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1
+            });
+
 
             Skills.AddFirstExtraSkill(bodyPrefab, TesteSkill2);
             Skills.AddSecondExtraSkill(bodyPrefab, TesteSkill2);
-            Skills.AddThirdExtraSkill(bodyPrefab, TesteSkill2);
-            Skills.AddFourthExtraSkill(bodyPrefab, TesteSkill2);
+            Skills.AddThirdExtraSkill(bodyPrefab, MiniBombSkillDef);
+            Skills.AddFourthExtraSkill(bodyPrefab, CyberSwordSkillDef);
         }
         
         public override void InitializeSkins()
