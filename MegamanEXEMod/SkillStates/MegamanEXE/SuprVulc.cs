@@ -6,16 +6,16 @@ using UnityEngine;
 
 namespace MegamanEXEMod.SkillStates
 {
-    public class Cannon : BaseSkillState
+    public class SuprVulc : BaseSkillState
     {
-        public static float damageCoefficient = 1.45f;
+        public static float damageCoefficient = 1.5f;
         public static float procCoefficient = 1f;
-        public static float baseDuration = 0.5f;
-        public static float force = 1000f;
+        public static float baseDuration = 0.1f;
+        public static float force = 1250f;
         public static float recoil = 3f;
         public static float range = 256f;
-        public static GameObject tracerEffectPrefab = Resources.Load<GameObject>("prefabs/effects/tracers/TracerBanditPistol");
-        public static GameObject hitEffectPrefab = Resources.Load<GameObject>("Prefabs/Effects/ImpactEffects/ImpactPotMobileCannon");
+        public static GameObject tracerEffectPrefab = Resources.Load<GameObject>("Prefabs/Effects/Tracers/TracerCommandoDefault");
+        public static GameObject hitEffectPrefab = Resources.Load<GameObject>("prefabs/effects/impacteffects/BulletImpactSoft");
 
 
 
@@ -37,7 +37,7 @@ namespace MegamanEXEMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
-            this.duration = Cannon.baseDuration / this.attackSpeedStat;
+            this.duration = SuprVulc.baseDuration / this.attackSpeedStat;
             this.fireDuration = 0.25f * this.duration;
             base.characterBody.SetAimTimer(2f);
             this.animator = base.GetModelAnimator();
@@ -70,19 +70,19 @@ namespace MegamanEXEMod.SkillStates
                 if (base.isAuthority)
                 {
                     Ray aimRay = base.GetAimRay();
-                    base.AddRecoil(-1f * Cannon.recoil, -2f * Cannon.recoil, -0.5f * Cannon.recoil, 0.5f * Cannon.recoil);
+                    base.AddRecoil(-1f * SuprVulc.recoil, -2f * SuprVulc.recoil, -0.5f * SuprVulc.recoil, 0.5f * SuprVulc.recoil);
 
                     new BulletAttack
                     {
                         bulletCount = 1,
                         aimVector = aimRay.direction,
                         origin = aimRay.origin,
-                        damage = Cannon.damageCoefficient * this.damageStat,
+                        damage = SuprVulc.damageCoefficient * this.damageStat,
                         damageColorIndex = DamageColorIndex.Default,
                         damageType = DamageType.Generic,
                         falloffModel = BulletAttack.FalloffModel.DefaultBullet,
-                        maxDistance = Cannon.range,
-                        force = Cannon.force,
+                        maxDistance = SuprVulc.range,
+                        force = SuprVulc.force,
                         hitMask = LayerIndex.CommonMasks.bullet,
                         minSpread = 0f,
                         maxSpread = 0f,
@@ -96,11 +96,11 @@ namespace MegamanEXEMod.SkillStates
                         sniper = false,
                         stopperMask = LayerIndex.CommonMasks.bullet,
                         weapon = null,
-                        tracerEffectPrefab = Cannon.tracerEffectPrefab,
+                        tracerEffectPrefab = SuprVulc.tracerEffectPrefab,
                         spreadPitchScale = 0f,
                         spreadYawScale = 0f,
                         queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
-                        hitEffectPrefab = Cannon.hitEffectPrefab,
+                        hitEffectPrefab = SuprVulc.hitEffectPrefab,
                     }.Fire();
                 }
             }
@@ -126,7 +126,7 @@ namespace MegamanEXEMod.SkillStates
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {
-            return InterruptPriority.Skill;
+            return InterruptPriority.Frozen;
         }
 
     }
