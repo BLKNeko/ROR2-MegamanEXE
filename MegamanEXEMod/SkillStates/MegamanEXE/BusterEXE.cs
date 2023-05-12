@@ -41,14 +41,20 @@ namespace MegamanEXEMod.SkillStates
             this.fireDuration = 0.25f * this.duration;
             base.characterBody.SetAimTimer(2f);
             this.animator = base.GetModelAnimator();
-            this.muzzleString = "Weapon";
+            this.muzzleString = "BusterMZ";
             base.PlayAnimation("Gesture, Override", "ShootPose", "attackSpeed", this.duration);
 
+
+            ArmHelper.ArmChanger(1);
+
+            /*
             GameObject.Find("EXEBuster").transform.localScale = new Vector3(1, 1, 1);
             GameObject.Find("EXEBuster").GetComponent<MeshRenderer>().enabled = true;
             GameObject.Find("EXESword").transform.localScale = new Vector3(0, 0, 0);
             GameObject.Find("EXESword").GetComponent<MeshRenderer>().enabled = false;
-
+            GameObject.Find("EXESwordDark").GetComponent<MeshRenderer>().enabled = false;
+            GameObject.Find("EXESwordRed").GetComponent<MeshRenderer>().enabled = false;
+            */
         }
 
         public override void OnExit()
@@ -167,15 +173,15 @@ namespace MegamanEXEMod.SkillStates
                 if (chargeTime > 0.5f && chargeTime <= 1.8f && chargingSFX == false)
                 {
                     //Util.PlaySound(Sounds.charging, base.gameObject);
-                    //EffectManager.SimpleMuzzleFlash(Modules.Assets.chargeeffect1C, base.gameObject, "Center", true);
-                    //EffectManager.SimpleMuzzleFlash(Modules.Assets.chargeeffect1W, base.gameObject, "Center", true);
+                    EffectManager.SimpleMuzzleFlash(Modules.Assets.VfxChargeeffect1C, base.gameObject, "CenterMZ", true);
+                    EffectManager.SimpleMuzzleFlash(Modules.Assets.VfxChargeeffect1W, base.gameObject, "CenterMZ", true);
                     chargingSFX = true;
                 }
 
                 if (chargeTime >= 1.8f && chargeFullSFX == false)
                 {
                     //Util.PlaySound(Sounds.fullCharge, base.gameObject);
-                    //EffectManager.SimpleMuzzleFlash(Modules.Assets.chargeeffect2C, base.gameObject, "Center", true);
+                    EffectManager.SimpleMuzzleFlash(Modules.Assets.VfxChargeeffect2C, base.gameObject, "CenterMZ", true);
                     chargeFullSFX = true;
                     LastChargeTime = chargeTime;
                 }
@@ -183,7 +189,7 @@ namespace MegamanEXEMod.SkillStates
                 if ((chargeTime - LastChargeTime) >= 0.68f && chargeFullSFX == true)
                 {
                     //Util.PlaySound(Sounds.fullCharge, base.gameObject);
-                    //EffectManager.SimpleMuzzleFlash(Modules.Assets.chargeeffect2C, base.gameObject, "Center", true);
+                    EffectManager.SimpleMuzzleFlash(Modules.Assets.VfxChargeeffect2C, base.gameObject, "CenterMZ", true);
                     LastChargeTime = chargeTime;
                 }
             }

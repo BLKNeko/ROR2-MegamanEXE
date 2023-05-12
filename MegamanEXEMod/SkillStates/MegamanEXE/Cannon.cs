@@ -44,10 +44,7 @@ namespace MegamanEXEMod.SkillStates
             this.muzzleString = "Weapon";
             base.PlayAnimation("Gesture, Override", "ShootPose", "attackSpeed", this.duration);
 
-            GameObject.Find("EXEBuster").transform.localScale = new Vector3(1, 1, 1);
-            GameObject.Find("EXEBuster").GetComponent<MeshRenderer>().enabled = true;
-            GameObject.Find("EXESword").transform.localScale = new Vector3(0, 0, 0);
-            GameObject.Find("EXESword").GetComponent<MeshRenderer>().enabled = false;
+            ArmHelper.ArmChanger(1);
 
         }
 

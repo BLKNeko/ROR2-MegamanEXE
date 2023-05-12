@@ -51,10 +51,15 @@ namespace MegamanEXEMod.SkillStates
 
             //Chat.SendBroadcastChat(new SimpleChatMessage { baseToken = "<color=#e5eefc>{0}</color>", paramTokens = new[] { "HitCombo2" } });
 
+            ArmHelper.ArmChanger(2);
+
+            /*
             GameObject.Find("EXEBuster").transform.localScale = new Vector3(0, 0, 0);
             GameObject.Find("EXEBuster").GetComponent<MeshRenderer>().enabled = false;
             GameObject.Find("EXESword").transform.localScale = new Vector3(1, 1, 1);
             GameObject.Find("EXESword").GetComponent<MeshRenderer>().enabled = true;
+            GameObject.Find("EXESword").GetComponent<MeshRenderer>().material = Assets.MatCyberSwordDefault;
+            */
 
             HitBoxGroup hitBoxGroup = null;
             Transform modelTransform = base.GetModelTransform();

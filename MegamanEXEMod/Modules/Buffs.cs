@@ -8,6 +8,7 @@ namespace MegamanEXEMod.Modules
     {
         // armor buff gained during roll
         internal static BuffDef armorBuff;
+        internal static BuffDef DarkSwordDebuff;
 
         internal static void RegisterBuffs()
         {
@@ -15,6 +16,12 @@ namespace MegamanEXEMod.Modules
                 LegacyResourcesAPI.Load<BuffDef>("BuffDefs/HiddenInvincibility").iconSprite, 
                 Color.white, 
                 false, 
+                false);
+
+            DarkSwordDebuff = AddNewBuff("DarkSwordDebuff",
+                LegacyResourcesAPI.Load<BuffDef>("BuffDefs/HiddenInvincibility").iconSprite,
+                Color.white,
+                false,
                 false);
         }
 

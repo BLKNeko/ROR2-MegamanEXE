@@ -180,7 +180,7 @@ namespace MegamanEXEMod.SkillStates
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {
-            return InterruptPriority.Skill;
+            return InterruptPriority.Death;
         }
 
         public override void OnExit()

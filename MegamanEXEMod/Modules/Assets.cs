@@ -23,6 +23,20 @@ namespace MegamanEXEMod.Modules
         internal static NetworkSoundEventDef swordHitSoundEvent;
         #endregion
 
+
+        internal static GameObject VfxChargeeffect1C;
+        internal static GameObject VfxChargeeffect1W;
+        internal static GameObject VfxChargeeffect2C;
+        internal static GameObject VfxSwordFire;
+        internal static GameObject VfxSwordIce;
+        internal static GameObject VfxSwordEletric;
+
+        public static Material MatCyberSwordDefault;
+        public static Material MatCyberSwordRed;
+        public static Material MatCyberSwordDark;
+        public static Material MatInvis;
+
+
         // the assetbundle to load assets from
         internal static AssetBundle mainAssetBundle;
 
@@ -106,6 +120,21 @@ namespace MegamanEXEMod.Modules
 
             swordSwingEffect = Assets.LoadEffect("HenrySwordSwingEffect", true);
             swordHitImpactEffect = Assets.LoadEffect("ImpactHenrySlash");
+
+
+            VfxChargeeffect1C = Assets.LoadEffect("V2Charge1C", true);
+            VfxChargeeffect2C = Assets.LoadEffect("V2Charge2C", true);
+            VfxChargeeffect1W = Assets.LoadEffect("V2Charge1W", true);
+            VfxSwordFire = Assets.LoadEffect("VFXFire1", true);
+            VfxSwordIce = Assets.LoadEffect("VFXIce1", true);
+            VfxSwordEletric = Assets.LoadEffect("VFXEletric", true);
+
+            MatCyberSwordDefault = mainAssetBundle.LoadAsset<Material>("matMMBNSword");
+            MatCyberSwordRed = mainAssetBundle.LoadAsset<Material>("matMMBNSwordRed");
+            MatCyberSwordDark = mainAssetBundle.LoadAsset<Material>("matMMBNSwordDark");
+            MatInvis = mainAssetBundle.LoadAsset<Material>("matMMBNInv");
+
+
         }
 
         private static GameObject CreateTracer(string originalTracerName, string newTracerName)
