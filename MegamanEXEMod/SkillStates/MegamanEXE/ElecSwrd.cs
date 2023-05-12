@@ -9,7 +9,7 @@ using MegamanEXEMod.SkillStates.BaseStates;
 
 namespace MegamanEXEMod.SkillStates
 {
-    public class AquaSwrd : BaseSkillState
+    public class ElecSwrd : BaseSkillState
     {
         public static float damageCoefficient = 5.5f;
         public static float buffDamageCoefficient = 1f;
@@ -40,7 +40,7 @@ namespace MegamanEXEMod.SkillStates
         {
             base.OnEnter();
             this.duration = this.baseDuration / this.attackSpeedStat;
-            this.earlyExitDuration = AquaSwrd.baseEarlyExit / this.attackSpeedStat;
+            this.earlyExitDuration = ElecSwrd.baseEarlyExit / this.attackSpeedStat;
             this.hasFired = false;
             this.animator = base.GetModelAnimator();
             //this.swordController = base.GetComponent<PaladinSwordController>();
@@ -53,9 +53,9 @@ namespace MegamanEXEMod.SkillStates
 
             ArmHelper.ArmChanger(2);
 
-            EffectManager.SimpleMuzzleFlash(Modules.Assets.VfxSwordIce, base.gameObject, "SwordMZ", true);
-            EffectManager.SimpleMuzzleFlash(Modules.Assets.VfxSwordIce, base.gameObject, "SwordMZ", true);
-            EffectManager.SimpleMuzzleFlash(Modules.Assets.VfxSwordIce, base.gameObject, "SwordMZ", true);
+            EffectManager.SimpleMuzzleFlash(Modules.Assets.VfxSwordEletric, base.gameObject, "SwordMZ", true);
+            EffectManager.SimpleMuzzleFlash(Modules.Assets.VfxSwordEletric, base.gameObject, "SwordMZ", true);
+            EffectManager.SimpleMuzzleFlash(Modules.Assets.VfxSwordEletric, base.gameObject, "SwordMZ", true);
 
             HitBoxGroup hitBoxGroup = null;
             Transform modelTransform = base.GetModelTransform();
@@ -77,18 +77,18 @@ namespace MegamanEXEMod.SkillStates
             forwardDirection = aimRay.direction;
 
 
-            float dmg = AquaSwrd.damageCoefficient;
+            float dmg = ElecSwrd.damageCoefficient;
             //if (this.swordController && this.swordController.swordActive) dmg = Slash.buffDamageCoefficient;
 
             this.attack = new OverlapAttack();
             //this.attack.damageType = (Util.CheckRoll(84f, base.characterBody.master) ? DamageType.Stun1s : DamageType.SlowOnHit);
-            this.attack.damageType = DamageType.Freeze2s;
+            this.attack.damageType = DamageType.Shock5s;
             this.attack.attacker = base.gameObject;
             this.attack.inflictor = base.gameObject;
             this.attack.teamIndex = base.GetTeam();
             this.attack.damage = dmg * this.damageStat;
             this.attack.procCoefficient = 1;
-            this.attack.hitEffectPrefab = AquaSwrd.hitEffectPrefab;
+            this.attack.hitEffectPrefab = ElecSwrd.hitEffectPrefab;
             this.attack.forceVector = forwardDirection;
             this.attack.pushAwayForce = 500f;
             this.attack.hitBoxGroup = hitBoxGroup;
@@ -128,7 +128,7 @@ namespace MegamanEXEMod.SkillStates
 
                 if (base.isAuthority)
                 {
-                    base.AddRecoil(-1f * AquaSwrd.attackRecoil, -2f * AquaSwrd.attackRecoil, -0.5f * AquaSwrd.attackRecoil, 0.5f * AquaSwrd.attackRecoil);
+                    base.AddRecoil(-1f * ElecSwrd.attackRecoil, -2f * ElecSwrd.attackRecoil, -0.5f * ElecSwrd.attackRecoil, 0.5f * ElecSwrd.attackRecoil);
 
                     Ray aimRay = base.GetAimRay();
 
@@ -151,7 +151,7 @@ namespace MegamanEXEMod.SkillStates
                         {
                             if (base.characterMotor && !base.characterMotor.isGrounded)
                             {
-                                base.SmallHop(base.characterMotor, AquaSwrd.hitHopVelocity);
+                                base.SmallHop(base.characterMotor, ElecSwrd.hitHopVelocity);
                             }
 
                             this.hasHopped = true;
