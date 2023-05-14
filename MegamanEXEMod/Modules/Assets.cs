@@ -23,6 +23,26 @@ namespace MegamanEXEMod.Modules
         internal static NetworkSoundEventDef swordHitSoundEvent;
         #endregion
 
+        public static Texture TexMegamanExe;
+
+        public static Sprite IconAirShot;
+        public static Sprite IconAquaSwrd;
+        public static Sprite IconBarr100;
+        public static Sprite IconBusterEXE;
+        public static Sprite IconCannon;
+        public static Sprite IconCyberSword;
+        public static Sprite IconElecSwrd;
+        public static Sprite IconFireSwrd;
+        public static Sprite IconHiCannon;
+        public static Sprite IconMCannon;
+        public static Sprite IconMiniBomb;
+        public static Sprite IconMuramasa;
+        public static Sprite IconRecov50;
+        public static Sprite IconSuprVulc;
+        public static Sprite IconThunder;
+        public static Sprite IconVulcan;
+        public static Sprite IconYoyo;
+
 
         internal static GameObject VfxChargeeffect1C;
         internal static GameObject VfxChargeeffect1W;
@@ -133,6 +153,28 @@ namespace MegamanEXEMod.Modules
             MatCyberSwordRed = mainAssetBundle.LoadAsset<Material>("matMMBNSwordRed");
             MatCyberSwordDark = mainAssetBundle.LoadAsset<Material>("matMMBNSwordDark");
             MatInvis = mainAssetBundle.LoadAsset<Material>("matMMBNInv");
+
+
+
+            TexMegamanExe = mainAssetBundle.LoadAsset<Texture>("MegmanExeIcon");
+
+            IconAirShot = mainAssetBundle.LoadAsset<Sprite>("IconAirShot");
+            IconAquaSwrd = mainAssetBundle.LoadAsset<Sprite>("IconAquaSwrd");
+            IconBarr100 = mainAssetBundle.LoadAsset<Sprite>("IconBarr100");
+            IconBusterEXE = mainAssetBundle.LoadAsset<Sprite>("IconBusterEXE");
+            IconCannon = mainAssetBundle.LoadAsset<Sprite>("IconCannon");
+            IconCyberSword = mainAssetBundle.LoadAsset<Sprite>("IconCyberSword");
+            IconElecSwrd = mainAssetBundle.LoadAsset<Sprite>("IconElecSwrd");
+            IconFireSwrd = mainAssetBundle.LoadAsset<Sprite>("IconFireSwrd");
+            IconHiCannon = mainAssetBundle.LoadAsset<Sprite>("IconHiCannon");
+            IconMCannon = mainAssetBundle.LoadAsset<Sprite>("IconMCannon");
+            IconMiniBomb = mainAssetBundle.LoadAsset<Sprite>("IconMiniBomb");
+            IconMuramasa = mainAssetBundle.LoadAsset<Sprite>("IconMuramasa");
+            IconRecov50 = mainAssetBundle.LoadAsset<Sprite>("IconRecov50");
+            IconSuprVulc = mainAssetBundle.LoadAsset<Sprite>("IconSuprVulc");
+            IconThunder = mainAssetBundle.LoadAsset<Sprite>("IconThunder");
+            IconVulcan = mainAssetBundle.LoadAsset<Sprite>("IconVulcan");
+            IconYoyo = mainAssetBundle.LoadAsset<Sprite>("IconYoyo");
 
 
         }

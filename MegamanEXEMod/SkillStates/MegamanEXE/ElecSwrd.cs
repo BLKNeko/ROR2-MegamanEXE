@@ -11,7 +11,7 @@ namespace MegamanEXEMod.SkillStates
 {
     public class ElecSwrd : BaseSkillState
     {
-        public static float damageCoefficient = 5.5f;
+        public static float damageCoefficient = 5.25f;
         public static float buffDamageCoefficient = 1f;
         public float baseDuration = 0.5f;
         public static float attackRecoil = 0.5f;

@@ -89,6 +89,16 @@ namespace MegamanEXEMod
                 }
             }
 
+            if (self)
+            {
+
+                if (self.HasBuff(Modules.Buffs.Attack10Buff))
+                {
+                    self.damage *= 1.1f;
+
+                }
+            }
+
         }
     }
 }

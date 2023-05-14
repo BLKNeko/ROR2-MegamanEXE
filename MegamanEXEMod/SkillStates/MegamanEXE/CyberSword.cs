@@ -209,7 +209,7 @@ namespace MegamanEXEMod.SkillStates
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {
-            return InterruptPriority.Skill;
+            return InterruptPriority.Frozen;
         }
 
         public override void OnSerialize(NetworkWriter writer)

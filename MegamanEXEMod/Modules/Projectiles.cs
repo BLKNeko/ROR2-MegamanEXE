@@ -6,12 +6,17 @@ using UnityEngine.Networking;
 
 namespace MegamanEXEMod.Modules
 {
+
+    //Prefabs/Projectiles/MinorConstructProjectile - talvez usar no thunder
+
     internal static class Projectiles
     {
         internal static GameObject bombPrefab;
         internal static GameObject MiniBombProjectile;
         internal static GameObject ThunderProjectile;
         internal static GameObject YoyoProjectile;
+        internal static GameObject ShokWaveProjectile;
+        internal static GameObject ShotGunProjectile;
 
         internal static void RegisterProjectiles()
         {
@@ -19,11 +24,15 @@ namespace MegamanEXEMod.Modules
             CreateMiniBombProjectile();
             CreateThunderProjectile();
             CreateYoyoProjectile();
+            CreateShokWaveProjectile();
+            CreateShotGunProjectile();
 
             AddProjectile(bombPrefab);
             AddProjectile(MiniBombProjectile);
             AddProjectile(ThunderProjectile);
             AddProjectile(YoyoProjectile);
+            AddProjectile(ShokWaveProjectile);
+            AddProjectile(ShotGunProjectile);
         }
 
         internal static void AddProjectile(GameObject projectileToAdd)
@@ -103,6 +112,44 @@ namespace MegamanEXEMod.Modules
             ProjectileController YoyoController = YoyoProjectile.GetComponent<ProjectileController>();
             if (Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("YoyoGhost") != null) YoyoController.ghostPrefab = CreateGhostPrefab("YoyoGhost");
             YoyoController.startSound = "";
+        }
+
+        
+        private static void CreateShokWaveProjectile()
+        {
+
+            ShokWaveProjectile = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/Projectiles/ArchWispGroundCannon"), "Prefabs/Projectiles/ShokWaveProjectile", true, "C:\\Users\\test\\Documents\\ror2mods\\MegamanXVile\\MegamanXVile\\MegamanXVile\\MegamanXVile.cs", "RegisterCharacter", 155);
+
+            // just setting the numbers to 1 as the entitystate will take care of those
+            ShokWaveProjectile.GetComponent<ProjectileController>().procCoefficient = 1f;
+            ShokWaveProjectile.GetComponent<ProjectileDamage>().damage = 1f;
+            ShokWaveProjectile.GetComponent<ProjectileDamage>().damageType = DamageType.Generic;
+
+            // register it for networking
+            if (ShokWaveProjectile) PrefabAPI.RegisterNetworkPrefab(ShokWaveProjectile);
+
+            ProjectileController SWController = ShokWaveProjectile.GetComponent<ProjectileController>();
+            if (Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("SWGhost") != null) SWController.ghostPrefab = CreateGhostPrefab("SWGhost");
+            SWController.startSound = "";
+        }
+        
+
+        private static void CreateShotGunProjectile()
+        {
+
+            ShotGunProjectile = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/Projectiles/FMJ"), "Prefabs/Projectiles/ShotGunProjectile", true, "C:\\Users\\test\\Documents\\ror2mods\\MegamanXVile\\MegamanXVile\\MegamanXVile\\MegamanXVile.cs", "RegisterCharacter", 155);
+
+            // just setting the numbers to 1 as the entitystate will take care of those
+            ShotGunProjectile.GetComponent<ProjectileController>().procCoefficient = 1f;
+            ShotGunProjectile.GetComponent<ProjectileDamage>().damage = 1f;
+            ShotGunProjectile.GetComponent<ProjectileDamage>().damageType = DamageType.Generic;
+
+            // register it for networking
+            if (ShotGunProjectile) PrefabAPI.RegisterNetworkPrefab(ShotGunProjectile);
+
+            ProjectileController SGController = ShotGunProjectile.GetComponent<ProjectileController>();
+            if (Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("SGGhost") != null) SGController.ghostPrefab = CreateGhostPrefab("SGGhost");
+            SGController.startSound = "";
         }
 
         private static void InitializeImpactExplosion(ProjectileImpactExplosion projectileImpactExplosion)

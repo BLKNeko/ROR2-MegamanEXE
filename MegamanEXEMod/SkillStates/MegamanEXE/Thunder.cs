@@ -9,7 +9,7 @@ namespace MegamanEXEMod.SkillStates
 {
     public class Thunder : BaseSkillState
     {
-        public float damageCoefficient = 1.5f;
+        public float damageCoefficient = 1.45f;
         public float baseDuration = 0.5f;
         public float recoil = 1f;
         public static GameObject tracerEffectPrefab = Resources.Load<GameObject>("Prefabs/Effects/Tracers/TracerToolbotRebar");

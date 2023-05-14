@@ -10,7 +10,7 @@ namespace MegamanEXEMod.SkillStates
     {
         public static float damageCoefficient = 1.2f;
         public static float procCoefficient = 1f;
-        public static float baseDuration = 0.3f;
+        public static float baseDuration = 0.18f;
         public static float force = 1000f;
         public static float recoil = 3f;
         public static float range = 256f;

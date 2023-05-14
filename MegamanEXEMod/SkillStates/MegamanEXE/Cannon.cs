@@ -8,7 +8,7 @@ namespace MegamanEXEMod.SkillStates
 {
     public class Cannon : BaseSkillState
     {
-        public static float damageCoefficient = 1.45f;
+        public static float damageCoefficient = 1.5f;
         public static float procCoefficient = 1f;
         public static float baseDuration = 0.5f;
         public static float force = 1000f;

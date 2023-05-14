@@ -8,9 +8,9 @@ namespace MegamanEXEMod.SkillStates
 {
     public class BusterEXE : BaseSkillState
     {
-        public static float damageCoefficient = 0.8f;
+        public static float damageCoefficient = 1f;
         public static float procCoefficient = 1f;
-        public static float baseDuration = 0.7f;
+        public static float baseDuration = 0.4f;
         public static float force = 800f;
         public static float recoil = 3f;
         public static float range = 256f;
@@ -133,7 +133,7 @@ namespace MegamanEXEMod.SkillStates
                         bulletCount = 1,
                         aimVector = aimRay.direction,
                         origin = aimRay.origin,
-                        damage = 1.25f * this.damageStat,
+                        damage = 1.5f * this.damageStat,
                         damageColorIndex = DamageColorIndex.Default,
                         damageType = DamageType.Generic,
                         falloffModel = BulletAttack.FalloffModel.DefaultBullet,

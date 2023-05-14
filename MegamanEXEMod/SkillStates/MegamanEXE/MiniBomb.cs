@@ -27,7 +27,7 @@ namespace MegamanEXEMod.SkillStates
             this.fireDuration = 0.25f * this.duration;
             base.characterBody.SetAimTimer(2f);
             this.animator = base.GetModelAnimator();
-            this.muzzleString = "HandL";
+            this.muzzleString = "HandLMZ";
 
 
             //Util.PlaySound(Modules.Sounds.vileFragDrop, base.gameObject);

@@ -65,19 +65,6 @@ namespace MegamanEXEMod.SkillStates
             base.FixedUpdate();
 
 
-            if ((bool)modelTransform)
-            {
-                TemporaryOverlay temporaryOverlay = modelTransform.gameObject.AddComponent<TemporaryOverlay>();
-                temporaryOverlay.duration = 10f;
-                temporaryOverlay.animateShaderAlpha = true;
-                temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
-                temporaryOverlay.destroyComponentOnEnd = true;
-                temporaryOverlay.originalMaterial = Assets.MatInvis;
-                temporaryOverlay.AddToCharacerModel(modelTransform.GetComponent<CharacterModel>());
-
-            }
-
-
             if (!Invisble)
             {
                 ApplyInvis();
