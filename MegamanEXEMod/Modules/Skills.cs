@@ -271,6 +271,17 @@ namespace MegamanEXEMod.Modules
             return skillDef;
         }
         #endregion skilldefs
+
+        internal static void PassiveSetup(GameObject targetPrefab)
+        {
+            SkillLocator skillLocator = targetPrefab.GetComponent<SkillLocator>();
+            string prefix = MegamanEXEPlugin.DEVELOPER_PREFIX + "_MEGAMANEXE_BODY_";
+            skillLocator.passiveSkill.enabled = true;
+            skillLocator.passiveSkill.skillNameToken = prefix + "PASSIVE_NAME";
+            skillLocator.passiveSkill.skillDescriptionToken = prefix + "PASSIVE_DESCRIPTION";
+            skillLocator.passiveSkill.icon = Assets.IconBusterEXE;
+        }
+
     }
 
     /// <summary>

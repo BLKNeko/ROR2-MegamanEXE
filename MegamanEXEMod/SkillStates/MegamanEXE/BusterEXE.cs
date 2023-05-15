@@ -1,5 +1,6 @@
 ﻿using EntityStates;
 using MegamanEXEMod.Modules;
+using MegamanEXEMod.SkillStates.BaseStates;
 using RoR2;
 using RoR2.Projectile;
 using UnityEngine;
@@ -59,6 +60,9 @@ namespace MegamanEXEMod.SkillStates
 
         public override void OnExit()
         {
+
+            SyncNetworkExe.MemoryCode = SyncNetworkExe.MemoryCode + "C";
+
             base.OnExit();
         }
 

@@ -59,13 +59,18 @@ namespace MegamanEXEMod.Modules.Characters
         protected virtual void InitializeCharacterMaster() { }
         protected virtual void InitializeEntityStateMachine()
         {
+
             bodyPrefab.GetComponent<EntityStateMachine>().mainStateType = new EntityStates.SerializableEntityStateType(characterMainState);
-            Modules.Content.AddEntityState(characterMainState);
-            if (characterSpawnState != null)
-            {
-                bodyPrefab.GetComponent<EntityStateMachine>().initialStateType = new EntityStates.SerializableEntityStateType(characterSpawnState);
-                Modules.Content.AddEntityState(characterSpawnState);
-            }
+
+            bodyPrefab.GetComponent<EntityStateMachine>().initialStateType = new EntityStates.SerializableEntityStateType(characterSpawnState);
+
+            // bodyPrefab.GetComponent<EntityStateMachine>().mainStateType = new EntityStates.SerializableEntityStateType(characterMainState);
+            // Modules.Content.AddEntityState(characterMainState);
+            // if (characterSpawnState != null)
+            // {
+            //     bodyPrefab.GetComponent<EntityStateMachine>().initialStateType = new EntityStates.SerializableEntityStateType(characterSpawnState);
+            //     Modules.Content.AddEntityState(characterSpawnState);
+            // }
         }
 
         public abstract void InitializeSkills();

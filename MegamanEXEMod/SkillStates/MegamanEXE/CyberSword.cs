@@ -107,6 +107,8 @@ namespace MegamanEXEMod.SkillStates
         {
             base.PlayAnimation("Gesture, Override", "BufferEmpty", "attackSpeed", this.duration);
 
+            SyncNetworkExe.MemoryCode = SyncNetworkExe.MemoryCode + "S";
+
             base.OnExit();
         }
 
