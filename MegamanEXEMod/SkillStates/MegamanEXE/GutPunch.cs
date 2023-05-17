@@ -9,9 +9,9 @@ using MegamanEXEMod.SkillStates.BaseStates;
 
 namespace MegamanEXEMod.SkillStates
 {
-    public class DrkSword : BaseSkillState
+    public class GutPunch : BaseSkillState
     {
-        public static float damageCoefficient = 40f;
+        public static float damageCoefficient = 3.5f;
         public static float buffDamageCoefficient = 1f;
         public float baseDuration = 0.5f;
         public static float attackRecoil = 0.5f;
@@ -35,13 +35,12 @@ namespace MegamanEXEMod.SkillStates
         private Animator animator;
         private BaseState.HitStopCachedState hitStopCachedState;
         //private PaladinSwordController swordController;
-        //private Material Matcopy;
 
         public override void OnEnter()
         {
             base.OnEnter();
             this.duration = this.baseDuration / this.attackSpeedStat;
-            this.earlyExitDuration = DrkSword.baseEarlyExit / this.attackSpeedStat;
+            this.earlyExitDuration = GutPunch.baseEarlyExit / this.attackSpeedStat;
             this.hasFired = false;
             this.animator = base.GetModelAnimator();
             //this.swordController = base.GetComponent<PaladinSwordController>();
@@ -52,9 +51,15 @@ namespace MegamanEXEMod.SkillStates
 
             //Chat.SendBroadcastChat(new SimpleChatMessage { baseToken = "<color=#e5eefc>{0}</color>", paramTokens = new[] { "HitCombo2" } });
 
-            ArmHelper.ArmChanger(4);
+            ArmHelper.ArmChanger(2);
 
-
+            /*
+            GameObject.Find("EXEBuster").transform.localScale = new Vector3(0, 0, 0);
+            GameObject.Find("EXEBuster").GetComponent<MeshRenderer>().enabled = false;
+            GameObject.Find("EXESword").transform.localScale = new Vector3(1, 1, 1);
+            GameObject.Find("EXESword").GetComponent<MeshRenderer>().enabled = true;
+            GameObject.Find("EXESword").GetComponent<MeshRenderer>().material = Assets.MatCyberSwordDefault;
+            */
 
             HitBoxGroup hitBoxGroup = null;
             Transform modelTransform = base.GetModelTransform();
@@ -66,7 +71,7 @@ namespace MegamanEXEMod.SkillStates
 
             //if (this.swingIndex == 0) base.PlayAnimation("Gesture, Override", "ZSlash1", "FireArrow.playbackRate", this.duration);
             //else base.PlayAnimation("Gesture, Override", "ZSlash1", "FireArrow.playbackRate", this.duration);
-            base.PlayAnimation("Gesture, Override", "SlashV", "attackSpeed", this.duration);
+            base.PlayAnimation("Gesture, Override", "GutsPunch", "attackSpeed", this.duration);
 
             //Util.PlaySound(Sounds.Second, base.gameObject);
 
@@ -76,25 +81,23 @@ namespace MegamanEXEMod.SkillStates
             forwardDirection = aimRay.direction;
 
 
-            float dmg = DrkSword.damageCoefficient;
+            float dmg = GutPunch.damageCoefficient;
             //if (this.swordController && this.swordController.swordActive) dmg = Slash.buffDamageCoefficient;
 
             this.attack = new OverlapAttack();
             //this.attack.damageType = (Util.CheckRoll(84f, base.characterBody.master) ? DamageType.Stun1s : DamageType.SlowOnHit);
-            this.attack.damageType = DamageType.PoisonOnHit;
+            this.attack.damageType = DamageType.Stun1s;
             this.attack.attacker = base.gameObject;
             this.attack.inflictor = base.gameObject;
             this.attack.teamIndex = base.GetTeam();
             this.attack.damage = dmg * this.damageStat;
             this.attack.procCoefficient = 1;
-            this.attack.hitEffectPrefab = DrkSword.hitEffectPrefab;
+            this.attack.hitEffectPrefab = GutPunch.hitEffectPrefab;
             this.attack.forceVector = forwardDirection;
-            this.attack.pushAwayForce = 2000f;
+            this.attack.pushAwayForce = 8000f;
             this.attack.hitBoxGroup = hitBoxGroup;
             this.attack.isCrit = base.RollCrit();
             this.attack.impactSound = MegamanEXEMod.Modules.Assets.swordHitSoundEvent.index;
-
-
 
 
 
@@ -105,13 +108,6 @@ namespace MegamanEXEMod.SkillStates
             base.PlayAnimation("Gesture, Override", "BufferEmpty", "attackSpeed", this.duration);
 
             SyncNetworkExe.MemoryCode = SyncNetworkExe.MemoryCode + "X";
-
-            if (NetworkServer.active)
-            {
-                base.characterBody.AddTimedBuff(Modules.Buffs.DarkSwordDebuff, 5f);
-            }
-
-            SyncNetworkExe.EvilEmotionValue++;
 
             base.OnExit();
         }
@@ -138,7 +134,7 @@ namespace MegamanEXEMod.SkillStates
 
                 if (base.isAuthority)
                 {
-                    base.AddRecoil(-1f * DrkSword.attackRecoil, -2f * DrkSword.attackRecoil, -0.5f * DrkSword.attackRecoil, 0.5f * DrkSword.attackRecoil);
+                    base.AddRecoil(-1f * GutPunch.attackRecoil, -2f * GutPunch.attackRecoil, -0.5f * GutPunch.attackRecoil, 0.5f * GutPunch.attackRecoil);
 
                     Ray aimRay = base.GetAimRay();
 
@@ -161,7 +157,7 @@ namespace MegamanEXEMod.SkillStates
                         {
                             if (base.characterMotor && !base.characterMotor.isGrounded)
                             {
-                                base.SmallHop(base.characterMotor, DrkSword.hitHopVelocity);
+                                base.SmallHop(base.characterMotor, GutPunch.hitHopVelocity);
                             }
 
                             this.hasHopped = true;
@@ -215,7 +211,7 @@ namespace MegamanEXEMod.SkillStates
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {
-            return InterruptPriority.Skill;
+            return InterruptPriority.Frozen;
         }
 
         public override void OnSerialize(NetworkWriter writer)

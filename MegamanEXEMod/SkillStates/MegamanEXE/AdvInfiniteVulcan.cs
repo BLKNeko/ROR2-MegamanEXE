@@ -7,11 +7,11 @@ using UnityEngine;
 
 namespace MegamanEXEMod.SkillStates
 {
-    public class Vulcan : BaseSkillState
+    public class AdvInfiniteVulcan : BaseSkillState
     {
-        public static float damageCoefficient = 1.2f;
+        public static float damageCoefficient = 1.4f;
         public static float procCoefficient = 1f;
-        public static float baseDuration = 0.18f;
+        public static float baseDuration = 0.12f;
         public static float force = 1000f;
         public static float recoil = 3f;
         public static float range = 256f;
@@ -38,7 +38,7 @@ namespace MegamanEXEMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
-            this.duration = Vulcan.baseDuration / this.attackSpeedStat;
+            this.duration = AdvInfiniteVulcan.baseDuration / this.attackSpeedStat;
             this.fireDuration = 0.25f * this.duration;
             base.characterBody.SetAimTimer(2f);
             this.animator = base.GetModelAnimator();
@@ -52,7 +52,7 @@ namespace MegamanEXEMod.SkillStates
         public override void OnExit()
         {
 
-            SyncNetworkExe.MemoryCode = SyncNetworkExe.MemoryCode + "V";
+            SyncNetworkExe.MemoryCode = SyncNetworkExe.MemoryCode + "X";
 
             base.OnExit();
         }
@@ -71,19 +71,19 @@ namespace MegamanEXEMod.SkillStates
                 if (base.isAuthority)
                 {
                     Ray aimRay = base.GetAimRay();
-                    base.AddRecoil(-1f * Vulcan.recoil, -2f * Vulcan.recoil, -0.5f * Vulcan.recoil, 0.5f * Vulcan.recoil);
+                    base.AddRecoil(-1f * AdvInfiniteVulcan.recoil, -2f * AdvInfiniteVulcan.recoil, -0.5f * AdvInfiniteVulcan.recoil, 0.5f * AdvInfiniteVulcan.recoil);
 
                     new BulletAttack
                     {
                         bulletCount = 1,
                         aimVector = aimRay.direction,
                         origin = aimRay.origin,
-                        damage = Vulcan.damageCoefficient * this.damageStat,
+                        damage = AdvInfiniteVulcan.damageCoefficient * this.damageStat,
                         damageColorIndex = DamageColorIndex.Default,
                         damageType = DamageType.Generic,
                         falloffModel = BulletAttack.FalloffModel.DefaultBullet,
-                        maxDistance = Vulcan.range,
-                        force = Vulcan.force,
+                        maxDistance = AdvInfiniteVulcan.range,
+                        force = AdvInfiniteVulcan.force,
                         hitMask = LayerIndex.CommonMasks.bullet,
                         minSpread = 0f,
                         maxSpread = 0f,
@@ -97,11 +97,11 @@ namespace MegamanEXEMod.SkillStates
                         sniper = false,
                         stopperMask = LayerIndex.CommonMasks.bullet,
                         weapon = null,
-                        tracerEffectPrefab = Vulcan.tracerEffectPrefab,
+                        tracerEffectPrefab = AdvInfiniteVulcan.tracerEffectPrefab,
                         spreadPitchScale = 0f,
                         spreadYawScale = 0f,
                         queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
-                        hitEffectPrefab = Vulcan.hitEffectPrefab,
+                        hitEffectPrefab = AdvInfiniteVulcan.hitEffectPrefab,
                     }.Fire();
                 }
             }

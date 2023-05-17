@@ -76,27 +76,33 @@ namespace MegamanEXEMod
                 {
                     self.armor += 300f;
                 }
-            }
-
-            if (self)
-            {
 
                 if (self.HasBuff(Modules.Buffs.DarkSwordDebuff))
                 {
-                    if(self.baseMaxHealth > 10f)
+                    if (self.baseMaxHealth > 10f)
                         self.baseMaxHealth -= 1f;
-                    
-                }
-            }
 
-            if (self)
-            {
+                }
 
                 if (self.HasBuff(Modules.Buffs.Attack10Buff))
                 {
                     self.damage *= 1.1f;
 
                 }
+
+                if (self.HasBuff(Modules.Buffs.Attack20Buff))
+                {
+                    self.damage *= 1.2f;
+
+                }
+
+                if (self.HasBuff(Modules.Buffs.Attack30Buff))
+                {
+                    self.damage *= 1.3f;
+
+                }
+
+
             }
 
         }

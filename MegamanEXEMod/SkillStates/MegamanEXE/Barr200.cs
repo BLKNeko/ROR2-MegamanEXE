@@ -10,7 +10,7 @@ using MegamanEXEMod.SkillStates.BaseStates;
 
 namespace MegamanEXEMod.SkillStates
 {
-    public class Barr100 : BaseSkillState
+    public class Barr200 : BaseSkillState
     {
 
         public static float BaseDuration = 1f;
@@ -31,7 +31,7 @@ namespace MegamanEXEMod.SkillStates
         public void ApplyBarrier()
         {
 
-            base.healthComponent.AddBarrierAuthority(100f);
+            base.healthComponent.AddBarrierAuthority(200f);
 
             Barrier = true;
         }

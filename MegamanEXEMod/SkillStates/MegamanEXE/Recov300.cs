@@ -10,11 +10,11 @@ using MegamanEXEMod.SkillStates.BaseStates;
 
 namespace MegamanEXEMod.SkillStates
 {
-    public class Barr100 : BaseSkillState
+    public class Recov300 : BaseSkillState
     {
 
         public static float BaseDuration = 1f;
-        private bool Barrier = false;
+        private bool Healed = false;
 
         private Animator animator;
 
@@ -28,12 +28,12 @@ namespace MegamanEXEMod.SkillStates
 
         }
 
-        public void ApplyBarrier()
+        public void ApplyHeal()
         {
 
-            base.healthComponent.AddBarrierAuthority(100f);
+            base.healthComponent.health += 300f;
 
-            Barrier = true;
+            Healed = true;
         }
 
         public override void FixedUpdate()
@@ -41,13 +41,13 @@ namespace MegamanEXEMod.SkillStates
             base.FixedUpdate();
 
 
-            if (!Barrier)
+            if (!Healed)
             {
-                ApplyBarrier();
+                ApplyHeal();
             }
             else
             {
-                Barrier = false;
+                Healed = false;
                 this.outer.SetNextStateToMain();
             }
 
@@ -58,7 +58,7 @@ namespace MegamanEXEMod.SkillStates
         public override void OnExit()
         {
 
-            SyncNetworkExe.MemoryCode = SyncNetworkExe.MemoryCode + "B";
+            SyncNetworkExe.MemoryCode = SyncNetworkExe.MemoryCode + "X";
 
             base.OnExit();
         }

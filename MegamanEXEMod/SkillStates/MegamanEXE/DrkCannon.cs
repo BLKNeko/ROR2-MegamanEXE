@@ -7,16 +7,16 @@ using UnityEngine;
 
 namespace MegamanEXEMod.SkillStates
 {
-    public class Vulcan : BaseSkillState
+    public class DrkCannon : BaseSkillState
     {
-        public static float damageCoefficient = 1.2f;
+        public static float damageCoefficient = 3f;
         public static float procCoefficient = 1f;
-        public static float baseDuration = 0.18f;
-        public static float force = 1000f;
+        public static float baseDuration = 0.5f;
+        public static float force = 1250f;
         public static float recoil = 3f;
         public static float range = 256f;
-        public static GameObject tracerEffectPrefab = Resources.Load<GameObject>("Prefabs/Effects/Tracers/TracerCommandoDefault");
-        public static GameObject hitEffectPrefab = Resources.Load<GameObject>("prefabs/effects/impacteffects/BulletImpactSoft");
+        public static GameObject tracerEffectPrefab = Resources.Load<GameObject>("prefabs/effects/tracers/TracerBanditPistol");
+        public static GameObject hitEffectPrefab = Resources.Load<GameObject>("Prefabs/Effects/ImpactEffects/MagmaOrbExplosion");
 
 
 
@@ -38,7 +38,7 @@ namespace MegamanEXEMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
-            this.duration = Vulcan.baseDuration / this.attackSpeedStat;
+            this.duration = DrkCannon.baseDuration / this.attackSpeedStat;
             this.fireDuration = 0.25f * this.duration;
             base.characterBody.SetAimTimer(2f);
             this.animator = base.GetModelAnimator();
@@ -52,7 +52,7 @@ namespace MegamanEXEMod.SkillStates
         public override void OnExit()
         {
 
-            SyncNetworkExe.MemoryCode = SyncNetworkExe.MemoryCode + "V";
+            SyncNetworkExe.MemoryCode = SyncNetworkExe.MemoryCode + "X";
 
             base.OnExit();
         }
@@ -71,19 +71,19 @@ namespace MegamanEXEMod.SkillStates
                 if (base.isAuthority)
                 {
                     Ray aimRay = base.GetAimRay();
-                    base.AddRecoil(-1f * Vulcan.recoil, -2f * Vulcan.recoil, -0.5f * Vulcan.recoil, 0.5f * Vulcan.recoil);
+                    base.AddRecoil(-1f * DrkCannon.recoil, -2f * DrkCannon.recoil, -0.5f * DrkCannon.recoil, 0.5f * DrkCannon.recoil);
 
                     new BulletAttack
                     {
                         bulletCount = 1,
                         aimVector = aimRay.direction,
                         origin = aimRay.origin,
-                        damage = Vulcan.damageCoefficient * this.damageStat,
+                        damage = (DrkCannon.damageCoefficient * this.damageStat + ((base.characterBody.maxHealth - base.characterBody.healthComponent.health) / 2)),
                         damageColorIndex = DamageColorIndex.Default,
                         damageType = DamageType.Generic,
                         falloffModel = BulletAttack.FalloffModel.DefaultBullet,
-                        maxDistance = Vulcan.range,
-                        force = Vulcan.force,
+                        maxDistance = DrkCannon.range,
+                        force = DrkCannon.force,
                         hitMask = LayerIndex.CommonMasks.bullet,
                         minSpread = 0f,
                         maxSpread = 0f,
@@ -97,11 +97,11 @@ namespace MegamanEXEMod.SkillStates
                         sniper = false,
                         stopperMask = LayerIndex.CommonMasks.bullet,
                         weapon = null,
-                        tracerEffectPrefab = Vulcan.tracerEffectPrefab,
+                        tracerEffectPrefab = DrkCannon.tracerEffectPrefab,
                         spreadPitchScale = 0f,
                         spreadYawScale = 0f,
                         queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
-                        hitEffectPrefab = Vulcan.hitEffectPrefab,
+                        hitEffectPrefab = DrkCannon.hitEffectPrefab,
                     }.Fire();
                 }
             }
@@ -127,7 +127,7 @@ namespace MegamanEXEMod.SkillStates
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {
-            return InterruptPriority.Frozen;
+            return InterruptPriority.Skill;
         }
 
     }

@@ -17,6 +17,11 @@ namespace MegamanEXEMod.SkillStates.BaseStates
         public static string MemoryCode = "";
         public static string MemoryCodeCheck = "";
 
+        public static int EmotionValue = 25;
+        public static int EvilEmotionValue = 0;
+
+        private float EvilTimer = 0f;
+
 
 
         public override void OnEnter()
@@ -35,6 +40,91 @@ namespace MegamanEXEMod.SkillStates.BaseStates
             base.FixedUpdate();
 
             AdvanceProgram();
+
+            Debug.Log("EvilMotionValue:" + EvilEmotionValue);
+
+            if (EvilTimer >= 100f)
+            {
+
+                if (EvilEmotionValue > 0)
+                    EvilEmotionValue--;
+
+                EvilTimer = 0;
+
+            }
+            else
+                EvilTimer += Time.fixedDeltaTime;
+
+            //EMOTION BUFFS
+            if (EvilEmotionValue >= 10)
+            {
+
+                if (NetworkServer.active)
+                {
+                    base.characterBody.RemoveBuff(Modules.Buffs.FullSyncBuff);
+                    base.characterBody.RemoveBuff(Modules.Buffs.NormalBuff);
+                    base.characterBody.RemoveBuff(Modules.Buffs.AnxiousBuff);
+
+                    base.characterBody.AddBuff(Modules.Buffs.EvilBuff);
+                }
+
+            }
+            else
+            {
+
+
+                if (EmotionValue >= 40)
+                {
+
+                    if (NetworkServer.active)
+                    {
+                        base.characterBody.RemoveBuff(Modules.Buffs.NormalBuff);
+                        base.characterBody.RemoveBuff(Modules.Buffs.AnxiousBuff);
+
+                        base.characterBody.AddBuff(Modules.Buffs.FullSyncBuff);
+                    }
+
+                }
+                else if (EmotionValue <= 39 && EmotionValue >= 15)
+                {
+
+                    if (NetworkServer.active)
+                    {
+                        base.characterBody.RemoveBuff(Modules.Buffs.FullSyncBuff);
+                        base.characterBody.RemoveBuff(Modules.Buffs.AnxiousBuff);
+
+                        base.characterBody.AddBuff(Modules.Buffs.NormalBuff);
+                    }
+
+                }
+                else if (EmotionValue <= 14)
+                {
+
+                    if (NetworkServer.active)
+                    {
+                        base.characterBody.RemoveBuff(Modules.Buffs.FullSyncBuff);
+                        base.characterBody.RemoveBuff(Modules.Buffs.NormalBuff);
+
+                        base.characterBody.AddBuff(Modules.Buffs.AnxiousBuff);
+                    }
+
+                }
+
+
+
+
+            }
+
+            //EMOTION BUFFS END
+
+            
+
+
+
+
+
+
+
         }
 
 
@@ -52,7 +142,7 @@ namespace MegamanEXEMod.SkillStates.BaseStates
             if (MemoryCode.Length >= 3)
             {
                 MemoryCodeCheck = MemoryCode.Substring(MemoryCode.Length - 3);
-                // Faça algo com os últimos caracteres (ultimosCaracteres)
+
                 Debug.Log("inside IF:" + MemoryCodeCheck);
             }
 

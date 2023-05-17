@@ -6,15 +6,14 @@ using ExtraSkillSlots;
 using MegamanEXEMod.Modules.Survivors;
 using UnityEngine.Networking;
 using MegamanEXEMod.Modules;
-using MegamanEXEMod.SkillStates.BaseStates;
 
 namespace MegamanEXEMod.SkillStates
 {
-    public class Barr100 : BaseSkillState
+    public class Attack30 : BaseSkillState
     {
 
         public static float BaseDuration = 1f;
-        private bool Barrier = false;
+        private bool Attack = false;
 
         private Animator animator;
 
@@ -28,12 +27,15 @@ namespace MegamanEXEMod.SkillStates
 
         }
 
-        public void ApplyBarrier()
+        public void ApplyAttack()
         {
 
-            base.healthComponent.AddBarrierAuthority(100f);
+            if (NetworkServer.active)
+            {
+                base.characterBody.AddTimedBuff(Modules.Buffs.Attack30Buff, 20f);
+            }
 
-            Barrier = true;
+            Attack = true;
         }
 
         public override void FixedUpdate()
@@ -41,13 +43,13 @@ namespace MegamanEXEMod.SkillStates
             base.FixedUpdate();
 
 
-            if (!Barrier)
+            if (!Attack)
             {
-                ApplyBarrier();
+                ApplyAttack();
             }
             else
             {
-                Barrier = false;
+                Attack = false;
                 this.outer.SetNextStateToMain();
             }
 
@@ -57,8 +59,6 @@ namespace MegamanEXEMod.SkillStates
 
         public override void OnExit()
         {
-
-            SyncNetworkExe.MemoryCode = SyncNetworkExe.MemoryCode + "B";
 
             base.OnExit();
         }

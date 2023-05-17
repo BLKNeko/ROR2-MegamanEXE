@@ -10,7 +10,7 @@ using MegamanEXEMod.SkillStates.BaseStates;
 
 namespace MegamanEXEMod.SkillStates
 {
-    public class Barr100 : BaseSkillState
+    public class AdvBarr500 : BaseSkillState
     {
 
         public static float BaseDuration = 1f;
@@ -31,7 +31,7 @@ namespace MegamanEXEMod.SkillStates
         public void ApplyBarrier()
         {
 
-            base.healthComponent.AddBarrierAuthority(100f);
+            base.healthComponent.AddBarrierAuthority(500f);
 
             Barrier = true;
         }
@@ -58,7 +58,7 @@ namespace MegamanEXEMod.SkillStates
         public override void OnExit()
         {
 
-            SyncNetworkExe.MemoryCode = SyncNetworkExe.MemoryCode + "B";
+            SyncNetworkExe.MemoryCode = SyncNetworkExe.MemoryCode + "X";
 
             base.OnExit();
         }
