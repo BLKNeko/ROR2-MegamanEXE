@@ -11,7 +11,7 @@ namespace MegamanEXEMod.SkillStates
 {
     public class GutPunch : BaseSkillState
     {
-        public static float damageCoefficient = 3.5f;
+        public static float damageCoefficient = 4f;
         public static float buffDamageCoefficient = 1f;
         public float baseDuration = 0.5f;
         public static float attackRecoil = 0.5f;
@@ -51,7 +51,7 @@ namespace MegamanEXEMod.SkillStates
 
             //Chat.SendBroadcastChat(new SimpleChatMessage { baseToken = "<color=#e5eefc>{0}</color>", paramTokens = new[] { "HitCombo2" } });
 
-            ArmHelper.ArmChanger(2);
+            ArmHelper.ArmChanger(5);
 
             /*
             GameObject.Find("EXEBuster").transform.localScale = new Vector3(0, 0, 0);
@@ -66,7 +66,7 @@ namespace MegamanEXEMod.SkillStates
 
             if (modelTransform)
             {
-                hitBoxGroup = Array.Find<HitBoxGroup>(modelTransform.GetComponents<HitBoxGroup>(), (HitBoxGroup element) => element.groupName == "EXESwordHB");
+                hitBoxGroup = Array.Find<HitBoxGroup>(modelTransform.GetComponents<HitBoxGroup>(), (HitBoxGroup element) => element.groupName == "GutsPunchHB");
             }
 
             //if (this.swingIndex == 0) base.PlayAnimation("Gesture, Override", "ZSlash1", "FireArrow.playbackRate", this.duration);
@@ -106,6 +106,8 @@ namespace MegamanEXEMod.SkillStates
         public override void OnExit()
         {
             base.PlayAnimation("Gesture, Override", "BufferEmpty", "attackSpeed", this.duration);
+
+            ArmHelper.ArmChanger(1);
 
             SyncNetworkExe.MemoryCode = SyncNetworkExe.MemoryCode + "X";
 

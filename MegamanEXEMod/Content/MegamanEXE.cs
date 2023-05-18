@@ -22,19 +22,33 @@ namespace MegamanEXEMod.Modules.Survivors
         internal static SkillDef TesteSkill1;
         internal static SkillDef TesteSkill2;
 
+        internal static SkillDef AdvBarr500SkillDef;
+        internal static SkillDef AdvGigaCannonSkillDef;
+        internal static SkillDef AdvInfiniteVulcanSkillDef;
+        internal static SkillDef AdvLifeSwordSkillDef;
         internal static SkillDef AirShotSkillDef;
         internal static SkillDef AquaSwrdSkillDef;
+        internal static SkillDef Attack10SkillDef;
+        internal static SkillDef Attack20SkillDef;
+        internal static SkillDef Attack30SkillDef;
         internal static SkillDef Barr100SkillDef;
+        internal static SkillDef Barr200SkillDef;
         internal static SkillDef CannonSkillDef;
         internal static SkillDef CyberSwordSkillDef;
+        internal static SkillDef DrkBombSkillDef;
+        internal static SkillDef DrkCannonSkillDef;
+        internal static SkillDef DrkRecovSkillDef;
         internal static SkillDef DrkSwordSkillDef;
+        internal static SkillDef DrkVulcanSkillDef;
         internal static SkillDef ElecSkillDef;
         internal static SkillDef FireSwrdSkillDef;
+        internal static SkillDef GutPunchSkillDef;
         internal static SkillDef HiCannonSkillDef;
         internal static SkillDef InvisSkillDef;
         internal static SkillDef MCannonSkillDef;
         internal static SkillDef MiniBombSkillDef;
         internal static SkillDef MuramasaSkillDef;
+        internal static SkillDef Recov300SkillDef;
         internal static SkillDef Recov50SkillDef;
         internal static SkillDef SendChipSkillDef;
         internal static SkillDef ShokWaveSkillDef;
@@ -55,7 +69,7 @@ namespace MegamanEXEMod.Modules.Survivors
             subtitleNameToken = HENRY_PREFIX + "SUBTITLE",
 
             characterPortrait = Assets.TexMegamanExe,
-            bodyColor = new Color(0.3f, 0.15f, 0.51f),
+            bodyColor = new Color(0.3f, 0.55f, 0.99f),
 
             crosshair = Modules.Assets.LoadCrosshair("Standard"),
             podPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/SurvivorPod"),
@@ -151,6 +165,11 @@ namespace MegamanEXEMod.Modules.Survivors
             Transform hitboxTransformEXES = childLocator.FindChild("EXESwordHB");
             Modules.Prefabs.SetupHitbox(prefabCharacterModel.gameObject, hitboxTransformEXES, "EXESwordHB");
             hitboxTransformEXES.localScale = new Vector3(5f, 5f, 5f);
+
+            Transform hitboxTransformGP = childLocator.FindChild("GutsPunchHB");
+            Modules.Prefabs.SetupHitbox(prefabCharacterModel.gameObject, hitboxTransformGP, "GutsPunchHB");
+            hitboxTransformGP.localScale = new Vector3(5f, 5f, 5f);
+
         }
 
         public override void InitializeSkills()
@@ -385,7 +404,7 @@ namespace MegamanEXEMod.Modules.Survivors
                 skillName = prefix + "_HENRY_BODY_SPECIAL_BOMB_NAME",
                 skillNameToken = prefix + "_HENRY_BODY_SPECIAL_BOMB_NAME",
                 skillDescriptionToken = prefix + "_HENRY_BODY_SPECIAL_BOMB_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texPrimaryIcon"),
+                skillIcon = Modules.Assets.IconDrkSword,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.DrkSword)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 5,
@@ -448,6 +467,30 @@ namespace MegamanEXEMod.Modules.Survivors
                 mustKeyPress = true,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 3,
+                requiredStock = 1,
+                stockToConsume = 1
+            });
+
+            GutPunchSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "_HENRY_BODY_SPECIAL_BOMB_NAME",
+                skillNameToken = prefix + "_HENRY_BODY_SPECIAL_BOMB_NAME",
+                skillDescriptionToken = prefix + "_HENRY_BODY_SPECIAL_BOMB_DESCRIPTION",
+                skillIcon = Modules.Assets.IconGutPunch,
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.GutPunch)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 2,
+                baseRechargeInterval = 20f,
+                beginSkillCooldownOnSkillEnd = false,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = true,
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 2,
                 requiredStock = 1,
                 stockToConsume = 1
             });
@@ -529,7 +572,7 @@ namespace MegamanEXEMod.Modules.Survivors
                 skillName = prefix + "_HENRY_BODY_SPECIAL_BOMB_NAME",
                 skillNameToken = prefix + "_HENRY_BODY_SPECIAL_BOMB_NAME",
                 skillDescriptionToken = prefix + "_HENRY_BODY_SPECIAL_BOMB_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texSpecialIcon"),
+                skillIcon = Modules.Assets.IconMiniBomb,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.MiniBomb)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 5,
@@ -625,7 +668,7 @@ namespace MegamanEXEMod.Modules.Survivors
                 skillName = prefix + "_HENRY_BODY_SPECIAL_BOMB_NAME",
                 skillNameToken = prefix + "_HENRY_BODY_SPECIAL_BOMB_NAME",
                 skillDescriptionToken = prefix + "_HENRY_BODY_SPECIAL_BOMB_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texSpecialIcon"),
+                skillIcon = Modules.Assets.IconShockWave,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.ShokWav)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 2,
@@ -649,7 +692,7 @@ namespace MegamanEXEMod.Modules.Survivors
                 skillName = prefix + "_HENRY_BODY_SPECIAL_BOMB_NAME",
                 skillNameToken = prefix + "_HENRY_BODY_SPECIAL_BOMB_NAME",
                 skillDescriptionToken = prefix + "_HENRY_BODY_SPECIAL_BOMB_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texSpecialIcon"),
+                skillIcon = Modules.Assets.IconShotgun,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.ShotGun)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 5,
@@ -774,7 +817,7 @@ namespace MegamanEXEMod.Modules.Survivors
 
             Skills.AddFirstExtraSkill(bodyPrefab, ShokWaveSkillDef);
             Skills.AddSecondExtraSkill(bodyPrefab, DrkSwordSkillDef);
-            Skills.AddThirdExtraSkill(bodyPrefab, SuprVulcSkillDef);
+            Skills.AddThirdExtraSkill(bodyPrefab, GutPunchSkillDef);
             Skills.AddFourthExtraSkill(bodyPrefab, Recov50SkillDef);
         }
         

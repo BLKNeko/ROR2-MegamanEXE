@@ -18,7 +18,10 @@ namespace MegamanEXEMod.SkillStates.BaseStates
         public static string MemoryCodeCheck = "";
 
         public static int EmotionValue = 25;
-        public static int EvilEmotionValue = 0;
+        public static float EvilEmotionValue = 0f;
+
+        public static bool CanDrkDrain = true;
+        private float DrkDrainTimer = 0f;
 
         private float EvilTimer = 0f;
 
@@ -117,9 +120,22 @@ namespace MegamanEXEMod.SkillStates.BaseStates
 
             //EMOTION BUFFS END
 
-            
 
 
+            //DARK DRAIN
+
+            if (!CanDrkDrain)
+            {
+                if (DrkDrainTimer >= 2.5f)
+                {
+                    CanDrkDrain = true;
+                    DrkDrainTimer = 0f;
+                }
+                else
+                    DrkDrainTimer += Time.fixedDeltaTime;
+            }
+
+            //DARK DRAIN END
 
 
 

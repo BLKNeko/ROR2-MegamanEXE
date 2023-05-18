@@ -16,6 +16,7 @@ namespace MegamanEXEMod.Modules
             GameObject.Find("EXESword").GetComponent<MeshRenderer>().enabled = false;
             GameObject.Find("EXESwordDark").GetComponent<MeshRenderer>().enabled = false;
             GameObject.Find("EXESwordRed").GetComponent<MeshRenderer>().enabled = false;
+            GameObject.Find("GutsPunch").GetComponent<MeshRenderer>().enabled = false;
 
             switch (Index)
             {
@@ -31,6 +32,9 @@ namespace MegamanEXEMod.Modules
                     break;
                 case 4:
                     GameObject.Find("EXESwordDark").GetComponent<MeshRenderer>().enabled = true;
+                    break;
+                case 5:
+                    GameObject.Find("GutsPunch").GetComponent<MeshRenderer>().enabled = true;
                     break;
             }
 

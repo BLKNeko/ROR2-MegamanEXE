@@ -28,7 +28,7 @@ namespace MegamanEXEMod.Modules
                 false);
 
             Attack10Buff = AddNewBuff("Attack10Buff",
-                LegacyResourcesAPI.Load<BuffDef>("BuffDefs/HiddenInvincibility").iconSprite,
+                MegamanEXEMod.Modules.Assets.IconAtk10,
                 Color.white,
                 false,
                 false);
@@ -40,44 +40,44 @@ namespace MegamanEXEMod.Modules
                 false);
 
             Attack30Buff = AddNewBuff("Attack30Buff",
-                LegacyResourcesAPI.Load<BuffDef>("BuffDefs/HiddenInvincibility").iconSprite,
+                MegamanEXEMod.Modules.Assets.IconAtk30,
                 Color.white,
                 false,
                 false);
 
             DarkSwordDebuff = AddNewBuff("DarkSwordDebuff",
-                LegacyResourcesAPI.Load<BuffDef>("BuffDefs/HiddenInvincibility").iconSprite,
+                MegamanEXEMod.Modules.Assets.IconDrkSword,
                 Color.white,
                 false,
                 false);
 
 
             FullSyncBuff = AddNewBuff("FullSyncBuff",
-                LegacyResourcesAPI.Load<BuffDef>("BuffDefs/HiddenInvincibility").iconSprite,
+                MegamanEXEMod.Modules.Assets.IconFullSync,
                 Color.white,
                 false,
                 false);
 
             NormalBuff = AddNewBuff("NormalBuff",
-                LegacyResourcesAPI.Load<BuffDef>("BuffDefs/HiddenInvincibility").iconSprite,
+                MegamanEXEMod.Modules.Assets.IconNormal,
                 Color.white,
                 false,
                 false);
 
             RageBuff = AddNewBuff("RageBuff",
-                LegacyResourcesAPI.Load<BuffDef>("BuffDefs/HiddenInvincibility").iconSprite,
+                MegamanEXEMod.Modules.Assets.IconRage,
                 Color.white,
                 false,
                 false);
 
             AnxiousBuff = AddNewBuff("AnxiousBuff",
-                LegacyResourcesAPI.Load<BuffDef>("BuffDefs/HiddenInvincibility").iconSprite,
+                MegamanEXEMod.Modules.Assets.IconAnxious,
                 Color.white,
                 false,
                 false);
 
             EvilBuff = AddNewBuff("EvilBuff",
-                LegacyResourcesAPI.Load<BuffDef>("BuffDefs/HiddenInvincibility").iconSprite,
+                MegamanEXEMod.Modules.Assets.IconEvil,
                 Color.white,
                 false,
                 false);

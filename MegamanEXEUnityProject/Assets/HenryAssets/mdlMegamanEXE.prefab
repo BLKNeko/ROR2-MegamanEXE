@@ -1378,7 +1378,7 @@ MonoBehaviour:
     transform: {fileID: 4223814931849541430}
   - name: GutsPunch
     transform: {fileID: 6148122405425832190}
-  - name: GuutsPunchHB
+  - name: GutsPunchHB
     transform: {fileID: 8088301557622254384}
 --- !u!114 &9004163964148947407
 MonoBehaviour:

@@ -43,6 +43,24 @@ namespace MegamanEXEMod.Modules
         public static Sprite IconVulcan;
         public static Sprite IconYoyo;
 
+        public static Sprite IconAnxious;
+        public static Sprite IconAtk10;
+        public static Sprite IconAtk30;
+        public static Sprite IconBarr200;
+        public static Sprite IconDrkBomb;
+        public static Sprite IconDrkCannon;
+        public static Sprite IconDrkRecov;
+        public static Sprite IconDrkSword;
+        public static Sprite IconDrkVulcan;
+        public static Sprite IconEvil;
+        public static Sprite IconFullSync;
+        public static Sprite IconGutPunch;
+        public static Sprite IconNormal;
+        public static Sprite IconRage;
+        public static Sprite IconRecov300;
+        public static Sprite IconShockWave;
+        public static Sprite IconShotgun;
+
 
         internal static GameObject VfxChargeeffect1C;
         internal static GameObject VfxChargeeffect1W;
@@ -175,6 +193,29 @@ namespace MegamanEXEMod.Modules
             IconThunder = mainAssetBundle.LoadAsset<Sprite>("IconThunder");
             IconVulcan = mainAssetBundle.LoadAsset<Sprite>("IconVulcan");
             IconYoyo = mainAssetBundle.LoadAsset<Sprite>("IconYoyo");
+
+
+
+            IconAnxious = mainAssetBundle.LoadAsset<Sprite>("IconAnxious");
+            IconAtk10 = mainAssetBundle.LoadAsset<Sprite>("IconAtk10");
+            IconAtk30 = mainAssetBundle.LoadAsset<Sprite>("IconAtk30");
+            IconBarr200 = mainAssetBundle.LoadAsset<Sprite>("IconBarr200");
+            IconDrkBomb = mainAssetBundle.LoadAsset<Sprite>("IconDrkBomb");
+            IconDrkCannon = mainAssetBundle.LoadAsset<Sprite>("IconDrkCannon");
+            IconDrkRecov = mainAssetBundle.LoadAsset<Sprite>("IconDrkRecov");
+            IconDrkSword = mainAssetBundle.LoadAsset<Sprite>("IconDrkSword");
+            IconDrkVulcan = mainAssetBundle.LoadAsset<Sprite>("IconDrkVulcan");
+            IconEvil = mainAssetBundle.LoadAsset<Sprite>("IconEvil");
+            IconFullSync = mainAssetBundle.LoadAsset<Sprite>("IconFullSync");
+            IconGutPunch = mainAssetBundle.LoadAsset<Sprite>("IconGutPunch");
+            IconNormal = mainAssetBundle.LoadAsset<Sprite>("IconNormal");
+            IconRage = mainAssetBundle.LoadAsset<Sprite>("IconRage");
+            IconRecov300 = mainAssetBundle.LoadAsset<Sprite>("IconRecov300");
+            IconShockWave = mainAssetBundle.LoadAsset<Sprite>("IconShockWave");
+            IconShotgun = mainAssetBundle.LoadAsset<Sprite>("IconShotgun");
+
+
+
 
 
         }

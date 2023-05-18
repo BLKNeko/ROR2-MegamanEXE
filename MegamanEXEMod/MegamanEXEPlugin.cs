@@ -1,5 +1,6 @@
 ﻿using BepInEx;
 using MegamanEXEMod.Modules.Survivors;
+using MegamanEXEMod.SkillStates.BaseStates;
 using R2API.Utils;
 using RoR2;
 using System.Collections.Generic;
@@ -79,8 +80,12 @@ namespace MegamanEXEMod
 
                 if (self.HasBuff(Modules.Buffs.DarkSwordDebuff))
                 {
-                    if (self.baseMaxHealth > 10f)
+                    if (self.baseMaxHealth > 10f && SyncNetworkExe.CanDrkDrain)
+                    {
                         self.baseMaxHealth -= 1f;
+                        SyncNetworkExe.CanDrkDrain = false;
+                    }
+                        
 
                 }
 

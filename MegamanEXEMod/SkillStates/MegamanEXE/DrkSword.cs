@@ -111,7 +111,7 @@ namespace MegamanEXEMod.SkillStates
                 base.characterBody.AddTimedBuff(Modules.Buffs.DarkSwordDebuff, 5f);
             }
 
-            SyncNetworkExe.EvilEmotionValue++;
+            SyncNetworkExe.EvilEmotionValue += 1f;
 
             base.OnExit();
         }
