@@ -61,6 +61,7 @@ namespace MegamanEXEMod.Modules
         public static Sprite IconShockWave;
         public static Sprite IconShotgun;
 
+        public static Sprite IconInvis;
 
         internal static GameObject VfxChargeeffect1C;
         internal static GameObject VfxChargeeffect1W;
@@ -68,6 +69,10 @@ namespace MegamanEXEMod.Modules
         internal static GameObject VfxSwordFire;
         internal static GameObject VfxSwordIce;
         internal static GameObject VfxSwordEletric;
+        internal static GameObject VfxRecov;
+        internal static GameObject VfxFullSync;
+        internal static GameObject VfxRage;
+        internal static GameObject VfxEvil;
 
         public static Material MatCyberSwordDefault;
         public static Material MatCyberSwordRed;
@@ -117,7 +122,7 @@ namespace MegamanEXEMod.Modules
 
         internal static void LoadSoundbank()
         {
-            using (Stream manifestResourceStream2 = Assembly.GetExecutingAssembly().GetManifestResourceStream($"{csProjName}.HenryBank.bnk"))
+            using (Stream manifestResourceStream2 = Assembly.GetExecutingAssembly().GetManifestResourceStream($"{csProjName}.MegamanEXESB.bnk"))
             {
                 byte[] array = new byte[manifestResourceStream2.Length];
                 manifestResourceStream2.Read(array, 0, array.Length);
@@ -166,6 +171,10 @@ namespace MegamanEXEMod.Modules
             VfxSwordFire = Assets.LoadEffect("VFXFire1", true);
             VfxSwordIce = Assets.LoadEffect("VFXIce1", true);
             VfxSwordEletric = Assets.LoadEffect("VFXEletric", true);
+            VfxRecov = Assets.LoadEffect("VFXRecov", true);
+            VfxFullSync = Assets.LoadEffect("VFXFullSync", true);
+            VfxRage = Assets.LoadEffect("VFXRage", true);
+            VfxEvil = Assets.LoadEffect("VFXEnterEvil", true);
 
             MatCyberSwordDefault = mainAssetBundle.LoadAsset<Material>("matMMBNSword");
             MatCyberSwordRed = mainAssetBundle.LoadAsset<Material>("matMMBNSwordRed");
@@ -213,6 +222,8 @@ namespace MegamanEXEMod.Modules
             IconRecov300 = mainAssetBundle.LoadAsset<Sprite>("IconRecov300");
             IconShockWave = mainAssetBundle.LoadAsset<Sprite>("IconShockWave");
             IconShotgun = mainAssetBundle.LoadAsset<Sprite>("IconShotgun");
+
+            IconInvis = mainAssetBundle.LoadAsset<Sprite>("IconInvis");
 
 
 

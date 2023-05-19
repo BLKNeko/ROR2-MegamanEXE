@@ -8,7 +8,7 @@ namespace MegamanEXEMod.Modules
     {
         // armor buff gained during roll
         internal static BuffDef armorBuff;
-        internal static BuffDef DarkSwordDebuff;
+        internal static BuffDef DarkDebuff;
         internal static BuffDef Attack10Buff;
         internal static BuffDef Attack20Buff;
         internal static BuffDef Attack30Buff;
@@ -45,7 +45,7 @@ namespace MegamanEXEMod.Modules
                 false,
                 false);
 
-            DarkSwordDebuff = AddNewBuff("DarkSwordDebuff",
+            DarkDebuff = AddNewBuff("DarkDebuff",
                 MegamanEXEMod.Modules.Assets.IconDrkSword,
                 Color.white,
                 false,

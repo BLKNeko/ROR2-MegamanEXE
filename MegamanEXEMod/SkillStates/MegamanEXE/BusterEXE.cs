@@ -4,6 +4,7 @@ using MegamanEXEMod.SkillStates.BaseStates;
 using RoR2;
 using RoR2.Projectile;
 using UnityEngine;
+using static RoR2.BulletAttack;
 
 namespace MegamanEXEMod.SkillStates
 {
@@ -61,7 +62,7 @@ namespace MegamanEXEMod.SkillStates
         public override void OnExit()
         {
 
-            SyncNetworkExe.MemoryCode = SyncNetworkExe.MemoryCode + "C";
+            //SyncNetworkExe.MemoryCode = SyncNetworkExe.MemoryCode + "C";
 
             base.OnExit();
         }
@@ -74,7 +75,7 @@ namespace MegamanEXEMod.SkillStates
 
                 base.characterBody.AddSpreadBloom(1.5f);
                 EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, base.gameObject, this.muzzleString, false);
-                Util.PlaySound("HenryShootPistol", base.gameObject);
+                Util.PlaySound(Sounds.BusterEXE, base.gameObject);
                 base.PlayAnimation("Gesture, Override", "ShootBurst", "attackSpeed", this.duration);
 
                 if (base.isAuthority)
@@ -111,10 +112,41 @@ namespace MegamanEXEMod.SkillStates
                         spreadYawScale = 0f,
                         queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
                         hitEffectPrefab = BusterEXE.hitEffectPrefab,
+                        hitCallback = BulletHitCallback,
                     }.Fire();
                 }
             }
         }
+
+        private bool BulletHitCallback(BulletAttack bulletAttack, ref BulletHit hitlnfo)
+        {
+            var result = BulletAttack.defaultHitCallback(bulletAttack, ref hitlnfo);
+            var hurtbox = hitlnfo.hitHurtBox;
+
+
+            if (hurtbox)
+            {
+                Debug.Log("Hit the enemy");
+
+                SyncNetworkExe.EmotionValue++;
+
+                Debug.Log("Emotion value:" + SyncNetworkExe.EmotionValue);
+
+            }
+            else
+            {
+                Debug.Log("Miss the enemy");
+
+                SyncNetworkExe.EmotionValue--;
+
+                Debug.Log("Emotion value:" + SyncNetworkExe.EmotionValue);
+
+            }
+
+
+            return result;
+        }
+
 
         private void FireArrowC()
         {
@@ -124,7 +156,7 @@ namespace MegamanEXEMod.SkillStates
 
                 base.characterBody.AddSpreadBloom(1.5f);
                 EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, base.gameObject, this.muzzleString, false);
-                Util.PlaySound("HenryShootPistol", base.gameObject);
+                Util.PlaySound(Sounds.BusterEXE, base.gameObject);
                 base.PlayAnimation("Gesture, Override", "ShootBurst", "attackSpeed", this.duration);
 
                 if (base.isAuthority)
@@ -176,7 +208,7 @@ namespace MegamanEXEMod.SkillStates
 
                 if (chargeTime > 0.5f && chargeTime <= 1.8f && chargingSFX == false)
                 {
-                    //Util.PlaySound(Sounds.charging, base.gameObject);
+                    Util.PlaySound(Sounds.BusterCharging, base.gameObject);
                     EffectManager.SimpleMuzzleFlash(Modules.Assets.VfxChargeeffect1C, base.gameObject, "CenterMZ", true);
                     EffectManager.SimpleMuzzleFlash(Modules.Assets.VfxChargeeffect1W, base.gameObject, "CenterMZ", true);
                     chargingSFX = true;
@@ -184,7 +216,7 @@ namespace MegamanEXEMod.SkillStates
 
                 if (chargeTime >= 1.8f && chargeFullSFX == false)
                 {
-                    //Util.PlaySound(Sounds.fullCharge, base.gameObject);
+                    Util.PlaySound(Sounds.BusterCharged, base.gameObject);
                     EffectManager.SimpleMuzzleFlash(Modules.Assets.VfxChargeeffect2C, base.gameObject, "CenterMZ", true);
                     chargeFullSFX = true;
                     LastChargeTime = chargeTime;

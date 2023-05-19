@@ -15,6 +15,7 @@
   <ItemGroup>
     <None Remove="HenryBank.bnk" />
     <None Remove="megamanexebundle" />
+    <None Remove="MegamanEXESB.bnk" />
     <None Remove="Modules\Characters\Henry.cs~RF6221a098.TMP" />
     <None Remove="myassetbundle" />
   </ItemGroup>
@@ -32,6 +33,7 @@
   <ItemGroup>
     <EmbeddedResource Include="HenryBank.bnk" />
     <EmbeddedResource Include="megamanexebundle" />
+    <EmbeddedResource Include="MegamanEXESB.bnk" />
     <EmbeddedResource Include="myassetbundle" />
   </ItemGroup>
 

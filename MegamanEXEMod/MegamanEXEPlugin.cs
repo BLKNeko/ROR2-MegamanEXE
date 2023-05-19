@@ -6,6 +6,7 @@ using RoR2;
 using System.Collections.Generic;
 using System.Security;
 using System.Security.Permissions;
+using UnityEngine;
 
 [module: UnverifiableCode]
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, SkipVerification = true)]
@@ -37,6 +38,7 @@ namespace MegamanEXEMod
         public const string DEVELOPER_PREFIX = "BLKNeko";
 
         public static MegamanEXEPlugin instance;
+        
 
         private void Awake()
         {
@@ -78,14 +80,39 @@ namespace MegamanEXEMod
                     self.armor += 300f;
                 }
 
-                if (self.HasBuff(Modules.Buffs.DarkSwordDebuff))
+                if (self.HasBuff(Modules.Buffs.DarkDebuff))
                 {
                     if (self.baseMaxHealth > 10f && SyncNetworkExe.CanDrkDrain)
                     {
                         self.baseMaxHealth -= 1f;
                         SyncNetworkExe.CanDrkDrain = false;
                     }
-                        
+
+                    
+
+                    switch (SyncNetworkExe.RandBugDebuf)
+                    {
+                        case 1:
+                            self.jumpPower = 0.1f;
+                            break;
+                        case 2:
+                            self.moveSpeed *= 0.3f;
+                            break;
+                        case 3:
+                            self.moveSpeed *= 7f;
+                            break;
+                        case 4:
+                            self.jumpPower *= 4f;
+                            break;
+                        case 5:
+                            self.characterMotor.moveDirection *= -1f;
+                            break;
+
+                        default:
+                            self.jumpPower = 0.1f;
+                            break;
+                    }
+
 
                 }
 
@@ -106,6 +133,18 @@ namespace MegamanEXEMod
                     self.damage *= 1.3f;
 
                 }
+
+
+
+
+                if (self.HasBuff(Modules.Buffs.AnxiousBuff))
+                {
+                    self.damage *= 0.9f;
+                    self.armor *= 0.9f;
+                    self.moveSpeed *= 1.2f;
+
+                }
+
 
 
             }

@@ -25,11 +25,29 @@ namespace MegamanEXEMod.SkillStates.BaseStates
 
         private float EvilTimer = 0f;
 
+        public static float RandBugDebuf = 0;
+
+        private bool CanSwitchEmotion = true;
+
+
+        private Transform modelTransform;
+        private CharacterModel characterModel;
+        private HurtBoxGroup hurtboxGroup;
+
 
 
         public override void OnEnter()
         {
             base.OnEnter();
+
+            modelTransform = GetModelTransform();
+            if ((bool)modelTransform)
+            {
+                animator = modelTransform.GetComponent<Animator>();
+                characterModel = modelTransform.GetComponent<CharacterModel>();
+                hurtboxGroup = modelTransform.GetComponent<HurtBoxGroup>();
+            }
+
 
         }
         public override void OnExit()
@@ -44,13 +62,15 @@ namespace MegamanEXEMod.SkillStates.BaseStates
 
             AdvanceProgram();
 
-            Debug.Log("EvilMotionValue:" + EvilEmotionValue);
+            //Debug.Log("EvilMotionValue:" + EvilEmotionValue);
 
-            if (EvilTimer >= 100f)
+            if (EvilTimer >= 20f)
             {
 
                 if (EvilEmotionValue > 0)
                     EvilEmotionValue--;
+
+                Debug.Log("EvilEmotion Value:" + EvilEmotionValue);
 
                 EvilTimer = 0;
 
@@ -59,7 +79,7 @@ namespace MegamanEXEMod.SkillStates.BaseStates
                 EvilTimer += Time.fixedDeltaTime;
 
             //EMOTION BUFFS
-            if (EvilEmotionValue >= 10)
+            if (EvilEmotionValue >= 10 && CanSwitchEmotion)
             {
 
                 if (NetworkServer.active)
@@ -76,7 +96,7 @@ namespace MegamanEXEMod.SkillStates.BaseStates
             {
 
 
-                if (EmotionValue >= 40)
+                if (EmotionValue >= 40 && CanSwitchEmotion && !base.characterBody.HasBuff(Modules.Buffs.FullSyncBuff))
                 {
 
                     if (NetworkServer.active)
@@ -88,7 +108,9 @@ namespace MegamanEXEMod.SkillStates.BaseStates
                     }
 
                 }
-                else if (EmotionValue <= 39 && EmotionValue >= 15)
+
+
+                if (EmotionValue <= 39 && EmotionValue >= 15 && CanSwitchEmotion && !base.characterBody.HasBuff(Modules.Buffs.NormalBuff))
                 {
 
                     if (NetworkServer.active)
@@ -100,7 +122,9 @@ namespace MegamanEXEMod.SkillStates.BaseStates
                     }
 
                 }
-                else if (EmotionValue <= 14)
+
+
+                if (EmotionValue <= 14 && CanSwitchEmotion && !base.characterBody.HasBuff(Modules.Buffs.AnxiousBuff))
                 {
 
                     if (NetworkServer.active)
@@ -117,6 +141,54 @@ namespace MegamanEXEMod.SkillStates.BaseStates
 
 
             }
+
+
+            if (base.characterBody.HasBuff(Modules.Buffs.EvilBuff))
+            {
+
+                if (CanSwitchEmotion)
+                {
+
+                    EffectManager.SimpleMuzzleFlash(Modules.Assets.VfxEvil, base.gameObject, "BaseMZ", true);
+
+                    characterModel.baseRendererInfos[0].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBNDRK");
+                    characterModel.baseRendererInfos[1].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBNDRK");
+                    characterModel.baseRendererInfos[2].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBNDRK");
+                    characterModel.baseRendererInfos[3].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBNDRK");
+                    characterModel.baseRendererInfos[4].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBNDRK");
+
+                    CanSwitchEmotion = false;
+                }
+                else
+                {
+
+                    if(EvilEmotionValue <= 0)
+                    {
+
+                        characterModel.baseRendererInfos[0].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBN");
+                        characterModel.baseRendererInfos[1].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBN");
+                        characterModel.baseRendererInfos[2].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBN");
+                        characterModel.baseRendererInfos[3].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBN");
+                        characterModel.baseRendererInfos[4].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBN");
+
+
+                        EmotionValue = 1;
+
+                        base.characterBody.RemoveBuff(Modules.Buffs.FullSyncBuff);
+                        base.characterBody.RemoveBuff(Modules.Buffs.NormalBuff);
+                        base.characterBody.RemoveBuff(Modules.Buffs.EvilBuff);
+
+                        base.characterBody.AddBuff(Modules.Buffs.AnxiousBuff);
+
+                        CanSwitchEmotion = true;
+                    }
+
+                    
+                }
+
+            }
+
+
 
             //EMOTION BUFFS END
 
@@ -139,6 +211,34 @@ namespace MegamanEXEMod.SkillStates.BaseStates
 
 
 
+            //INVIS INVISIBLE EFFECT
+
+            if (base.characterBody.HasBuff(RoR2Content.Buffs.HiddenInvincibility))
+            {
+
+                if ((bool)characterModel)
+                {
+                    characterModel.invisibilityCount++;
+                }
+
+                if ((bool)hurtboxGroup)
+                {
+                    hurtboxGroup.hurtBoxesDeactivatorCounter++;
+                }
+
+            }
+            else
+            {
+                if ((bool)characterModel)
+                {
+                    characterModel.invisibilityCount--;
+                }
+
+                if ((bool)hurtboxGroup)
+                {
+                    hurtboxGroup.hurtBoxesDeactivatorCounter--;
+                }
+            }
 
 
         }
@@ -147,7 +247,7 @@ namespace MegamanEXEMod.SkillStates.BaseStates
 
         public void AdvanceProgram()
         {
-            Debug.Log(MemoryCode);
+            //Debug.Log(MemoryCode);
 
             RemoveAdvanceProgram();
 
@@ -159,7 +259,7 @@ namespace MegamanEXEMod.SkillStates.BaseStates
             {
                 MemoryCodeCheck = MemoryCode.Substring(MemoryCode.Length - 3);
 
-                Debug.Log("inside IF:" + MemoryCodeCheck);
+                //Debug.Log("inside IF:" + MemoryCodeCheck);
             }
 
             if (MemoryCodeCheck.Contains("SSS"))
@@ -189,6 +289,15 @@ namespace MegamanEXEMod.SkillStates.BaseStates
 
 
             skillLocator.special.SetSkillOverride(skillLocator.special, MegamanEXE.CyberSwordSkillDef, GenericSkill.SkillOverridePriority.Contextual);
+        }
+
+        public static void DrkBugChanger()
+        {
+
+            RandBugDebuf = UnityEngine.Random.Range(1, 6);
+
+            Debug.Log("Randon Bug Index:" + RandBugDebuf);
+
         }
 
 

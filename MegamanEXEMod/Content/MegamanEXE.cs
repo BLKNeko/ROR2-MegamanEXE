@@ -524,7 +524,7 @@ namespace MegamanEXEMod.Modules.Survivors
                 skillName = prefix + "_HENRY_BODY_SPECIAL_BOMB_NAME",
                 skillNameToken = prefix + "_HENRY_BODY_SPECIAL_BOMB_NAME",
                 skillDescriptionToken = prefix + "_HENRY_BODY_SPECIAL_BOMB_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texPrimaryIcon"),
+                skillIcon = Modules.Assets.IconInvis,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Invis)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -815,7 +815,7 @@ namespace MegamanEXEMod.Modules.Survivors
             Modules.Skills.AddUtilitySkills(bodyPrefab, SendChipSkillDef);
             Modules.Skills.AddSpecialSkills(bodyPrefab, Barr100SkillDef);
 
-            Skills.AddFirstExtraSkill(bodyPrefab, ShokWaveSkillDef);
+            Skills.AddFirstExtraSkill(bodyPrefab, InvisSkillDef);
             Skills.AddSecondExtraSkill(bodyPrefab, DrkSwordSkillDef);
             Skills.AddThirdExtraSkill(bodyPrefab, GutPunchSkillDef);
             Skills.AddFourthExtraSkill(bodyPrefab, Recov50SkillDef);
@@ -847,7 +847,49 @@ namespace MegamanEXEMod.Modules.Survivors
             //add new skindef to our list of skindefs. this is what we'll be passing to the SkinController
             skins.Add(defaultSkin);
             #endregion
+
+
+
             
+            //creating a new skindef as we did before
+            SkinDef masterySkin = Modules.Skins.CreateSkinDef("_HENRY_BODY_MASTERY_SKIN_NAME",
+                Assets.mainAssetBundle.LoadAsset<Sprite>("texMasteryAchievement"),
+                defaultRendererinfos,
+                prefabCharacterModel.gameObject,
+                masterySkinUnlockableDef);
+
+            //adding the mesh replacements as above. 
+            //if you don't want to replace the mesh (for example, you only want to replace the material), pass in null so the order is preserved
+            masterySkin.meshReplacements = Modules.Skins.getMeshReplacements(defaultRendererinfos,
+                null,
+                null,//no gun mesh replacement. use same gun mesh
+                null,
+                null,
+                null);
+
+            //masterySkin has a new set of RendererInfos (based on default rendererinfos)
+            //you can simply access the RendererInfos defaultMaterials and set them to the new materials for your skin.
+            masterySkin.rendererInfos[0].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBNDRK");
+            masterySkin.rendererInfos[1].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBNDRK");
+            masterySkin.rendererInfos[2].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBNDRK");
+            masterySkin.rendererInfos[3].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBNDRK");
+            masterySkin.rendererInfos[4].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBNDRK");
+
+            //here's a barebones example of using gameobjectactivations that could probably be streamlined or rewritten entirely, truthfully, but it works
+            //masterySkin.gameObjectActivations = new SkinDef.GameObjectActivation[]
+           // {
+            //    new SkinDef.GameObjectActivation
+            //    {
+           //         gameObject = childLocator.FindChildGameObject("GunModel"),
+           //         shouldActivate = false,
+           //     }
+           // };
+            //simply find an object on your child locator you want to activate/deactivate and set if you want to activate/deacitvate it with this skin
+
+            skins.Add(masterySkin);
+            
+
+
             //uncomment this when you have a mastery skin
             #region MasterySkin
             /*
