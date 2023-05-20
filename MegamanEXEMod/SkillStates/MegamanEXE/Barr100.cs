@@ -25,6 +25,8 @@ namespace MegamanEXEMod.SkillStates
             base.OnEnter();
             this.animator = base.GetModelAnimator();
 
+            Util.PlaySound(Sounds.SFXBarrier, base.gameObject);
+
 
         }
 

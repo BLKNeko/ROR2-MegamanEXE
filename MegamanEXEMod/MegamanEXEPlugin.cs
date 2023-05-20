@@ -116,6 +116,15 @@ namespace MegamanEXEMod
 
                 }
 
+                if (self.HasBuff(Modules.Buffs.EvilBuff))
+                {
+                    self.damage *= 1.3f;
+                    self.regen *= 0.6f;
+                    
+
+                }
+
+
                 if (self.HasBuff(Modules.Buffs.Attack10Buff))
                 {
                     self.damage *= 1.1f;
@@ -134,14 +143,21 @@ namespace MegamanEXEMod
 
                 }
 
+                if (self.HasBuff(Modules.Buffs.FullSyncBuff))
+                {
+                    self.damage *= 2f;
+                    self.crit *= 2f;
+                    self.critHeal += (self.baseMaxHealth * 0.1f);
+                    self.moveSpeed *= 1.3f;
 
+                }
 
 
                 if (self.HasBuff(Modules.Buffs.AnxiousBuff))
                 {
                     self.damage *= 0.9f;
-                    self.armor *= 0.9f;
-                    self.moveSpeed *= 1.2f;
+                    self.armor *= 0.8f;
+                    self.moveSpeed *= 1.25f;
 
                 }
 

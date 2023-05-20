@@ -29,6 +29,10 @@ namespace MegamanEXEMod.SkillStates.BaseStates
 
         private bool CanSwitchEmotion = true;
 
+        private float RedHpTimer = 0f;
+
+        private float FullSyncTimer = 0f;
+
 
         private Transform modelTransform;
         private CharacterModel characterModel;
@@ -186,6 +190,49 @@ namespace MegamanEXEMod.SkillStates.BaseStates
                     
                 }
 
+
+            }
+
+
+            if (base.characterBody.HasBuff(Modules.Buffs.FullSyncBuff))
+            {
+
+                if (CanSwitchEmotion)
+                {
+
+                    EffectManager.SimpleMuzzleFlash(Modules.Assets.VfxFullSync, base.gameObject, "CenterMZR", true);
+
+
+
+                    CanSwitchEmotion = false;
+                }
+                else
+                {
+
+                    FullSyncTimer += Time.fixedDeltaTime;
+
+                    if (FullSyncTimer >= 10f)
+                    {
+
+                        FullSyncTimer = 0;
+
+                        EmotionValue = 25;
+
+                        base.characterBody.RemoveBuff(Modules.Buffs.FullSyncBuff);
+                        base.characterBody.RemoveBuff(Modules.Buffs.AnxiousBuff);
+                        base.characterBody.RemoveBuff(Modules.Buffs.EvilBuff);
+
+                        base.characterBody.AddBuff(Modules.Buffs.NormalBuff);
+
+                        CanSwitchEmotion = true;
+                    }
+
+                    
+
+
+                }
+
+
             }
 
 
@@ -210,33 +257,50 @@ namespace MegamanEXEMod.SkillStates.BaseStates
             //DARK DRAIN END
 
 
+            //RED HP ALARM
 
-            //INVIS INVISIBLE EFFECT
+            if (base.characterBody.healthComponent.combinedHealthFraction < 0.3f && RedHpTimer < 5f)
+            {
+                Util.PlaySound(Sounds.SFXRedHP, base.gameObject);
+
+                RedHpTimer = 5f;
+
+            }
+
+            if(RedHpTimer >= 5f)
+                RedHpTimer -= Time.fixedDeltaTime;
+
+
+            //RED HP ALARM END
+
+
+            //INVIS EFFECT
 
             if (base.characterBody.HasBuff(RoR2Content.Buffs.HiddenInvincibility))
             {
-
-                if ((bool)characterModel)
-                {
-                    characterModel.invisibilityCount++;
-                }
-
-                if ((bool)hurtboxGroup)
-                {
-                    hurtboxGroup.hurtBoxesDeactivatorCounter++;
-                }
-
+                characterModel.baseRendererInfos[0].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBNInv");
+                characterModel.baseRendererInfos[1].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBNInv");
+                characterModel.baseRendererInfos[2].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBNInv");
+                characterModel.baseRendererInfos[3].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBNInv");
+                characterModel.baseRendererInfos[4].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBNInv");
             }
             else
             {
-                if ((bool)characterModel)
+                if (base.characterBody.HasBuff(Modules.Buffs.EvilBuff))
                 {
-                    characterModel.invisibilityCount--;
+                    characterModel.baseRendererInfos[0].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBNDRK");
+                    characterModel.baseRendererInfos[1].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBNDRK");
+                    characterModel.baseRendererInfos[2].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBNDRK");
+                    characterModel.baseRendererInfos[3].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBNDRK");
+                    characterModel.baseRendererInfos[4].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBNDRK");
                 }
-
-                if ((bool)hurtboxGroup)
+                else
                 {
-                    hurtboxGroup.hurtBoxesDeactivatorCounter--;
+                    characterModel.baseRendererInfos[0].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBN");
+                    characterModel.baseRendererInfos[1].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBN");
+                    characterModel.baseRendererInfos[2].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBN");
+                    characterModel.baseRendererInfos[3].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBN");
+                    characterModel.baseRendererInfos[4].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBN");
                 }
             }
 

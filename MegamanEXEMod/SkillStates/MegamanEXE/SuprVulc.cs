@@ -65,7 +65,7 @@ namespace MegamanEXEMod.SkillStates
 
                 base.characterBody.AddSpreadBloom(1.5f);
                 EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, base.gameObject, this.muzzleString, false);
-                Util.PlaySound("HenryShootPistol", base.gameObject);
+                Util.PlaySound(Sounds.SFXVulcan, base.gameObject);
                 base.PlayAnimation("Gesture, Override", "ShootBurst", "attackSpeed", this.duration);
 
                 if (base.isAuthority)

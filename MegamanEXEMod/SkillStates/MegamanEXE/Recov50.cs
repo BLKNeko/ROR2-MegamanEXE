@@ -25,7 +25,8 @@ namespace MegamanEXEMod.SkillStates
             base.OnEnter();
             this.animator = base.GetModelAnimator();
 
-            EffectManager.SimpleMuzzleFlash(Modules.Assets.VfxRecov, base.gameObject, "CenterMZ", true);
+            Util.PlaySound(Sounds.SFXRecov, base.gameObject);
+            EffectManager.SimpleMuzzleFlash(Modules.Assets.VfxRecov, base.gameObject, "CenterMZR", true);
 
 
         }

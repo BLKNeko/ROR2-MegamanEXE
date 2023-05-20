@@ -4,6 +4,7 @@ using RoR2.Projectile;
 using UnityEngine;
 using ExtraSkillSlots;
 using MegamanEXEMod.Modules.Survivors;
+using MegamanEXEMod.Modules;
 
 namespace MegamanEXEMod.SkillStates
 {
@@ -23,7 +24,8 @@ namespace MegamanEXEMod.SkillStates
         {
             extraskillLocator = base.GetComponent<ExtraSkillLocator>();
 
-            
+            Util.PlaySound(Sounds.SFXChipConfirm, base.gameObject);
+
             base.OnEnter();
         }
 

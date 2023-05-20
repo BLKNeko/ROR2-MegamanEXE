@@ -34,6 +34,8 @@ namespace MegamanEXEMod.SkillStates
                 hurtboxGroup = modelTransform.GetComponent<HurtBoxGroup>();
             }
 
+            Util.PlaySound(Sounds.SFXInvis, base.gameObject);
+
             if ((bool)characterModel)
             {
                 characterModel.invisibilityCount++;

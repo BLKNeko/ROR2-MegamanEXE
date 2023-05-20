@@ -94,7 +94,7 @@ namespace MegamanEXEMod.SkillStates
             this.attack.procCoefficient = 1;
             this.attack.hitEffectPrefab = GutPunch.hitEffectPrefab;
             this.attack.forceVector = forwardDirection;
-            this.attack.pushAwayForce = 8000f;
+            this.attack.pushAwayForce = 15000f;
             this.attack.hitBoxGroup = hitBoxGroup;
             this.attack.isCrit = base.RollCrit();
             this.attack.impactSound = MegamanEXEMod.Modules.Assets.swordHitSoundEvent.index;
