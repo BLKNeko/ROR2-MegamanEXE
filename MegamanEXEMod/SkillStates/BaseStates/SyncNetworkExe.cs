@@ -33,6 +33,10 @@ namespace MegamanEXEMod.SkillStates.BaseStates
 
         private float FullSyncTimer = 0f;
 
+        private float RageTimer = 0f;
+
+        public static float DamageReceived = 0f;
+
 
         private Transform modelTransform;
         private CharacterModel characterModel;
@@ -68,13 +72,15 @@ namespace MegamanEXEMod.SkillStates.BaseStates
 
             //Debug.Log("EvilMotionValue:" + EvilEmotionValue);
 
-            if (EvilTimer >= 20f)
+            if (EvilTimer >= 18f && EvilEmotionValue > 0)
             {
 
                 if (EvilEmotionValue > 0)
                     EvilEmotionValue--;
 
                 Debug.Log("EvilEmotion Value:" + EvilEmotionValue);
+
+                SyncNetworkExe.DrkBugChanger();
 
                 EvilTimer = 0;
 
@@ -211,7 +217,7 @@ namespace MegamanEXEMod.SkillStates.BaseStates
 
                     FullSyncTimer += Time.fixedDeltaTime;
 
-                    if (FullSyncTimer >= 10f)
+                    if (FullSyncTimer >= 15f)
                     {
 
                         FullSyncTimer = 0;
@@ -235,6 +241,45 @@ namespace MegamanEXEMod.SkillStates.BaseStates
 
             }
 
+
+            if (DamageReceived >= (500f + (base.characterBody.level * 10)) && CanSwitchEmotion)
+            {
+                EffectManager.SimpleMuzzleFlash(Modules.Assets.VfxRage, base.gameObject, "BaseMZ", true);
+
+                CanSwitchEmotion = false;
+
+                if (NetworkServer.active)
+                {
+                    base.characterBody.RemoveBuff(Modules.Buffs.FullSyncBuff);
+                    base.characterBody.RemoveBuff(Modules.Buffs.NormalBuff);
+                    base.characterBody.RemoveBuff(Modules.Buffs.AnxiousBuff);
+
+                    base.characterBody.AddBuff(Modules.Buffs.RageBuff);
+                }
+
+
+
+            }
+
+            if(base.characterBody.HasBuff(Modules.Buffs.RageBuff))
+            {
+
+
+                    RageTimer += Time.fixedDeltaTime;
+
+                    if (RageTimer >= 10f)
+                    {
+
+                        RageTimer = 0;
+
+                        DamageReceived = 0f;
+
+                        CanSwitchEmotion = true;
+
+                        base.characterBody.RemoveBuff(Modules.Buffs.RageBuff);
+                    }
+
+            }
 
 
             //EMOTION BUFFS END
@@ -263,7 +308,7 @@ namespace MegamanEXEMod.SkillStates.BaseStates
             {
                 Util.PlaySound(Sounds.SFXRedHP, base.gameObject);
 
-                RedHpTimer = 5f;
+                RedHpTimer = 6.4f;
 
             }
 
@@ -275,34 +320,6 @@ namespace MegamanEXEMod.SkillStates.BaseStates
 
 
             //INVIS EFFECT
-
-            if (base.characterBody.HasBuff(RoR2Content.Buffs.HiddenInvincibility))
-            {
-                characterModel.baseRendererInfos[0].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBNInv");
-                characterModel.baseRendererInfos[1].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBNInv");
-                characterModel.baseRendererInfos[2].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBNInv");
-                characterModel.baseRendererInfos[3].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBNInv");
-                characterModel.baseRendererInfos[4].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBNInv");
-            }
-            else
-            {
-                if (base.characterBody.HasBuff(Modules.Buffs.EvilBuff))
-                {
-                    characterModel.baseRendererInfos[0].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBNDRK");
-                    characterModel.baseRendererInfos[1].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBNDRK");
-                    characterModel.baseRendererInfos[2].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBNDRK");
-                    characterModel.baseRendererInfos[3].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBNDRK");
-                    characterModel.baseRendererInfos[4].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBNDRK");
-                }
-                else
-                {
-                    characterModel.baseRendererInfos[0].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBN");
-                    characterModel.baseRendererInfos[1].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBN");
-                    characterModel.baseRendererInfos[2].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBN");
-                    characterModel.baseRendererInfos[3].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBN");
-                    characterModel.baseRendererInfos[4].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBN");
-                }
-            }
 
 
         }
@@ -358,7 +375,7 @@ namespace MegamanEXEMod.SkillStates.BaseStates
         public static void DrkBugChanger()
         {
 
-            RandBugDebuf = UnityEngine.Random.Range(1, 6);
+            RandBugDebuf = UnityEngine.Random.Range(1, 10);
 
             Debug.Log("Randon Bug Index:" + RandBugDebuf);
 

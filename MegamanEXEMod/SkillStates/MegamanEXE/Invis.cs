@@ -6,6 +6,7 @@ using ExtraSkillSlots;
 using MegamanEXEMod.Modules.Survivors;
 using UnityEngine.Networking;
 using MegamanEXEMod.Modules;
+using MegamanEXEMod.SkillStates.BaseStates;
 
 namespace MegamanEXEMod.SkillStates
 {
@@ -26,25 +27,9 @@ namespace MegamanEXEMod.SkillStates
             base.OnEnter();
             this.animator = base.GetModelAnimator();
 
-            modelTransform = GetModelTransform();
-            if ((bool)modelTransform)
-            {
-                animator = modelTransform.GetComponent<Animator>();
-                characterModel = modelTransform.GetComponent<CharacterModel>();
-                hurtboxGroup = modelTransform.GetComponent<HurtBoxGroup>();
-            }
-
             Util.PlaySound(Sounds.SFXInvis, base.gameObject);
 
-            if ((bool)characterModel)
-            {
-                characterModel.invisibilityCount++;
-            }
 
-            if ((bool)hurtboxGroup)
-            {
-                hurtboxGroup.hurtBoxesDeactivatorCounter++;
-            }
 
         }
 
@@ -84,16 +69,9 @@ namespace MegamanEXEMod.SkillStates
         public override void OnExit()
         {
 
-            if ((bool)characterModel)
-            {
-                characterModel.invisibilityCount--;
-            }
 
-            if ((bool)hurtboxGroup)
-            {
-                hurtboxGroup.hurtBoxesDeactivatorCounter--;
-            }
-
+            if (SyncNetworkExe.EvilEmotionValue > 0)
+                SyncNetworkExe.EvilEmotionValue--;
 
             base.OnExit();
         }

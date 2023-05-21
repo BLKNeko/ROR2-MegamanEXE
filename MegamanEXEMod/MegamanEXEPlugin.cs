@@ -1,12 +1,14 @@
 ﻿using BepInEx;
 using MegamanEXEMod.Modules.Survivors;
 using MegamanEXEMod.SkillStates.BaseStates;
+using R2API;
 using R2API.Utils;
 using RoR2;
 using System.Collections.Generic;
 using System.Security;
 using System.Security.Permissions;
 using UnityEngine;
+using UnityEngine.Networking;
 
 [module: UnverifiableCode]
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, SkipVerification = true)]
@@ -38,7 +40,9 @@ namespace MegamanEXEMod
         public const string DEVELOPER_PREFIX = "BLKNeko";
 
         public static MegamanEXEPlugin instance;
-        
+
+        static DamageAPI.ModdedDamageType DMGAPI = DamageAPI.ReserveDamageType();
+
 
         private void Awake()
         {
@@ -66,7 +70,31 @@ namespace MegamanEXEMod
         {
             // run hooks here, disabling one is as simple as commenting out the line
             On.RoR2.CharacterBody.RecalculateStats += CharacterBody_RecalculateStats;
+
+            On.RoR2.HealthComponent.TakeDamage += CheckDMG;
         }
+
+
+        private static void CheckDMG(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo info)
+        {
+            //if (info.HasModdedDamageType(DamageTypes.yourNameHere)
+            if (info.damage > 1)
+            {
+
+                SyncNetworkExe.DamageReceived += info.damage;
+
+                Debug.Log("DamageReceived:" + SyncNetworkExe.DamageReceived);
+                Debug.Log("attacker:" + info.attacker);
+                Debug.Log("damage:" + info.damage);
+                Debug.Log("position:" + info.position);
+
+            }
+
+            orig(self, info);
+
+        }
+
+
 
         private void CharacterBody_RecalculateStats(On.RoR2.CharacterBody.orig_RecalculateStats orig, CharacterBody self)
         {
@@ -88,7 +116,7 @@ namespace MegamanEXEMod
                         SyncNetworkExe.CanDrkDrain = false;
                     }
 
-                    
+
 
                     switch (SyncNetworkExe.RandBugDebuf)
                     {
@@ -105,7 +133,39 @@ namespace MegamanEXEMod
                             self.jumpPower *= 4f;
                             break;
                         case 5:
-                            self.characterMotor.moveDirection *= -1f;
+                            self.damage = 1f;
+                            break;
+                        case 6:
+
+                            if (NetworkServer.active)
+                            {
+                                self.AddTimedBuff(RoR2Content.Buffs.Poisoned, 5f);
+                            }
+
+                            break;
+                        case 7:
+
+                            if (NetworkServer.active)
+                            {
+                                self.AddTimedBuff(RoR2Content.Buffs.Weak, 5f);
+                            }
+
+                            break;
+                        case 8:
+
+                            if (NetworkServer.active)
+                            {
+                                self.AddTimedBuff(RoR2Content.Buffs.OnFire, 5f);
+                            }
+
+                            break;
+                        case 9:
+
+                            if (NetworkServer.active)
+                            {
+                                self.AddTimedBuff(RoR2Content.Buffs.Overheat, 5f);
+                            }
+
                             break;
 
                         default:
@@ -119,8 +179,63 @@ namespace MegamanEXEMod
                 if (self.HasBuff(Modules.Buffs.EvilBuff))
                 {
                     self.damage *= 1.3f;
-                    self.regen *= 0.6f;
-                    
+                    self.regen *= 0.25f;
+
+
+                    switch (SyncNetworkExe.RandBugDebuf)
+                    {
+                        case 1:
+                            self.jumpPower = 0.1f;
+                            break;
+                        case 2:
+                            self.moveSpeed *= 0.3f;
+                            break;
+                        case 3:
+                            self.moveSpeed *= 7f;
+                            break;
+                        case 4:
+                            self.jumpPower *= 4f;
+                            break;
+                        case 5:
+                            self.damage = 1f;
+                            break;
+                        case 6:
+
+                            if (NetworkServer.active)
+                            {
+                                self.AddTimedBuff(RoR2Content.Buffs.Poisoned, 5f);
+                            }
+
+                            break;
+                        case 7:
+
+                            if (NetworkServer.active)
+                            {
+                                self.AddTimedBuff(RoR2Content.Buffs.Weak, 5f);
+                            }
+
+                            break;
+                        case 8:
+
+                            if (NetworkServer.active)
+                            {
+                                self.AddTimedBuff(RoR2Content.Buffs.OnFire, 5f);
+                            }
+
+                            break;
+                        case 9:
+
+                            if (NetworkServer.active)
+                            {
+                                self.AddTimedBuff(RoR2Content.Buffs.Overheat, 5f);
+                            }
+
+                            break;
+
+                        default:
+                            self.jumpPower = 0.1f;
+                            break;
+                    }
 
                 }
 
@@ -147,8 +262,15 @@ namespace MegamanEXEMod
                 {
                     self.damage *= 2f;
                     self.crit *= 2f;
-                    self.critHeal += (self.baseMaxHealth * 0.1f);
-                    self.moveSpeed *= 1.3f;
+                    self.critHeal += (self.baseMaxHealth * 0.25f);
+                    self.moveSpeed *= 1.4f;
+                    self.regen *= 1.5f;
+
+                }
+
+                if (self.HasBuff(Modules.Buffs.RageBuff))
+                {
+                    self.damage *= 2.5f;
 
                 }
 
