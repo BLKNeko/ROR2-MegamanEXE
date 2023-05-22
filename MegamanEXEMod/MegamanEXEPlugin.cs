@@ -88,6 +88,9 @@ namespace MegamanEXEMod
                 Debug.Log("damage:" + info.damage);
                 Debug.Log("position:" + info.position);
 
+                SyncNetworkExe.Hurt = true;
+
+
             }
 
             orig(self, info);
@@ -139,7 +142,7 @@ namespace MegamanEXEMod
 
                             if (NetworkServer.active)
                             {
-                                self.AddTimedBuff(RoR2Content.Buffs.Poisoned, 5f);
+                                self.AddHelfireDuration(1f);
                             }
 
                             break;
@@ -147,7 +150,7 @@ namespace MegamanEXEMod
 
                             if (NetworkServer.active)
                             {
-                                self.AddTimedBuff(RoR2Content.Buffs.Weak, 5f);
+                                self.hideCrosshair = true;
                             }
 
                             break;
@@ -155,7 +158,7 @@ namespace MegamanEXEMod
 
                             if (NetworkServer.active)
                             {
-                                self.AddTimedBuff(RoR2Content.Buffs.OnFire, 5f);
+                                self.AddHelfireDuration(2f);
                             }
 
                             break;
@@ -163,7 +166,7 @@ namespace MegamanEXEMod
 
                             if (NetworkServer.active)
                             {
-                                self.AddTimedBuff(RoR2Content.Buffs.Overheat, 5f);
+                                self.AddTimedBuff(RoR2Content.Buffs.Weak, 5f);
                             }
 
                             break;
@@ -174,6 +177,10 @@ namespace MegamanEXEMod
                     }
 
 
+                }
+                else
+                {
+                    self.hideCrosshair = false;
                 }
 
                 if (self.HasBuff(Modules.Buffs.EvilBuff))
@@ -203,7 +210,7 @@ namespace MegamanEXEMod
 
                             if (NetworkServer.active)
                             {
-                                self.AddTimedBuff(RoR2Content.Buffs.Poisoned, 5f);
+                                self.hideCrosshair = true;
                             }
 
                             break;
@@ -219,7 +226,7 @@ namespace MegamanEXEMod
 
                             if (NetworkServer.active)
                             {
-                                self.AddTimedBuff(RoR2Content.Buffs.OnFire, 5f);
+                                self.skillLocator.secondary.RemoveAllStocks();
                             }
 
                             break;
@@ -227,7 +234,7 @@ namespace MegamanEXEMod
 
                             if (NetworkServer.active)
                             {
-                                self.AddTimedBuff(RoR2Content.Buffs.Overheat, 5f);
+                                self.skillLocator.utility.RemoveAllStocks();
                             }
 
                             break;
@@ -237,6 +244,10 @@ namespace MegamanEXEMod
                             break;
                     }
 
+                }
+                else
+                {
+                    self.hideCrosshair = false;
                 }
 
 

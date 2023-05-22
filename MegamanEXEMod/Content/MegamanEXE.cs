@@ -50,6 +50,7 @@ namespace MegamanEXEMod.Modules.Survivors
         internal static SkillDef MuramasaSkillDef;
         internal static SkillDef Recov300SkillDef;
         internal static SkillDef Recov50SkillDef;
+        internal static SkillDef ReflectorSkillDef;
         internal static SkillDef SendChipSkillDef;
         internal static SkillDef ShokWaveSkillDef;
         internal static SkillDef ShotGunSkillDef;
@@ -75,14 +76,14 @@ namespace MegamanEXEMod.Modules.Survivors
             podPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/SurvivorPod"),
 
             maxHealth = 100f,
-            healthRegen = 1.5f,
-            armor = 15f,
+            healthRegen = 1.8f,
+            armor = 18f,
             moveSpeedGrowth = 0.05f,
-            damage = 15f,
+            damage = 18f,
             shieldGrowth = 0.25f,
             jumpPowerGrowth = 0.25f,
-            critGrowth = 0.1f,
-            attackSpeedGrowth = 0.003f,
+            critGrowth = 0.15f,
+            attackSpeedGrowth = 0.005f,
 
             jumpCount = 1,
         };
@@ -639,6 +640,30 @@ namespace MegamanEXEMod.Modules.Survivors
                 stockToConsume = 1
             });
 
+            ReflectorSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "_HENRY_BODY_SPECIAL_BOMB_NAME",
+                skillNameToken = prefix + "_HENRY_BODY_SPECIAL_BOMB_NAME",
+                skillDescriptionToken = prefix + "_HENRY_BODY_SPECIAL_BOMB_DESCRIPTION",
+                skillIcon = Modules.Assets.IconInvis,
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Reflector)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 100,
+                baseRechargeInterval = 15f,
+                beginSkillCooldownOnSkillEnd = false,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = true,
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = false,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 2,
+                requiredStock = 1,
+                stockToConsume = 1
+            });
+
             SendChipSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "_HENRY_BODY_SPECIAL_BOMB_NAME",
@@ -817,7 +842,7 @@ namespace MegamanEXEMod.Modules.Survivors
 
             Skills.AddFirstExtraSkill(bodyPrefab, InvisSkillDef);
             Skills.AddSecondExtraSkill(bodyPrefab, DrkSwordSkillDef);
-            Skills.AddThirdExtraSkill(bodyPrefab, GutPunchSkillDef);
+            Skills.AddThirdExtraSkill(bodyPrefab, ReflectorSkillDef);
             Skills.AddFourthExtraSkill(bodyPrefab, Recov50SkillDef);
         }
         

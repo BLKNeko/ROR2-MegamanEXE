@@ -3,6 +3,7 @@ using MegamanEXEMod.Modules;
 using MegamanEXEMod.Modules.Survivors;
 using RoR2;
 using RoR2.Audio;
+using RoR2.Projectile;
 using System;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -37,6 +38,11 @@ namespace MegamanEXEMod.SkillStates.BaseStates
 
         public static float DamageReceived = 0f;
 
+        private string muzzleString;
+        public float RDuration = 0.5f;
+
+        public static bool Hurt = false;
+
 
         private Transform modelTransform;
         private CharacterModel characterModel;
@@ -47,6 +53,8 @@ namespace MegamanEXEMod.SkillStates.BaseStates
         public override void OnEnter()
         {
             base.OnEnter();
+
+            this.muzzleString = "BusterMZ";
 
             modelTransform = GetModelTransform();
             if ((bool)modelTransform)
@@ -69,6 +77,8 @@ namespace MegamanEXEMod.SkillStates.BaseStates
             base.FixedUpdate();
 
             AdvanceProgram();
+
+            ReflectorProjectile();
 
             //Debug.Log("EvilMotionValue:" + EvilEmotionValue);
 
@@ -308,7 +318,7 @@ namespace MegamanEXEMod.SkillStates.BaseStates
             {
                 Util.PlaySound(Sounds.SFXRedHP, base.gameObject);
 
-                RedHpTimer = 6.4f;
+                RedHpTimer = 6.2f;
 
             }
 
@@ -356,6 +366,31 @@ namespace MegamanEXEMod.SkillStates.BaseStates
 
                 skillLocator.special.SetSkillOverride(skillLocator.special, MegamanEXE.MCannonSkillDef, GenericSkill.SkillOverridePriority.Contextual);
 
+            }
+
+
+        }
+
+        private void ReflectorProjectile()
+        {
+
+            if (Hurt && base.characterBody.HasBuff(Modules.Buffs.ReflectorBuff))
+            {
+
+                base.characterBody.AddSpreadBloom(0.15f);
+                Ray aimRay = base.GetAimRay();
+                EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FireBarrage.effectPrefab, base.gameObject, this.muzzleString, false);
+
+                base.PlayAnimation("Gesture, Override", "ShootBurst", "attackSpeed", this.RDuration);
+
+                ProjectileManager.instance.FireProjectile(Modules.Projectiles.ShokWaveProjectile, aimRay.origin, Util.QuaternionSafeLookRotation(aimRay.direction), base.gameObject, 3f * this.damageStat, 0f, Util.CheckRoll(this.critStat, base.characterBody.master), DamageColorIndex.Default, null, -1f);
+
+                Hurt = false;
+
+            }
+            else
+            {
+                Hurt = false;
             }
 
 

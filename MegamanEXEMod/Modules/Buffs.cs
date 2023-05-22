@@ -12,6 +12,7 @@ namespace MegamanEXEMod.Modules
         internal static BuffDef Attack10Buff;
         internal static BuffDef Attack20Buff;
         internal static BuffDef Attack30Buff;
+        internal static BuffDef ReflectorBuff;
 
         internal static BuffDef FullSyncBuff;
         internal static BuffDef NormalBuff;
@@ -40,6 +41,12 @@ namespace MegamanEXEMod.Modules
                 false);
 
             Attack30Buff = AddNewBuff("Attack30Buff",
+                MegamanEXEMod.Modules.Assets.IconAtk30,
+                Color.white,
+                false,
+                false);
+
+            ReflectorBuff = AddNewBuff("ReflectorBuff",
                 MegamanEXEMod.Modules.Assets.IconAtk30,
                 Color.white,
                 false,
