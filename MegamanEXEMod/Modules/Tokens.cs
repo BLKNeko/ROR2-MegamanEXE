@@ -8,7 +8,7 @@ namespace MegamanEXEMod.Modules
         internal static void AddTokens()
         {
             #region Henry
-            string prefix = MegamanEXEPlugin.DEVELOPER_PREFIX + "_HENRY_BODY_";
+            string prefix = MegamanEXEPlugin.DEVELOPER_PREFIX + "_MEGAMAN_EXE_BODY_";
 
             string desc = "Henry is a skilled fighter who makes use of a wide arsenal of weaponry to take down his foes.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
             desc = desc + "< ! > Sword is a good all-rounder while Boxing Gloves are better for laying a beatdown on more powerful foes." + Environment.NewLine + Environment.NewLine;
@@ -16,13 +16,13 @@ namespace MegamanEXEMod.Modules
             desc = desc + "< ! > Roll has a lingering armor buff that helps to use it aggressively." + Environment.NewLine + Environment.NewLine;
             desc = desc + "< ! > Bomb can be used to wipe crowds with ease." + Environment.NewLine + Environment.NewLine;
 
-            string outro = "..and so he left, searching for a new identity.";
-            string outroFailure = "..and so he vanished, forever a blank slate.";
+            string outro = "..Great Job Megaman, Jack Out!";
+            string outroFailure = "...Megaman data...Deleted.";
 
-            LanguageAPI.Add(prefix + "NAME", "Henry");
+            LanguageAPI.Add(prefix + "NAME", "Megaman.EXE");
             LanguageAPI.Add(prefix + "DESCRIPTION", desc);
-            LanguageAPI.Add(prefix + "SUBTITLE", "The Chosen One");
-            LanguageAPI.Add(prefix + "LORE", "sample lore");
+            LanguageAPI.Add(prefix + "SUBTITLE", "Jack In Megaman!");
+            LanguageAPI.Add(prefix + "LORE", "Megaman.EXE");
             LanguageAPI.Add(prefix + "OUTRO_FLAVOR", outro);
             LanguageAPI.Add(prefix + "OUTRO_FAILURE", outroFailure);
 
@@ -32,28 +32,28 @@ namespace MegamanEXEMod.Modules
             #endregion
 
             #region Passive
-            LanguageAPI.Add(prefix + "PASSIVE_NAME", "Henry passive");
-            LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", "Sample text.");
+            LanguageAPI.Add(prefix + "PASSIVE_NAME", "Emotion Syncronization");
+            LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", "Depending on your operation and battle chips used, Megaman emotions will change, keep track on Buff icons");
             #endregion
 
             #region Primary
-            LanguageAPI.Add(prefix + "PRIMARY_SLASH_NAME", "Sword");
-            LanguageAPI.Add(prefix + "PRIMARY_SLASH_DESCRIPTION", Helpers.agilePrefix + $"Swing forward for <style=cIsDamage>{100f * StaticValues.swordDamageCoefficient}% damage</style>.");
+            LanguageAPI.Add(prefix + "PRIMARY_BUSTEREXE_NAME", "Buster EXE");
+            LanguageAPI.Add(prefix + "PRIMARY_BUSTEREXE_DESCRIPTION", Helpers.agilePrefix + $"Swing forward for <style=cIsDamage>{100f * StaticValues.swordDamageCoefficient}% damage</style>.");
             #endregion
 
             #region Secondary
-            LanguageAPI.Add(prefix + "SECONDARY_GUN_NAME", "Handgun");
-            LanguageAPI.Add(prefix + "SECONDARY_GUN_DESCRIPTION", Helpers.agilePrefix + $"Fire a handgun for <style=cIsDamage>{100f * StaticValues.gunDamageCoefficient}% damage</style>.");
+            LanguageAPI.Add(prefix + "SECONDARY_CYBERSWORD_NAME", "Cyber Sword");
+            LanguageAPI.Add(prefix + "SECONDARY_CYBERSWORD_DESCRIPTION", Helpers.agilePrefix + $"Fire a handgun for <style=cIsDamage>{100f * StaticValues.gunDamageCoefficient}% damage</style>.");
             #endregion
 
             #region Utility
-            LanguageAPI.Add(prefix + "UTILITY_ROLL_NAME", "Roll");
-            LanguageAPI.Add(prefix + "UTILITY_ROLL_DESCRIPTION", "Roll a short distance, gaining <style=cIsUtility>300 armor</style>. <style=cIsUtility>You cannot be hit during the roll.</style>");
+            LanguageAPI.Add(prefix + "UTILITY_SENDCHIPS_NAME", "Send Chip");
+            LanguageAPI.Add(prefix + "UTILITY_SENDCHIPS_DESCRIPTION", "Send <style=cIsUtility>4</style> random battle chips.");
             #endregion
 
             #region Special
-            LanguageAPI.Add(prefix + "SPECIAL_BOMB_NAME", "Bomb");
-            LanguageAPI.Add(prefix + "SPECIAL_BOMB_DESCRIPTION", $"Throw a bomb for <style=cIsDamage>{100f * StaticValues.bombDamageCoefficient}% damage</style>.");
+            LanguageAPI.Add(prefix + "SPECIAL_ADVP_NAME", "Advanced Program");
+            LanguageAPI.Add(prefix + "SPECIAL_ADVP_DESCRIPTION", "If a correct order of Battle Chips are used, this skill changes for an Advanced Program.");
             #endregion
 
             #region Achievements

@@ -22,6 +22,12 @@ namespace MegamanEXEMod.SkillStates.BaseStates
 
             SyncNetworkExe.MemoryCode = "";
 
+            SyncNetworkExe.DamageReceived = 0;
+
+            SyncNetworkExe.EvilEmotionValue = 0;
+
+            SyncNetworkExe.EmotionValue = 25;
+
         }
         public override void OnExit()
         {

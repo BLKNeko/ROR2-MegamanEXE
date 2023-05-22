@@ -78,8 +78,17 @@ namespace MegamanEXEMod
         private static void CheckDMG(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo info)
         {
             //if (info.HasModdedDamageType(DamageTypes.yourNameHere)
-            if (info.damage > 1)
+
+            if (!info.attacker.name.Contains("MegamanEXE"))
             {
+
+                SyncNetworkExe.EmotionValue--;
+
+                Debug.Log("elf.body.name:" + self.body.name);
+                Debug.Log("self.body.isLocalPlayer:" + self.body.isLocalPlayer);
+                Debug.Log("self.name:" + self.name);
+
+
 
                 SyncNetworkExe.DamageReceived += info.damage;
 

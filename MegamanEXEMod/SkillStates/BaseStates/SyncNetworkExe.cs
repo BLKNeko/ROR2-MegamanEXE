@@ -76,6 +76,9 @@ namespace MegamanEXEMod.SkillStates.BaseStates
         {
             base.FixedUpdate();
 
+            if (EmotionValue < 1)
+                EmotionValue = 1;
+
             AdvanceProgram();
 
             ReflectorProjectile();
@@ -384,6 +387,8 @@ namespace MegamanEXEMod.SkillStates.BaseStates
                 base.PlayAnimation("Gesture, Override", "ShootBurst", "attackSpeed", this.RDuration);
 
                 ProjectileManager.instance.FireProjectile(Modules.Projectiles.ShokWaveProjectile, aimRay.origin, Util.QuaternionSafeLookRotation(aimRay.direction), base.gameObject, 3f * this.damageStat, 0f, Util.CheckRoll(this.critStat, base.characterBody.master), DamageColorIndex.Default, null, -1f);
+
+                EmotionValue += 3;
 
                 Hurt = false;
 
