@@ -25,6 +25,8 @@ namespace MegamanEXEMod.SkillStates
             base.OnEnter();
             this.animator = base.GetModelAnimator();
 
+            Util.PlaySound(Sounds.SFXRecov, base.gameObject);
+            EffectManager.SimpleMuzzleFlash(Modules.Assets.VfxRecov, base.gameObject, "CenterMZR", true);
 
         }
 
@@ -59,6 +61,11 @@ namespace MegamanEXEMod.SkillStates
         {
 
             SyncNetworkExe.MemoryCode = SyncNetworkExe.MemoryCode + "X";
+
+            SyncNetworkExe.EmotionValue++;
+
+            if (SyncNetworkExe.EvilEmotionValue > 0)
+                SyncNetworkExe.EvilEmotionValue--;
 
             base.OnExit();
         }

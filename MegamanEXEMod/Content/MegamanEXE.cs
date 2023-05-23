@@ -73,11 +73,12 @@ namespace MegamanEXEMod.Modules.Survivors
             bodyColor = new Color(0.3f, 0.55f, 0.99f),
 
             crosshair = Modules.Assets.LoadCrosshair("Standard"),
+            //crosshair = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/Crosshair/GlaiveCrosshair"),
             podPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/SurvivorPod"),
 
             maxHealth = 100f,
             healthRegen = 1.8f,
-            armor = 18f,
+            armor = 20f,
             moveSpeedGrowth = 0.05f,
             damage = 18f,
             shieldGrowth = 0.25f,
@@ -133,6 +134,8 @@ namespace MegamanEXEMod.Modules.Survivors
         //public override Type characterMainState => typeof(EntityStates.GenericCharacterMain);
 
         public override Type characterMainState => typeof(SkillStates.BaseStates.SyncNetworkExe);
+
+        public override Type characterDeathState => typeof(SkillStates.BaseStates.DeathState);
 
         public override Type characterSpawnState => typeof(SkillStates.BaseStates.SpawnState);
 
@@ -650,7 +653,7 @@ namespace MegamanEXEMod.Modules.Survivors
                 skillIcon = Modules.Assets.IconInvis,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Reflector)),
                 activationStateMachineName = "Weapon",
-                baseMaxStock = 100,
+                baseMaxStock = 2,
                 baseRechargeInterval = 15f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
@@ -671,7 +674,7 @@ namespace MegamanEXEMod.Modules.Survivors
                 skillName = prefix + "_MEGAMAN_EXE_BODY_UTILITY_SENDCHIPS_NAME",
                 skillNameToken = prefix + "_MEGAMAN_EXE_BODY_UTILITY_SENDCHIPS_NAME",
                 skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_UTILITY_SENDCHIPS_DESCRIPTION",
-                skillIcon = Modules.Assets.IconRecov50,
+                skillIcon = Modules.Assets.IconSendChip,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.SendChip)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,

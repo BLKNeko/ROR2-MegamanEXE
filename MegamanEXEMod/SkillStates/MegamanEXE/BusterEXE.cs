@@ -126,20 +126,20 @@ namespace MegamanEXEMod.SkillStates
 
             if (hurtbox)
             {
-                Debug.Log("Hit the enemy");
+                //Debug.Log("Hit the enemy");
 
                 SyncNetworkExe.EmotionValue++;
 
-                Debug.Log("Emotion value:" + SyncNetworkExe.EmotionValue);
+                //Debug.Log("Emotion value:" + SyncNetworkExe.EmotionValue);
 
             }
             else
             {
-                Debug.Log("Miss the enemy");
+                //Debug.Log("Miss the enemy");
 
                 SyncNetworkExe.EmotionValue--;
 
-                Debug.Log("Emotion value:" + SyncNetworkExe.EmotionValue);
+                //Debug.Log("Emotion value:" + SyncNetworkExe.EmotionValue);
 
             }
 

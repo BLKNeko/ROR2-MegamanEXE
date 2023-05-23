@@ -279,7 +279,7 @@ namespace MegamanEXEMod.Modules
             skillLocator.passiveSkill.enabled = true;
             skillLocator.passiveSkill.skillNameToken = prefix + "PASSIVE_NAME";
             skillLocator.passiveSkill.skillDescriptionToken = prefix + "PASSIVE_DESCRIPTION";
-            skillLocator.passiveSkill.icon = Assets.IconBusterEXE;
+            skillLocator.passiveSkill.icon = Assets.IconPassive;
         }
 
     }

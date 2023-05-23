@@ -20,7 +20,6 @@ namespace MegamanEXEMod.SkillStates
         public int swingIndex;
 
         public static GameObject hitEffectPrefab = Resources.Load<GameObject>("prefabs/effects/impacteffects/ImpactMercSwing");
-        //public static GameObject hitEffectPrefab = Resources.Load<GameObject>("prefabs/effects/impacteffects/lunarneedledamageeffect");
 
         public GameObject tracerEffectPrefab = Resources.Load<GameObject>("prefabs/effects/omnieffect/OmniImpactVFXSlashMerc");
 
@@ -34,7 +33,6 @@ namespace MegamanEXEMod.SkillStates
         private float stopwatch;
         private Animator animator;
         private BaseState.HitStopCachedState hitStopCachedState;
-        //private PaladinSwordController swordController;
 
         public override void OnEnter()
         {
@@ -43,23 +41,12 @@ namespace MegamanEXEMod.SkillStates
             this.earlyExitDuration = AdvLifeSword.baseEarlyExit / this.attackSpeedStat;
             this.hasFired = false;
             this.animator = base.GetModelAnimator();
-            //this.swordController = base.GetComponent<PaladinSwordController>();
             base.StartAimMode(0.5f + this.duration, false);
-            //base.characterBody.isSprinting = false;
 
-            //base.characterBody.healthComponent.AddBarrier(base.characterBody.damage);
-
-            //Chat.SendBroadcastChat(new SimpleChatMessage { baseToken = "<color=#e5eefc>{0}</color>", paramTokens = new[] { "HitCombo2" } });
 
             ArmHelper.ArmChanger(2);
 
-            /*
-            GameObject.Find("EXEBuster").transform.localScale = new Vector3(0, 0, 0);
-            GameObject.Find("EXEBuster").GetComponent<MeshRenderer>().enabled = false;
-            GameObject.Find("EXESword").transform.localScale = new Vector3(1, 1, 1);
-            GameObject.Find("EXESword").GetComponent<MeshRenderer>().enabled = true;
-            GameObject.Find("EXESword").GetComponent<MeshRenderer>().material = Assets.MatCyberSwordDefault;
-            */
+
 
             HitBoxGroup hitBoxGroup = null;
             Transform modelTransform = base.GetModelTransform();
@@ -69,11 +56,9 @@ namespace MegamanEXEMod.SkillStates
                 hitBoxGroup = Array.Find<HitBoxGroup>(modelTransform.GetComponents<HitBoxGroup>(), (HitBoxGroup element) => element.groupName == "EXESwordHB");
             }
 
-            //if (this.swingIndex == 0) base.PlayAnimation("Gesture, Override", "ZSlash1", "FireArrow.playbackRate", this.duration);
-            //else base.PlayAnimation("Gesture, Override", "ZSlash1", "FireArrow.playbackRate", this.duration);
             base.PlayAnimation("Gesture, Override", "SlashH", "attackSpeed", this.duration);
 
-            //Util.PlaySound(Sounds.Second, base.gameObject);
+            Util.PlaySound(Sounds.SwordSwing, base.gameObject);
 
 
             Ray aimRay = base.GetAimRay();
@@ -82,10 +67,8 @@ namespace MegamanEXEMod.SkillStates
 
 
             float dmg = AdvLifeSword.damageCoefficient;
-            //if (this.swordController && this.swordController.swordActive) dmg = Slash.buffDamageCoefficient;
 
             this.attack = new OverlapAttack();
-            //this.attack.damageType = (Util.CheckRoll(84f, base.characterBody.master) ? DamageType.Stun1s : DamageType.SlowOnHit);
             this.attack.damageType = DamageType.Stun1s;
             this.attack.attacker = base.gameObject;
             this.attack.inflictor = base.gameObject;
@@ -117,16 +100,6 @@ namespace MegamanEXEMod.SkillStates
             if (!this.hasFired)
             {
                 this.hasFired = true;
-                //Util.PlayScaledSound(EntityStates.Merc.GroundLight.comboAttackSoundString, base.gameObject, 0.5f);
-                //Util.PlaySound(Sounds.zSlash1Voice, base.gameObject);
-                //Util.PlaySound(Sounds.zSlash1SFX, base.gameObject);
-                //Util.PlaySound(Sounds.hit2, base.gameObject);
-                
-                //Util.PlaySound(Sounds.GSAttackSFX, base.gameObject);
-
-                //string muzzleString = null;
-                // if (this.swingIndex == 0) muzzleString = "SwingLeft";
-                //else muzzleString = "SwingRight";
 
 
                 // EffectManager.SimpleMuzzleFlash(Modules.Assets.swordSwing, base.gameObject, muzzleString, true);
@@ -138,11 +111,6 @@ namespace MegamanEXEMod.SkillStates
 
                     Ray aimRay = base.GetAimRay();
 
-                    //if (this.swordController && this.swordController.swordActive)
-                    //{
-                    //    ProjectileManager.instance.FireProjectile(Modules.Projectiles.swordBeam, aimRay.origin, Util.QuaternionSafeLookRotation(aimRay.direction), base.gameObject, StaticValues.beamDamageCoefficient * this.damageStat, 0f, Util.CheckRoll(this.critStat, base.characterBody.master), DamageColorIndex.WeakPoint, null, StaticValues.beamSpeed);
-                    // }
-
                     if (this.attack.Fire())
                     {
                         //Util.PlaySound(EntityStates.Merc.GroundLight.hitSoundString, base.gameObject);
@@ -151,6 +119,9 @@ namespace MegamanEXEMod.SkillStates
 
                         //Debug.Log("MoraleGauge Value:");
                         //Debug.Log(AdeptRough.MoraleGauge);
+
+                        SyncNetworkExe.EmotionValue++;
+
 
 
                         if (!this.hasHopped)

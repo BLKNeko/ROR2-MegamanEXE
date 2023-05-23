@@ -4,6 +4,8 @@ using MegamanEXEMod.SkillStates.BaseStates;
 using RoR2;
 using RoR2.Projectile;
 using UnityEngine;
+using UnityEngine.Networking;
+using static RoR2.BulletAttack;
 
 namespace MegamanEXEMod.SkillStates
 {
@@ -54,6 +56,18 @@ namespace MegamanEXEMod.SkillStates
 
             SyncNetworkExe.MemoryCode = SyncNetworkExe.MemoryCode + "X";
 
+            if (NetworkServer.active)
+            {
+                base.characterBody.AddTimedBuff(Modules.Buffs.DarkDebuff, 5f);
+            }
+
+            SyncNetworkExe.EvilEmotionValue += 1f;
+            SyncNetworkExe.EmotionValue--;
+            SyncNetworkExe.DrkBugChanger();
+
+
+
+
             base.OnExit();
         }
 
@@ -65,7 +79,7 @@ namespace MegamanEXEMod.SkillStates
 
                 base.characterBody.AddSpreadBloom(1.5f);
                 EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, base.gameObject, this.muzzleString, false);
-                Util.PlaySound("HenryShootPistol", base.gameObject);
+                Util.PlaySound(Sounds.SFXCanon, base.gameObject);
                 base.PlayAnimation("Gesture, Override", "ShootBurst", "attackSpeed", this.duration);
 
                 if (base.isAuthority)
@@ -107,7 +121,7 @@ namespace MegamanEXEMod.SkillStates
             }
         }
 
-       
+
 
 
         public override void FixedUpdate()

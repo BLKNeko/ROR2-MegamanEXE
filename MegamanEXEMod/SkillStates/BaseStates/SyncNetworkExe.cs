@@ -18,7 +18,7 @@ namespace MegamanEXEMod.SkillStates.BaseStates
         public static string MemoryCode = "";
         public static string MemoryCodeCheck = "";
 
-        public static int EmotionValue = 25;
+        public static float EmotionValue = 25;
         public static float EvilEmotionValue = 0f;
 
         public static bool CanDrkDrain = true;

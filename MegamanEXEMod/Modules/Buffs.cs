@@ -53,7 +53,7 @@ namespace MegamanEXEMod.Modules
                 false);
 
             DarkDebuff = AddNewBuff("DarkDebuff",
-                MegamanEXEMod.Modules.Assets.IconDrkSword,
+                MegamanEXEMod.Modules.Assets.IconDrkDebuff,
                 Color.white,
                 false,
                 false);

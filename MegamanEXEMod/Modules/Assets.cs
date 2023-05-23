@@ -63,6 +63,18 @@ namespace MegamanEXEMod.Modules
 
         public static Sprite IconInvis;
 
+        public static Sprite IconBarr500;
+        public static Sprite IconBugFix;
+        public static Sprite IconDrkDebuff;
+        public static Sprite IconFstGauge;
+        public static Sprite IconGigaCannon;
+        public static Sprite IconGreatYoyo;
+        public static Sprite IconInfiniteVulcan;
+        public static Sprite IconLifeSword;
+        public static Sprite IconNoData;
+        public static Sprite IconPassive;
+        public static Sprite IconSendChip;
+
         internal static GameObject VfxChargeeffect1C;
         internal static GameObject VfxChargeeffect1W;
         internal static GameObject VfxChargeeffect2C;
@@ -226,10 +238,21 @@ namespace MegamanEXEMod.Modules
             IconInvis = mainAssetBundle.LoadAsset<Sprite>("IconInvis");
 
 
+            IconBarr500 = mainAssetBundle.LoadAsset<Sprite>("IconBarr500");
+            IconBugFix = mainAssetBundle.LoadAsset<Sprite>("IconBugFix");
+            IconDrkDebuff = mainAssetBundle.LoadAsset<Sprite>("IconDrkDebuff");
+            IconFstGauge = mainAssetBundle.LoadAsset<Sprite>("IconFstGauge");
+            IconGigaCannon = mainAssetBundle.LoadAsset<Sprite>("IconGigaCannon");
+            IconGreatYoyo = mainAssetBundle.LoadAsset<Sprite>("IconGreatYoyo");
+            IconInfiniteVulcan = mainAssetBundle.LoadAsset<Sprite>("IconInfiniteVulcan");
+            IconLifeSword = mainAssetBundle.LoadAsset<Sprite>("IconLifeSword");
+            IconNoData = mainAssetBundle.LoadAsset<Sprite>("IconNoData");
+            IconPassive = mainAssetBundle.LoadAsset<Sprite>("IconPassive");
+            IconSendChip = mainAssetBundle.LoadAsset<Sprite>("IconSendChip");
 
 
 
-        }
+    }
 
         private static GameObject CreateTracer(string originalTracerName, string newTracerName)
         {

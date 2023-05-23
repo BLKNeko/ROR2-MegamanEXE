@@ -20,7 +20,6 @@ namespace MegamanEXEMod.SkillStates
         public int swingIndex;
 
         public static GameObject hitEffectPrefab = Resources.Load<GameObject>("prefabs/effects/impacteffects/ImpactMercSwing");
-        //public static GameObject hitEffectPrefab = Resources.Load<GameObject>("prefabs/effects/impacteffects/lunarneedledamageeffect");
 
         public GameObject tracerEffectPrefab = Resources.Load<GameObject>("prefabs/effects/omnieffect/OmniImpactVFXSlashMerc");
 
@@ -34,7 +33,6 @@ namespace MegamanEXEMod.SkillStates
         private float stopwatch;
         private Animator animator;
         private BaseState.HitStopCachedState hitStopCachedState;
-        //private PaladinSwordController swordController;
 
         public override void OnEnter()
         {
@@ -92,7 +90,6 @@ namespace MegamanEXEMod.SkillStates
         {
             base.PlayAnimation("Gesture, Override", "BufferEmpty", "attackSpeed", this.duration);
 
-            SyncNetworkExe.MemoryCode = SyncNetworkExe.MemoryCode + "S";
 
             base.OnExit();
         }
@@ -117,6 +114,7 @@ namespace MegamanEXEMod.SkillStates
                     if (this.attack.Fire())
                     {
 
+                        SyncNetworkExe.EmotionValue++;
 
                         if (!this.hasHopped)
                         {

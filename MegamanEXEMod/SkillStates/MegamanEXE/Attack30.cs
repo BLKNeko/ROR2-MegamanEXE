@@ -6,6 +6,7 @@ using ExtraSkillSlots;
 using MegamanEXEMod.Modules.Survivors;
 using UnityEngine.Networking;
 using MegamanEXEMod.Modules;
+using MegamanEXEMod.SkillStates.BaseStates;
 
 namespace MegamanEXEMod.SkillStates
 {
@@ -59,6 +60,8 @@ namespace MegamanEXEMod.SkillStates
 
         public override void OnExit()
         {
+
+            SyncNetworkExe.MemoryCode = SyncNetworkExe.MemoryCode + "X";
 
             base.OnExit();
         }

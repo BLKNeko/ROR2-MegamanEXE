@@ -16,6 +16,8 @@ namespace MegamanEXEMod.Modules.Characters
         public abstract Type characterMainState { get; }
         public virtual Type characterSpawnState { get; }
 
+        public virtual Type characterDeathState { get; }
+
         public virtual ItemDisplaysBase itemDisplays { get; } = null;
 
         public virtual GameObject bodyPrefab { get; set; }
@@ -61,6 +63,8 @@ namespace MegamanEXEMod.Modules.Characters
         {
 
             bodyPrefab.GetComponent<EntityStateMachine>().mainStateType = new EntityStates.SerializableEntityStateType(characterMainState);
+
+            bodyPrefab.GetComponent<CharacterDeathBehavior>().deathState = new EntityStates.SerializableEntityStateType(characterDeathState);
 
             bodyPrefab.GetComponent<EntityStateMachine>().initialStateType = new EntityStates.SerializableEntityStateType(characterSpawnState);
 

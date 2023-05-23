@@ -102,9 +102,10 @@ namespace MegamanEXEMod.SkillStates
             }
 
             SyncNetworkExe.EvilEmotionValue += 1f;
+            SyncNetworkExe.EmotionValue--;
             SyncNetworkExe.DrkBugChanger();
 
-            Debug.Log(SyncNetworkExe.EvilEmotionValue);
+            //Debug.Log(SyncNetworkExe.EvilEmotionValue);
 
             base.OnExit();
         }

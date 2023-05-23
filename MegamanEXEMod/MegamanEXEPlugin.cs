@@ -79,12 +79,14 @@ namespace MegamanEXEMod
         {
             //if (info.HasModdedDamageType(DamageTypes.yourNameHere)
 
+            //seens like this is triggered even when i attack, so i filter here to don't do anything if attacker is Megaman
+
             if (!info.attacker.name.Contains("MegamanEXE"))
             {
 
                 SyncNetworkExe.EmotionValue--;
 
-                Debug.Log("elf.body.name:" + self.body.name);
+                Debug.Log("self.body.name:" + self.body.name);
                 Debug.Log("self.body.isLocalPlayer:" + self.body.isLocalPlayer);
                 Debug.Log("self.name:" + self.name);
 

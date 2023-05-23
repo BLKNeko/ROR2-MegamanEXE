@@ -4,6 +4,7 @@ using MegamanEXEMod.SkillStates.BaseStates;
 using RoR2;
 using RoR2.Projectile;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace MegamanEXEMod.SkillStates
 {
@@ -53,6 +54,16 @@ namespace MegamanEXEMod.SkillStates
         {
 
             SyncNetworkExe.MemoryCode = SyncNetworkExe.MemoryCode + "X";
+
+            if (NetworkServer.active)
+            {
+                base.characterBody.AddTimedBuff(Modules.Buffs.DarkDebuff, 5f);
+            }
+
+            SyncNetworkExe.EvilEmotionValue += 0.1f;
+            SyncNetworkExe.EmotionValue -= 0.1f;
+            SyncNetworkExe.DrkBugChanger();
+
 
             base.OnExit();
         }

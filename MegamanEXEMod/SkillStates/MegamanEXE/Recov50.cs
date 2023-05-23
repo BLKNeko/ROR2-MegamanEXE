@@ -62,6 +62,8 @@ namespace MegamanEXEMod.SkillStates
         {
             SyncNetworkExe.MemoryCode = SyncNetworkExe.MemoryCode + "X";
 
+            SyncNetworkExe.EmotionValue++;
+
             if (SyncNetworkExe.EvilEmotionValue > 0)
                 SyncNetworkExe.EvilEmotionValue--;
 

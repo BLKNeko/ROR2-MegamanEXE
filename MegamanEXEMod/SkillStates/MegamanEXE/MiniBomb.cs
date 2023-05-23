@@ -37,6 +37,8 @@ namespace MegamanEXEMod.SkillStates
         public override void OnExit()
         {
 
+            SyncNetworkExe.MemoryCode = SyncNetworkExe.MemoryCode + "X";
+
             base.OnExit();
         }
 

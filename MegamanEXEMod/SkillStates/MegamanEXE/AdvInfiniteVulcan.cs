@@ -4,6 +4,7 @@ using MegamanEXEMod.SkillStates.BaseStates;
 using RoR2;
 using RoR2.Projectile;
 using UnityEngine;
+using static RoR2.BulletAttack;
 
 namespace MegamanEXEMod.SkillStates
 {
@@ -52,7 +53,7 @@ namespace MegamanEXEMod.SkillStates
         public override void OnExit()
         {
 
-            SyncNetworkExe.MemoryCode = SyncNetworkExe.MemoryCode + "X";
+            //SyncNetworkExe.MemoryCode = SyncNetworkExe.MemoryCode + "X";
 
             base.OnExit();
         }
@@ -102,12 +103,40 @@ namespace MegamanEXEMod.SkillStates
                         spreadYawScale = 0f,
                         queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
                         hitEffectPrefab = AdvInfiniteVulcan.hitEffectPrefab,
+                        hitCallback = BulletHitCallback,
                     }.Fire();
                 }
             }
         }
 
-       
+        private bool BulletHitCallback(BulletAttack bulletAttack, ref BulletHit hitlnfo)
+        {
+            var result = BulletAttack.defaultHitCallback(bulletAttack, ref hitlnfo);
+            var hurtbox = hitlnfo.hitHurtBox;
+
+
+            if (hurtbox)
+            {
+                //Debug.Log("Hit the enemy");
+
+                SyncNetworkExe.EmotionValue += 0.1f;
+
+                //Debug.Log("Emotion value:" + SyncNetworkExe.EmotionValue);
+
+            }
+            else
+            {
+                //Debug.Log("Miss the enemy");
+
+                SyncNetworkExe.EmotionValue -= 0.1f;
+
+                //Debug.Log("Emotion value:" + SyncNetworkExe.EmotionValue);
+
+            }
+
+
+            return result;
+        }
 
 
         public override void FixedUpdate()

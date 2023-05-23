@@ -4,6 +4,7 @@ using MegamanEXEMod.SkillStates.BaseStates;
 using RoR2;
 using RoR2.Projectile;
 using UnityEngine;
+using static RoR2.BulletAttack;
 
 namespace MegamanEXEMod.SkillStates
 {
@@ -65,7 +66,7 @@ namespace MegamanEXEMod.SkillStates
 
                 base.characterBody.AddSpreadBloom(1.5f);
                 EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, base.gameObject, this.muzzleString, false);
-                Util.PlaySound("HenryShootPistol", base.gameObject);
+                Util.PlaySound(Sounds.SFXCanon, base.gameObject);
                 base.PlayAnimation("Gesture, Override", "ShootBurst", "attackSpeed", this.duration);
 
                 if (base.isAuthority)
@@ -102,12 +103,42 @@ namespace MegamanEXEMod.SkillStates
                         spreadYawScale = 0f,
                         queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
                         hitEffectPrefab = AdvGigaCannon.hitEffectPrefab,
+                        hitCallback = BulletHitCallback,
                     }.Fire();
                 }
             }
         }
 
-       
+
+        private bool BulletHitCallback(BulletAttack bulletAttack, ref BulletHit hitlnfo)
+        {
+            var result = BulletAttack.defaultHitCallback(bulletAttack, ref hitlnfo);
+            var hurtbox = hitlnfo.hitHurtBox;
+
+
+            if (hurtbox)
+            {
+                //Debug.Log("Hit the enemy");
+
+                SyncNetworkExe.EmotionValue++;
+
+                //Debug.Log("Emotion value:" + SyncNetworkExe.EmotionValue);
+
+            }
+            else
+            {
+                //Debug.Log("Miss the enemy");
+
+                SyncNetworkExe.EmotionValue--;
+
+                //Debug.Log("Emotion value:" + SyncNetworkExe.EmotionValue);
+
+            }
+
+
+            return result;
+        }
+
 
 
         public override void FixedUpdate()
