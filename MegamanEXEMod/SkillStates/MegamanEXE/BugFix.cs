@@ -47,7 +47,9 @@ namespace MegamanEXEMod.SkillStates
                 base.characterBody.RemoveBuff(RoR2Content.Buffs.Weak);
                 base.characterBody.helfireLifetime = 0f;
 
-                base.characterBody.RemoveBuff(Modules.Buffs.DarkDebuff);
+
+                //base.characterBody.RemoveBuff(Modules.Buffs.DarkDebuff);
+                base.characterBody.RemoveOldestTimedBuff(Modules.Buffs.DarkDebuff);
 
             }
 

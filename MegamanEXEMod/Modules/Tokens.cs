@@ -56,6 +56,13 @@ namespace MegamanEXEMod.Modules
             LanguageAPI.Add(prefix + "SPECIAL_ADVP_DESCRIPTION", "If a correct order of Battle Chips are used, this skill changes for an Advanced Program.");
             #endregion
 
+
+
+
+            LanguageAPI.Add(prefix + "CHIP_NODATA_NAME", "Advanced Program");
+            LanguageAPI.Add(prefix + "CHIP_NODATA_DESCRIPTION", "If a correct order of Battle Chips are used, this skill changes for an Advanced Program.");
+
+
             #region Achievements
             LanguageAPI.Add(prefix + "MASTERYUNLOCKABLE_ACHIEVEMENT_NAME", "Henry: Mastery");
             LanguageAPI.Add(prefix + "MASTERYUNLOCKABLE_ACHIEVEMENT_DESC", "As Henry, beat the game or obliterate on Monsoon.");

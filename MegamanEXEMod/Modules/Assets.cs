@@ -75,6 +75,8 @@ namespace MegamanEXEMod.Modules
         public static Sprite IconPassive;
         public static Sprite IconSendChip;
 
+        public static Sprite IconReflector;
+
         internal static GameObject VfxChargeeffect1C;
         internal static GameObject VfxChargeeffect1W;
         internal static GameObject VfxChargeeffect2C;
@@ -250,9 +252,9 @@ namespace MegamanEXEMod.Modules
             IconPassive = mainAssetBundle.LoadAsset<Sprite>("IconPassive");
             IconSendChip = mainAssetBundle.LoadAsset<Sprite>("IconSendChip");
 
+            IconReflector = mainAssetBundle.LoadAsset<Sprite>("IconReflector");
 
-
-    }
+        }
 
         private static GameObject CreateTracer(string originalTracerName, string newTracerName)
         {

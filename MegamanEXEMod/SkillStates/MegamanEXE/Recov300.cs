@@ -33,7 +33,8 @@ namespace MegamanEXEMod.SkillStates
         public void ApplyHeal()
         {
 
-            base.healthComponent.health += 300f;
+            //base.healthComponent.health += 300f;
+            base.healthComponent.HealFraction(300f, default(ProcChainMask));
 
             Healed = true;
         }

@@ -56,7 +56,7 @@ namespace MegamanEXEMod.Modules
                 MegamanEXEMod.Modules.Assets.IconDrkDebuff,
                 Color.white,
                 false,
-                false);
+                true);
 
 
             FullSyncBuff = AddNewBuff("FullSyncBuff",
@@ -87,7 +87,7 @@ namespace MegamanEXEMod.Modules
                 MegamanEXEMod.Modules.Assets.IconEvil,
                 Color.white,
                 false,
-                false);
+                true);
 
         }
 

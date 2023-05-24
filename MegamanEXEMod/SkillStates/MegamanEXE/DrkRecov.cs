@@ -33,7 +33,15 @@ namespace MegamanEXEMod.SkillStates
         public void ApplyHeal()
         {
 
-            base.healthComponent.health += 1000f;
+            if((base.healthComponent.health + 1000f) > (base.characterBody.healthComponent.fullHealth * 2))
+            {
+
+                if (base.healthComponent.health < (base.characterBody.healthComponent.fullHealth * 2))
+                    base.healthComponent.health = (base.characterBody.healthComponent.fullHealth * 2);
+
+            }
+            else
+                base.healthComponent.health += 1000f;
 
             Healed = true;
         }

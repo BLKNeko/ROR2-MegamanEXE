@@ -206,7 +206,7 @@ namespace MegamanEXEMod
                             self.jumpPower = 0.1f;
                             break;
                         case 2:
-                            self.moveSpeed *= 0.3f;
+                            self.moveSpeed *= 0.6f;
                             break;
                         case 3:
                             self.moveSpeed *= 7f;

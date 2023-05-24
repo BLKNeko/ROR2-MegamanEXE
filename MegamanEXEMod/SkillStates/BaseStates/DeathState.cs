@@ -28,7 +28,7 @@ namespace MegamanEXEMod.SkillStates.BaseStates
             SyncNetworkExe.EmotionValue = 25;
 
 
-            base.PlayAnimation("FullBody, Override", "Death", "attackSpeed", this.duration);
+            base.PlayAnimation("FullBody, Override", "Deleted", "attackSpeed", this.duration);
             // Util.PlaySound(Sounds.HaseoDie, base.gameObject);
 
 

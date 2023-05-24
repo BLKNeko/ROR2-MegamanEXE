@@ -18,30 +18,30 @@ namespace MegamanEXEMod.SkillStates.BaseStates
         public static string MemoryCode = "";
         public static string MemoryCodeCheck = "";
 
+        private string muzzleString;
+
         public static float EmotionValue = 25;
         public static float EvilEmotionValue = 0f;
+        public static float RandBugDebuf = 0;
+        public static float DamageReceived = 0f;
 
-        public static bool CanDrkDrain = true;
-        private float DrkDrainTimer = 0f;
+        public static int VulcanLetter = 0;
+
+        public float RDuration = 0.5f;
 
         private float EvilTimer = 0f;
+        private float DrkDrainTimer = 0f;
+        private float RedHpTimer = 0f;
+        private float FullSyncTimer = 0f;
+        private float RageTimer = 0f;
 
-        public static float RandBugDebuf = 0;
+        public static bool CanDrkDrain = true;
+        public static bool Hurt = false;
 
         private bool CanSwitchEmotion = true;
 
-        private float RedHpTimer = 0f;
 
-        private float FullSyncTimer = 0f;
 
-        private float RageTimer = 0f;
-
-        public static float DamageReceived = 0f;
-
-        private string muzzleString;
-        public float RDuration = 0.5f;
-
-        public static bool Hurt = false;
 
 
         private Transform modelTransform;
@@ -82,6 +82,13 @@ namespace MegamanEXEMod.SkillStates.BaseStates
             AdvanceProgram();
 
             ReflectorProjectile();
+
+            if(VulcanLetter >= 10)
+            {
+                MemoryCode = MemoryCode + "V";
+
+                VulcanLetter = 0;
+            }
 
             //Debug.Log("EvilMotionValue:" + EvilEmotionValue);
 
@@ -360,14 +367,35 @@ namespace MegamanEXEMod.SkillStates.BaseStates
             {
 
                 
-                skillLocator.special.SetSkillOverride(skillLocator.special, MegamanEXE.DrkSwordSkillDef, GenericSkill.SkillOverridePriority.Contextual);
+                skillLocator.special.SetSkillOverride(skillLocator.special, MegamanEXE.AdvLifeSwordSkillDef, GenericSkill.SkillOverridePriority.Contextual);
                 
             }
 
             if (MemoryCodeCheck.Contains("CCC"))
             {
 
-                skillLocator.special.SetSkillOverride(skillLocator.special, MegamanEXE.MCannonSkillDef, GenericSkill.SkillOverridePriority.Contextual);
+                skillLocator.special.SetSkillOverride(skillLocator.special, MegamanEXE.AdvGigaCannonSkillDef, GenericSkill.SkillOverridePriority.Contextual);
+
+            }
+
+            if (MemoryCodeCheck.Contains("VVV"))
+            {
+
+                skillLocator.special.SetSkillOverride(skillLocator.special, MegamanEXE.AdvInfiniteVulcanSkillDef, GenericSkill.SkillOverridePriority.Contextual);
+
+            }
+
+            if (MemoryCodeCheck.Contains("BBB"))
+            {
+
+                skillLocator.special.SetSkillOverride(skillLocator.special, MegamanEXE.AdvBarr500SkillDef, GenericSkill.SkillOverridePriority.Contextual);
+
+            }
+
+            if (MemoryCodeCheck.Contains("YYY"))
+            {
+
+                skillLocator.special.SetSkillOverride(skillLocator.special, MegamanEXE.AdvGreatYoyoSkillDef, GenericSkill.SkillOverridePriority.Contextual);
 
             }
 
@@ -404,12 +432,14 @@ namespace MegamanEXEMod.SkillStates.BaseStates
 
         private void RemoveAdvanceProgram()
         {
-            skillLocator.special.UnsetSkillOverride(skillLocator.special, MegamanEXE.DrkSwordSkillDef, GenericSkill.SkillOverridePriority.Contextual);
-            skillLocator.special.UnsetSkillOverride(skillLocator.special, MegamanEXE.MCannonSkillDef, GenericSkill.SkillOverridePriority.Contextual);
+            skillLocator.special.UnsetSkillOverride(skillLocator.special, MegamanEXE.AdvBarr500SkillDef, GenericSkill.SkillOverridePriority.Contextual);
+            skillLocator.special.UnsetSkillOverride(skillLocator.special, MegamanEXE.AdvGigaCannonSkillDef, GenericSkill.SkillOverridePriority.Contextual);
+            skillLocator.special.UnsetSkillOverride(skillLocator.special, MegamanEXE.AdvGreatYoyoSkillDef, GenericSkill.SkillOverridePriority.Contextual);
+            skillLocator.special.UnsetSkillOverride(skillLocator.special, MegamanEXE.AdvInfiniteVulcanSkillDef, GenericSkill.SkillOverridePriority.Contextual);
+            skillLocator.special.UnsetSkillOverride(skillLocator.special, MegamanEXE.AdvLifeSwordSkillDef, GenericSkill.SkillOverridePriority.Contextual);
 
 
-
-            skillLocator.special.SetSkillOverride(skillLocator.special, MegamanEXE.CyberSwordSkillDef, GenericSkill.SkillOverridePriority.Contextual);
+            skillLocator.special.SetSkillOverride(skillLocator.special, MegamanEXE.NoDataSkillDef, GenericSkill.SkillOverridePriority.Contextual);
         }
 
         public static void DrkBugChanger()

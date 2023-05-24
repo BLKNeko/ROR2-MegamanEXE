@@ -53,7 +53,9 @@ namespace MegamanEXEMod.SkillStates
         public override void OnExit()
         {
 
-            SyncNetworkExe.MemoryCode = SyncNetworkExe.MemoryCode + "V";
+            //SyncNetworkExe.MemoryCode = SyncNetworkExe.MemoryCode + "V";
+
+            SyncNetworkExe.VulcanLetter++;
 
             base.OnExit();
         }

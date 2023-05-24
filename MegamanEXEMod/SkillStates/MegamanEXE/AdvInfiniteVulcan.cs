@@ -39,7 +39,7 @@ namespace MegamanEXEMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
-            this.duration = AdvInfiniteVulcan.baseDuration / this.attackSpeedStat;
+            this.duration = AdvInfiniteVulcan.baseDuration / (this.attackSpeedStat * 2);
             this.fireDuration = 0.25f * this.duration;
             base.characterBody.SetAimTimer(2f);
             this.animator = base.GetModelAnimator();
