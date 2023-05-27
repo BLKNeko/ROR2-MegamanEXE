@@ -411,9 +411,9 @@ namespace MegamanEXEMod.Modules.Survivors
 
             AirShotSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_DESCRIPTION",
+                skillName = prefix + "_MEGAMAN_EXE_BODY_CHIP_AIRSHOT_NAME",
+                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_AIRSHOT_NAME",
+                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_AIRSHOT_DESCRIPTION",
                 skillIcon = Modules.Assets.IconAirShot,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.AirShot)),
                 activationStateMachineName = "Weapon",
@@ -435,9 +435,9 @@ namespace MegamanEXEMod.Modules.Survivors
 
             AquaSwrdSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_DESCRIPTION",
+                skillName = prefix + "_MEGAMAN_EXE_BODY_CHIP_AQUASWRD_NAME",
+                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_AQUASWRD_NAME",
+                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_AQUASWRD_DESCRIPTION",
                 skillIcon = Modules.Assets.IconAquaSwrd,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.AquaSwrd)),
                 activationStateMachineName = "Weapon",
@@ -507,9 +507,9 @@ namespace MegamanEXEMod.Modules.Survivors
 
             Barr100SkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_DESCRIPTION",
+                skillName = prefix + "_MEGAMAN_EXE_BODY_CHIP_BARR100_NAME",
+                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_BARR100_NAME",
+                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_BARR100_DESCRIPTION",
                 skillIcon = Modules.Assets.IconBarr100,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Barr100)),
                 activationStateMachineName = "Weapon",
@@ -579,9 +579,9 @@ namespace MegamanEXEMod.Modules.Survivors
 
             CannonSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_DESCRIPTION",
+                skillName = prefix + "_MEGAMAN_EXE_BODY_CHIP_CANNON_NAME",
+                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_CANNON_NAME",
+                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_CANNON_DESCRIPTION",
                 skillIcon = Modules.Assets.IconCannon,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Cannon)),
                 activationStateMachineName = "Weapon",
@@ -699,9 +699,9 @@ namespace MegamanEXEMod.Modules.Survivors
 
             DrkSwordSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_DESCRIPTION",
+                skillName = prefix + "_MEGAMAN_EXE_BODY_CHIP_DRKSWRD_NAME",
+                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_DRKSWRD_NAME",
+                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_DRKSWRD_DESCRIPTION",
                 skillIcon = Modules.Assets.IconDrkSword,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.DrkSword)),
                 activationStateMachineName = "Weapon",
@@ -747,9 +747,9 @@ namespace MegamanEXEMod.Modules.Survivors
 
             ElecSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_DESCRIPTION",
+                skillName = prefix + "_MEGAMAN_EXE_BODY_CHIP_ELECSWRD_NAME",
+                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_ELECSWRD_NAME",
+                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_ELECSWRD_DESCRIPTION",
                 skillIcon = Modules.Assets.IconElecSwrd,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.ElecSwrd)),
                 activationStateMachineName = "Weapon",
@@ -771,9 +771,9 @@ namespace MegamanEXEMod.Modules.Survivors
 
             FireSwrdSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_DESCRIPTION",
+                skillName = prefix + "_MEGAMAN_EXE_BODY_CHIP_FIRESWRD_NAME",
+                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_FIRESWRD_NAME",
+                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_FIRESWRD_DESCRIPTION",
                 skillIcon = Modules.Assets.IconFireSwrd,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.FireSwrd)),
                 activationStateMachineName = "Weapon",
@@ -819,9 +819,9 @@ namespace MegamanEXEMod.Modules.Survivors
 
             GutPunchSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_DESCRIPTION",
+                skillName = prefix + "_MEGAMAN_EXE_BODY_CHIP_GUTPUNCH_NAME",
+                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_GUTPUNCH_NAME",
+                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_GUTPUNCH_DESCRIPTION",
                 skillIcon = Modules.Assets.IconGutPunch,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.GutPunch)),
                 activationStateMachineName = "Weapon",
@@ -843,9 +843,9 @@ namespace MegamanEXEMod.Modules.Survivors
 
             HiCannonSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_DESCRIPTION",
+                skillName = prefix + "_MEGAMAN_EXE_BODY_CHIP_HICANNON_NAME",
+                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_HICANNON_NAME",
+                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_HICANNON_DESCRIPTION",
                 skillIcon = Modules.Assets.IconHiCannon,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.HiCannon)),
                 activationStateMachineName = "Weapon",
@@ -867,9 +867,9 @@ namespace MegamanEXEMod.Modules.Survivors
 
             InvisSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_DESCRIPTION",
+                skillName = prefix + "_MEGAMAN_EXE_BODY_CHIP_INVIS_NAME",
+                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_INVIS_NAME",
+                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_INVIS_DESCRIPTION",
                 skillIcon = Modules.Assets.IconInvis,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Invis)),
                 activationStateMachineName = "Weapon",
@@ -891,9 +891,9 @@ namespace MegamanEXEMod.Modules.Survivors
 
             MCannonSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_DESCRIPTION",
+                skillName = prefix + "_MEGAMAN_EXE_BODY_CHIP_MCANNON_NAME",
+                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_MCANNON_NAME",
+                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_MCANNON_DESCRIPTION",
                 skillIcon = Modules.Assets.IconMCannon,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.MCannon)),
                 activationStateMachineName = "Weapon",
@@ -915,9 +915,9 @@ namespace MegamanEXEMod.Modules.Survivors
 
             MiniBombSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_DESCRIPTION",
+                skillName = prefix + "_MEGAMAN_EXE_BODY_CHIP_MINIBOMB_NAME",
+                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_MINIBOMB_NAME",
+                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_MINIBOMB_DESCRIPTION",
                 skillIcon = Modules.Assets.IconMiniBomb,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.MiniBomb)),
                 activationStateMachineName = "Weapon",
@@ -939,9 +939,9 @@ namespace MegamanEXEMod.Modules.Survivors
 
             MuramasaSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_DESCRIPTION",
+                skillName = prefix + "_MEGAMAN_EXE_BODY_CHIP_MURAMASA_NAME",
+                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_MURAMASA_NAME",
+                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_MURAMASA_DESCRIPTION",
                 skillIcon = Modules.Assets.IconMuramasa,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Muramasa)),
                 activationStateMachineName = "Weapon",
@@ -1011,9 +1011,9 @@ namespace MegamanEXEMod.Modules.Survivors
 
             Recov50SkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_DESCRIPTION",
+                skillName = prefix + "_MEGAMAN_EXE_BODY_CHIP_RECOV50_NAME",
+                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_RECOV50_NAME",
+                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_RECOV50_DESCRIPTION",
                 skillIcon = Modules.Assets.IconRecov50,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Recov50)),
                 activationStateMachineName = "Weapon",
@@ -1035,9 +1035,9 @@ namespace MegamanEXEMod.Modules.Survivors
 
             ReflectorSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_DESCRIPTION",
+                skillName = prefix + "_MEGAMAN_EXE_BODY_CHIP_REFLECTOR_NAME",
+                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_REFLECTOR_NAME",
+                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_REFLECTOR_DESCRIPTION",
                 skillIcon = Modules.Assets.IconReflector,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Reflector)),
                 activationStateMachineName = "Weapon",
@@ -1083,9 +1083,9 @@ namespace MegamanEXEMod.Modules.Survivors
 
             ShokWaveSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_DESCRIPTION",
+                skillName = prefix + "_MEGAMAN_EXE_BODY_CHIP_SHOKWAVE_NAME",
+                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_SHOKWAVE_NAME",
+                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_SHOKWAVE_DESCRIPTION",
                 skillIcon = Modules.Assets.IconShockWave,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.ShokWav)),
                 activationStateMachineName = "Weapon",
@@ -1107,9 +1107,9 @@ namespace MegamanEXEMod.Modules.Survivors
 
             ShotGunSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_DESCRIPTION",
+                skillName = prefix + "_MEGAMAN_EXE_BODY_CHIP_SHOTGUN_NAME",
+                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_SHOTGUN_NAME",
+                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_SHOTGUN_DESCRIPTION",
                 skillIcon = Modules.Assets.IconShotgun,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.ShotGun)),
                 activationStateMachineName = "Weapon",
@@ -1131,9 +1131,9 @@ namespace MegamanEXEMod.Modules.Survivors
 
             SuprVulcSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_DESCRIPTION",
+                skillName = prefix + "_MEGAMAN_EXE_BODY_CHIP_SUPRVULC_NAME",
+                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_SUPRVULC_NAME",
+                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_SUPRVULC_DESCRIPTION",
                 skillIcon = Modules.Assets.IconSuprVulc,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.SuprVulc)),
                 activationStateMachineName = "Weapon",
@@ -1155,9 +1155,9 @@ namespace MegamanEXEMod.Modules.Survivors
 
             ThunderSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_DESCRIPTION",
+                skillName = prefix + "_MEGAMAN_EXE_BODY_CHIP_THUNDER_NAME",
+                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_THUNDER_NAME",
+                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_THUNDER_DESCRIPTION",
                 skillIcon = Modules.Assets.IconThunder,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Thunder)),
                 activationStateMachineName = "Weapon",
@@ -1179,9 +1179,9 @@ namespace MegamanEXEMod.Modules.Survivors
 
             VulcanSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_DESCRIPTION",
+                skillName = prefix + "_MEGAMAN_EXE_BODY_CHIP_VULCAN_NAME",
+                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_VULCAN_NAME",
+                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_VULCAN_DESCRIPTION",
                 skillIcon = Modules.Assets.IconVulcan,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Vulcan)),
                 activationStateMachineName = "Weapon",
@@ -1203,9 +1203,9 @@ namespace MegamanEXEMod.Modules.Survivors
 
             YoyoSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_NAME",
-                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_SPECIAL_ADVP_DESCRIPTION",
+                skillName = prefix + "_MEGAMAN_EXE_BODY_CHIP_YOYO_NAME",
+                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_YOYO_NAME",
+                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_YOYO_DESCRIPTION",
                 skillIcon = Modules.Assets.IconYoyo,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Yoyo)),
                 activationStateMachineName = "Weapon",
@@ -1279,7 +1279,7 @@ namespace MegamanEXEMod.Modules.Survivors
             //adding the mesh replacements as above. 
             //if you don't want to replace the mesh (for example, you only want to replace the material), pass in null so the order is preserved
             masterySkin.meshReplacements = Modules.Skins.getMeshReplacements(defaultRendererinfos,
-                null,
+                "meshDante",
                 null,//no gun mesh replacement. use same gun mesh
                 null,
                 null,
@@ -1287,11 +1287,11 @@ namespace MegamanEXEMod.Modules.Survivors
 
             //masterySkin has a new set of RendererInfos (based on default rendererinfos)
             //you can simply access the RendererInfos defaultMaterials and set them to the new materials for your skin.
-            masterySkin.rendererInfos[0].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBNDRK");
-            masterySkin.rendererInfos[1].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBNDRK");
-            masterySkin.rendererInfos[2].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBNDRK");
-            masterySkin.rendererInfos[3].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBNDRK");
-            masterySkin.rendererInfos[4].defaultMaterial = Modules.Materials.CreateHopooMaterial("matMMBNDRK");
+            masterySkin.rendererInfos[0].defaultMaterial = Modules.Materials.CreateHopooMaterial("matDiveArmor");
+            masterySkin.rendererInfos[1].defaultMaterial = Modules.Materials.CreateHopooMaterial("matDiveArmor");
+            masterySkin.rendererInfos[2].defaultMaterial = Modules.Materials.CreateHopooMaterial("matDiveArmor");
+            masterySkin.rendererInfos[3].defaultMaterial = Modules.Materials.CreateHopooMaterial("matDiveArmor");
+            masterySkin.rendererInfos[4].defaultMaterial = Modules.Materials.CreateHopooMaterial("matDiveArmor");
 
             //here's a barebones example of using gameobjectactivations that could probably be streamlined or rewritten entirely, truthfully, but it works
             //masterySkin.gameObjectActivations = new SkinDef.GameObjectActivation[]
@@ -1304,7 +1304,7 @@ namespace MegamanEXEMod.Modules.Survivors
            // };
             //simply find an object on your child locator you want to activate/deactivate and set if you want to activate/deacitvate it with this skin
 
-            skins.Add(masterySkin);
+            //skins.Add(masterySkin);
             
 
 

@@ -55,6 +55,7 @@ namespace MegamanEXEMod.SkillStates
                 Ray aimRay = base.GetAimRay();
                 EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FireBarrage.effectPrefab, base.gameObject, this.muzzleString, false);
                 //EffectManager.SimpleMuzzleFlash(EntityStates.Mage.Weapon.FireLaserbolt.impactEffectPrefab, base.gameObject, this.muzzleString, false);
+                Util.PlaySound(Sounds.SFXThunder, base.gameObject);
 
                 if (base.isAuthority)
                 {

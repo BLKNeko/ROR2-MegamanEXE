@@ -58,6 +58,8 @@ namespace MegamanEXEMod.SkillStates
 
                 if (base.isAuthority)
                 {
+
+                    Util.PlaySound(Sounds.SFXGun, this.gameObject);
                     base.PlayAnimation("Gesture, Override", "ShootBurst", "attackSpeed", this.duration);
                     ProjectileManager.instance.FireProjectile(Modules.Projectiles.ShotGunProjectile, aimRay.origin, Util.QuaternionSafeLookRotation(aimRay.direction), base.gameObject, this.damageCoefficient * this.damageStat, 0f, Util.CheckRoll(this.critStat, base.characterBody.master), DamageColorIndex.Default, null, -1f);
                 }

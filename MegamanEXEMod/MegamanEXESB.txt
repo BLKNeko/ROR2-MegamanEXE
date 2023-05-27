@@ -3,11 +3,14 @@ Event	ID	Name			Wwise Object Path	Notes
 	650563007	Play_RedHP			\Default Work Unit\Play_RedHP	
 	712207333	Play_Cannon			\Default Work Unit\Play_Cannon	
 	1160861272	Play_TurnInvisible			\Default Work Unit\Play_TurnInvisible	
+	1637087714	Play_EXE_BugFix			\Default Work Unit\Play_EXE_BugFix	
 	1714978863	Play_Barrier			\Default Work Unit\Play_Barrier	
 	1746766985	Play_SwordSwing			\Default Work Unit\Play_SwordSwing	
 	2209407276	Play_ChipConfirm			\Default Work Unit\Play_ChipConfirm	
+	2382068583	Play_Megaman_Deleted_vocals			\Default Work Unit\Play_Megaman_Deleted_vocals	
 	2656371292	Play_BusterCharging			\Default Work Unit\Play_BusterCharging	
 	2808007795	Play_Vulcan			\Default Work Unit\Play_Vulcan	
+	2911548273	Play_EXE_gun			\Default Work Unit\Play_EXE_gun	
 	3090936230	Play_Recover			\Default Work Unit\Play_Recover	
 	3870462868	Play_Thunder			\Default Work Unit\Play_Thunder	
 	4177785495	Play_BusterCharged			\Default Work Unit\Play_BusterCharged	
@@ -20,9 +23,12 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	139224980	Recover	A:\Users\augus\Documents\WwiseProjects\MegamanEXESB\.cache\Windows\SFX\Recover HQ_05842A19.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_Mixer\Recover		24239
 	186103816	TurnInvisible	A:\Users\augus\Documents\WwiseProjects\MegamanEXESB\.cache\Windows\SFX\TurnInvisible HQ_05842A19.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_Mixer\TurnInvisible		17636
 	203286360	BusterCharged	A:\Users\augus\Documents\WwiseProjects\MegamanEXESB\.cache\Windows\SFX\BusterCharged HQ_05842A19.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_Mixer\BusterCharged		14277
+	284490142	EXE_gun	A:\Users\augus\Documents\WwiseProjects\MegamanEXESB\.cache\Windows\SFX\EXE_gun_05842A19.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_Mixer\EXE_gun		11331
 	310349378	Cannon	A:\Users\augus\Documents\WwiseProjects\MegamanEXESB\.cache\Windows\SFX\31- Cannon_05842A19.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_Mixer\Cannon		5600
 	358800153	RedHP	A:\Users\augus\Documents\WwiseProjects\MegamanEXESB\.cache\Windows\SFX\RedHP HQ_05842A19.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_Mixer\RedHP		8064
 	371727039	BusterCharging	A:\Users\augus\Documents\WwiseProjects\MegamanEXESB\.cache\Windows\SFX\BusterCharging HQ_05842A19.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_Mixer\BusterCharging		18752
+	556327810	Megaman_Deleted_vocals	A:\Users\augus\Documents\WwiseProjects\MegamanEXESB\.cache\Windows\SFX\Megaman_Deleted_vocals_05842A19.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_Mixer\Megaman_Deleted_vocals		40493
+	600370443	EXE_BugFix	A:\Users\augus\Documents\WwiseProjects\MegamanEXESB\.cache\Windows\SFX\EXE_BugFix_05842A19.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_Mixer\EXE_BugFix		50878
 	623258265	Barrier	A:\Users\augus\Documents\WwiseProjects\MegamanEXESB\.cache\Windows\SFX\Barrier HQ_05842A19.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_Mixer\Barrier		25463
 	813510853	SwordSwing	A:\Users\augus\Documents\WwiseProjects\MegamanEXESB\.cache\Windows\SFX\SwordSwing HQ_05842A19.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_Mixer\SwordSwing		12720
 	845268795	ChipConfirm	A:\Users\augus\Documents\WwiseProjects\MegamanEXESB\.cache\Windows\SFX\ChipConfirm HQ_05842A19.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_Mixer\ChipConfirm		20842

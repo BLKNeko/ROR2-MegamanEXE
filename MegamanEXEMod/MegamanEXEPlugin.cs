@@ -1,4 +1,5 @@
 ﻿using BepInEx;
+using MegamanEXEMod.Modules;
 using MegamanEXEMod.Modules.Survivors;
 using MegamanEXEMod.SkillStates.BaseStates;
 using R2API;
@@ -72,7 +73,25 @@ namespace MegamanEXEMod
             On.RoR2.CharacterBody.RecalculateStats += CharacterBody_RecalculateStats;
 
             On.RoR2.HealthComponent.TakeDamage += CheckDMG;
+
+            On.RoR2.CharacterModel.Awake += CharacterModel_Awake;
         }
+
+
+        private void CharacterModel_Awake(On.RoR2.CharacterModel.orig_Awake orig, CharacterModel self)
+        {
+            orig(self);
+            if (self.gameObject.name.Contains("MegamanEXE"))
+            {
+                Util.PlaySound(Sounds.SFXChipConfirm, self.gameObject);
+
+                
+
+                //I think TeaL used this on DekuMod to make the character select menu audio
+            }
+
+        }
+
 
 
         private static void CheckDMG(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo info)
@@ -81,7 +100,9 @@ namespace MegamanEXEMod
 
             //seens like this is triggered even when i attack, so i filter here to don't do anything if attacker is Megaman
 
-            if (!info.attacker.name.Contains("MegamanEXE"))
+            //now i see turrets is triggering too, so i add a new filter to see if the one damaged are MegamanEXE
+
+            if (!info.attacker.name.Contains("MegamanEXE") && self.name.Contains("MegamanEXE"))
             {
 
                 SyncNetworkExe.EmotionValue--;
@@ -89,6 +110,8 @@ namespace MegamanEXEMod
                 Debug.Log("self.body.name:" + self.body.name);
                 Debug.Log("self.body.isLocalPlayer:" + self.body.isLocalPlayer);
                 Debug.Log("self.name:" + self.name);
+
+                
 
 
 

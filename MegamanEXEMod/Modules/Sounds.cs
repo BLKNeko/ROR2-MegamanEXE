@@ -19,6 +19,9 @@ namespace MegamanEXEMod.Modules
         public static readonly string SFXChipConfirm = "Play_ChipConfirm";
         public static readonly string SFXVulcan = "Play_Vulcan";
         public static readonly string SFXThunder = "Play_Thunder";
+        public static readonly string SFXDeleted = "Play_Megaman_Deleted_vocals";
+        public static readonly string SFXBugFix = "Play_EXE_BugFix";
+        public static readonly string SFXGun = "Play_EXE_gun";
 
     }
 }

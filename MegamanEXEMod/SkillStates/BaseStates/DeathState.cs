@@ -1,4 +1,5 @@
 ﻿using EntityStates;
+using MegamanEXEMod.Modules;
 using RoR2;
 using RoR2.Skills;
 using System;
@@ -29,7 +30,7 @@ namespace MegamanEXEMod.SkillStates.BaseStates
 
 
             base.PlayAnimation("FullBody, Override", "Deleted", "attackSpeed", this.duration);
-            // Util.PlaySound(Sounds.HaseoDie, base.gameObject);
+            Util.PlaySound(Sounds.SFXDeleted, this.gameObject);
 
 
         }
