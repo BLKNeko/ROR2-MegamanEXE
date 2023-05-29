@@ -62,6 +62,7 @@ namespace MegamanEXEMod.SkillStates
             extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, MegamanEXE.ReflectorSkillDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, MegamanEXE.ShokWaveSkillDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, MegamanEXE.ShotGunSkillDef, GenericSkill.SkillOverridePriority.Contextual);
+            extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, MegamanEXE.StepSwordSkillDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, MegamanEXE.SuprVulcSkillDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, MegamanEXE.ThunderSkillDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, MegamanEXE.VulcanSkillDef, GenericSkill.SkillOverridePriority.Contextual);
@@ -97,6 +98,7 @@ namespace MegamanEXEMod.SkillStates
             extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, MegamanEXE.ReflectorSkillDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, MegamanEXE.ShokWaveSkillDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, MegamanEXE.ShotGunSkillDef, GenericSkill.SkillOverridePriority.Contextual);
+            extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, MegamanEXE.StepSwordSkillDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, MegamanEXE.SuprVulcSkillDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, MegamanEXE.ThunderSkillDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, MegamanEXE.VulcanSkillDef, GenericSkill.SkillOverridePriority.Contextual);
@@ -130,6 +132,7 @@ namespace MegamanEXEMod.SkillStates
             extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, MegamanEXE.ReflectorSkillDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, MegamanEXE.ShokWaveSkillDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, MegamanEXE.ShotGunSkillDef, GenericSkill.SkillOverridePriority.Contextual);
+            extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, MegamanEXE.StepSwordSkillDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, MegamanEXE.SuprVulcSkillDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, MegamanEXE.ThunderSkillDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, MegamanEXE.VulcanSkillDef, GenericSkill.SkillOverridePriority.Contextual);
@@ -163,6 +166,7 @@ namespace MegamanEXEMod.SkillStates
             extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, MegamanEXE.ReflectorSkillDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, MegamanEXE.ShokWaveSkillDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, MegamanEXE.ShotGunSkillDef, GenericSkill.SkillOverridePriority.Contextual);
+            extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, MegamanEXE.StepSwordSkillDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, MegamanEXE.SuprVulcSkillDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, MegamanEXE.ThunderSkillDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, MegamanEXE.VulcanSkillDef, GenericSkill.SkillOverridePriority.Contextual);
@@ -171,10 +175,10 @@ namespace MegamanEXEMod.SkillStates
 
 
 
-            SkillId2 = Random.Range(1, 32);
-            SkillId3 = Random.Range(1, 32);
-            SkillId1 = Random.Range(1, 32);
-            SkillId4 = Random.Range(1, 32);
+            SkillId2 = Random.Range(1, 33);
+            SkillId3 = Random.Range(1, 33);
+            SkillId1 = Random.Range(1, 33);
+            SkillId4 = Random.Range(1, 33);
 
             //Debug.Log("SkillId1 Value:");
             //Debug.Log(SkillId1);
@@ -313,6 +317,10 @@ namespace MegamanEXEMod.SkillStates
                     extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, MegamanEXE.YoyoSkillDef, GenericSkill.SkillOverridePriority.Contextual);
                     //Debug.Log("SkillId1 to bomb");
                     break;
+                case 32:
+                    extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, MegamanEXE.StepSwordSkillDef, GenericSkill.SkillOverridePriority.Contextual);
+                    //Debug.Log("SkillId1 to bomb");
+                    break;
                 default:
                     extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, MegamanEXE.DrkSwordSkillDef, GenericSkill.SkillOverridePriority.Contextual);
                     //Debug.Log("SkillId1 to default");
@@ -443,6 +451,10 @@ namespace MegamanEXEMod.SkillStates
                     break;
                 case 31:
                     extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, MegamanEXE.YoyoSkillDef, GenericSkill.SkillOverridePriority.Contextual);
+                    //Debug.Log("SkillId1 to bomb");
+                    break;
+                case 32:
+                    extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, MegamanEXE.StepSwordSkillDef, GenericSkill.SkillOverridePriority.Contextual);
                     //Debug.Log("SkillId1 to bomb");
                     break;
                 default:
@@ -577,6 +589,10 @@ namespace MegamanEXEMod.SkillStates
                     extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, MegamanEXE.YoyoSkillDef, GenericSkill.SkillOverridePriority.Contextual);
                     //Debug.Log("SkillId1 to bomb");
                     break;
+                case 32:
+                    extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, MegamanEXE.StepSwordSkillDef, GenericSkill.SkillOverridePriority.Contextual);
+                    //Debug.Log("SkillId1 to bomb");
+                    break;
                 default:
                     extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, MegamanEXE.DrkSwordSkillDef, GenericSkill.SkillOverridePriority.Contextual);
                     //Debug.Log("SkillId1 to default");
@@ -707,6 +723,10 @@ namespace MegamanEXEMod.SkillStates
                     break;
                 case 31:
                     extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, MegamanEXE.YoyoSkillDef, GenericSkill.SkillOverridePriority.Contextual);
+                    //Debug.Log("SkillId1 to bomb");
+                    break;
+                case 32:
+                    extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, MegamanEXE.StepSwordSkillDef, GenericSkill.SkillOverridePriority.Contextual);
                     //Debug.Log("SkillId1 to bomb");
                     break;
                 default:

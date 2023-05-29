@@ -58,6 +58,7 @@ namespace MegamanEXEMod.Modules.Survivors
         internal static SkillDef SendChipSkillDef;
         internal static SkillDef ShokWaveSkillDef;
         internal static SkillDef ShotGunSkillDef;
+        internal static SkillDef StepSwordSkillDef;
         internal static SkillDef SuprVulcSkillDef;
         internal static SkillDef ThunderSkillDef;
         internal static SkillDef VulcanSkillDef;
@@ -1129,6 +1130,30 @@ namespace MegamanEXEMod.Modules.Survivors
                 stockToConsume = 1
             });
 
+            StepSwordSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "_MEGAMAN_EXE_BODY_CHIP_STEPSWORD_NAME",
+                skillNameToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_STEPSWORD_NAME",
+                skillDescriptionToken = prefix + "_MEGAMAN_EXE_BODY_CHIP_STEPSWORD_DESCRIPTION",
+                skillIcon = Modules.Assets.IconStepSword,
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.StepSwordDash)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 2,
+                baseRechargeInterval = 20f,
+                beginSkillCooldownOnSkillEnd = false,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = true,
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 2,
+                requiredStock = 1,
+                stockToConsume = 1
+            });
+
             SuprVulcSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "_MEGAMAN_EXE_BODY_CHIP_SUPRVULC_NAME",
@@ -1234,9 +1259,25 @@ namespace MegamanEXEMod.Modules.Survivors
             Modules.Skills.AddSpecialSkills(bodyPrefab, NoDataSkillDef);
 
             Skills.AddFirstExtraSkill(bodyPrefab, YoyoSkillDef);
+            Skills.AddFirstExtraSkill(bodyPrefab, BugFixSkillDef);
+            Skills.AddFirstExtraSkill(bodyPrefab, MiniBombSkillDef);
+
+
             Skills.AddSecondExtraSkill(bodyPrefab, CannonSkillDef);
-            Skills.AddThirdExtraSkill(bodyPrefab, ReflectorSkillDef);
-            Skills.AddFourthExtraSkill(bodyPrefab, Recov50SkillDef);
+            Skills.AddSecondExtraSkill(bodyPrefab, DrkSwordSkillDef);
+            Skills.AddSecondExtraSkill(bodyPrefab, FstGaugeSkillDef);
+
+
+            Skills.AddThirdExtraSkill(bodyPrefab, Recov50SkillDef);
+            Skills.AddThirdExtraSkill(bodyPrefab, Attack10SkillDef);
+            Skills.AddThirdExtraSkill(bodyPrefab, DrkRecovSkillDef);
+
+
+            Skills.AddFourthExtraSkill(bodyPrefab, StepSwordSkillDef);
+            Skills.AddFourthExtraSkill(bodyPrefab, AirShotSkillDef);
+            Skills.AddFourthExtraSkill(bodyPrefab, VulcanSkillDef);
+
+
         }
         
         public override void InitializeSkins()
@@ -1279,7 +1320,7 @@ namespace MegamanEXEMod.Modules.Survivors
             //adding the mesh replacements as above. 
             //if you don't want to replace the mesh (for example, you only want to replace the material), pass in null so the order is preserved
             masterySkin.meshReplacements = Modules.Skins.getMeshReplacements(defaultRendererinfos,
-                "meshDante",
+                null,
                 null,//no gun mesh replacement. use same gun mesh
                 null,
                 null,
@@ -1287,11 +1328,11 @@ namespace MegamanEXEMod.Modules.Survivors
 
             //masterySkin has a new set of RendererInfos (based on default rendererinfos)
             //you can simply access the RendererInfos defaultMaterials and set them to the new materials for your skin.
-            masterySkin.rendererInfos[0].defaultMaterial = Modules.Materials.CreateHopooMaterial("matDiveArmor");
-            masterySkin.rendererInfos[1].defaultMaterial = Modules.Materials.CreateHopooMaterial("matDiveArmor");
-            masterySkin.rendererInfos[2].defaultMaterial = Modules.Materials.CreateHopooMaterial("matDiveArmor");
-            masterySkin.rendererInfos[3].defaultMaterial = Modules.Materials.CreateHopooMaterial("matDiveArmor");
-            masterySkin.rendererInfos[4].defaultMaterial = Modules.Materials.CreateHopooMaterial("matDiveArmor");
+            //masterySkin.rendererInfos[0].defaultMaterial = Modules.Materials.CreateHopooMaterial("matDiveArmor");
+            //masterySkin.rendererInfos[1].defaultMaterial = Modules.Materials.CreateHopooMaterial("matDiveArmor");
+            //masterySkin.rendererInfos[2].defaultMaterial = Modules.Materials.CreateHopooMaterial("matDiveArmor");
+            //masterySkin.rendererInfos[3].defaultMaterial = Modules.Materials.CreateHopooMaterial("matDiveArmor");
+            //masterySkin.rendererInfos[4].defaultMaterial = Modules.Materials.CreateHopooMaterial("matDiveArmor");
 
             //here's a barebones example of using gameobjectactivations that could probably be streamlined or rewritten entirely, truthfully, but it works
             //masterySkin.gameObjectActivations = new SkinDef.GameObjectActivation[]
@@ -1304,7 +1345,7 @@ namespace MegamanEXEMod.Modules.Survivors
            // };
             //simply find an object on your child locator you want to activate/deactivate and set if you want to activate/deacitvate it with this skin
 
-            //skins.Add(masterySkin);
+            skins.Add(masterySkin);
             
 
 

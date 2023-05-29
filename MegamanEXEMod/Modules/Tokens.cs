@@ -96,13 +96,13 @@ namespace MegamanEXEMod.Modules
             LanguageAPI.Add(prefix + "CHIP_LIFESWORD_DESCRIPTION", "If a correct order of Battle Chips are used, this skill changes for an Advanced Program.");
 
             LanguageAPI.Add(prefix + "CHIP_AIRSHOT_NAME", "AirShot");
-            LanguageAPI.Add(prefix + "CHIP_AIRSHOT_DESCRIPTION", "If a correct order of Battle Chips are used, this skill changes for an Advanced Program.");
+            LanguageAPI.Add(prefix + "CHIP_AIRSHOT_DESCRIPTION", "Air shot with high knockback");
 
             LanguageAPI.Add(prefix + "CHIP_AQUASWRD_NAME", "Aqua Sword");
             LanguageAPI.Add(prefix + "CHIP_AQUASWRD_DESCRIPTION", "If a correct order of Battle Chips are used, this skill changes for an Advanced Program.");
 
             LanguageAPI.Add(prefix + "CHIP_ATK10_NAME", "ATK10");
-            LanguageAPI.Add(prefix + "CHIP_ATK10_DESCRIPTION", "If a correct order of Battle Chips are used, this skill changes for an Advanced Program.");
+            LanguageAPI.Add(prefix + "CHIP_ATK10_DESCRIPTION", "Gain +10% of damage");
 
             LanguageAPI.Add(prefix + "CHIP_ATK30_NAME", "ATK30");
             LanguageAPI.Add(prefix + "CHIP_ATK30_DESCRIPTION", "If a correct order of Battle Chips are used, this skill changes for an Advanced Program.");
@@ -114,10 +114,10 @@ namespace MegamanEXEMod.Modules
             LanguageAPI.Add(prefix + "CHIP_BARR200_DESCRIPTION", "chip");
 
             LanguageAPI.Add(prefix + "CHIP_BUGFIX_NAME", "BugFix");
-            LanguageAPI.Add(prefix + "CHIP_BUGFIX_DESCRIPTION", "chip");
+            LanguageAPI.Add(prefix + "CHIP_BUGFIX_DESCRIPTION", "Remove most bugs and evil points.");
 
             LanguageAPI.Add(prefix + "CHIP_CANNON_NAME", "Cannon");
-            LanguageAPI.Add(prefix + "CHIP_CANNON_DESCRIPTION", "chip");
+            LanguageAPI.Add(prefix + "CHIP_CANNON_DESCRIPTION", "A power shot with a cannon arm.");
 
             LanguageAPI.Add(prefix + "CHIP_DARKBOMB_NAME", "Dark Bomb");
             LanguageAPI.Add(prefix + "CHIP_DARKBOMB_DESCRIPTION", "chip");
@@ -126,10 +126,10 @@ namespace MegamanEXEMod.Modules
             LanguageAPI.Add(prefix + "CHIP_DARKCANNON_DESCRIPTION", "chip");
 
             LanguageAPI.Add(prefix + "CHIP_DARKRECOV_NAME", "Dark Recov");
-            LanguageAPI.Add(prefix + "CHIP_DARKRECOV_DESCRIPTION", "chip");
+            LanguageAPI.Add(prefix + "CHIP_DARKRECOV_DESCRIPTION", "Recover <style=cIsUtility>1000 HP</style> and a little extra if posible.");
 
             LanguageAPI.Add(prefix + "CHIP_DRKSWRD_NAME", "Dark Sword");
-            LanguageAPI.Add(prefix + "CHIP_DRKSWRD_DESCRIPTION", "chip");
+            LanguageAPI.Add(prefix + "CHIP_DRKSWRD_DESCRIPTION", "Powerfull Dark Sword");
 
             LanguageAPI.Add(prefix + "CHIP_DARKVULCAN_NAME", "Dark Vulcan");
             LanguageAPI.Add(prefix + "CHIP_DARKVULCAN_DESCRIPTION", "chip");
@@ -141,7 +141,7 @@ namespace MegamanEXEMod.Modules
             LanguageAPI.Add(prefix + "CHIP_FIRESWRD_DESCRIPTION", "chip");
 
             LanguageAPI.Add(prefix + "CHIP_FSTGAUGE_NAME", "FstGauge");
-            LanguageAPI.Add(prefix + "CHIP_FSTGAUGE_DESCRIPTION", "chip");
+            LanguageAPI.Add(prefix + "CHIP_FSTGAUGE_DESCRIPTION", "Instante remove 'SendChip' cooldown.");
 
             LanguageAPI.Add(prefix + "CHIP_GUTPUNCH_NAME", "Gut Punch");
             LanguageAPI.Add(prefix + "CHIP_GUTPUNCH_DESCRIPTION", "chip");
@@ -156,7 +156,7 @@ namespace MegamanEXEMod.Modules
             LanguageAPI.Add(prefix + "CHIP_MCANNON_DESCRIPTION", "chip");
 
             LanguageAPI.Add(prefix + "CHIP_MINIBOMB_NAME", "Mini Bomb");
-            LanguageAPI.Add(prefix + "CHIP_MINIBOMB_DESCRIPTION", "chip");
+            LanguageAPI.Add(prefix + "CHIP_MINIBOMB_DESCRIPTION", "Small granades");
 
             LanguageAPI.Add(prefix + "CHIP_MURAMASA_NAME", "Muramasa");
             LanguageAPI.Add(prefix + "CHIP_MURAMASA_DESCRIPTION", "chip");
@@ -165,13 +165,16 @@ namespace MegamanEXEMod.Modules
             LanguageAPI.Add(prefix + "CHIP_RECOV300_DESCRIPTION", "chip");
 
             LanguageAPI.Add(prefix + "CHIP_RECOV50_NAME", "Recov50");
-            LanguageAPI.Add(prefix + "CHIP_RECOV50_DESCRIPTION", "chip");
+            LanguageAPI.Add(prefix + "CHIP_RECOV50_DESCRIPTION", "Recover <style=cIsUtility>50 HP</style>.");
 
             LanguageAPI.Add(prefix + "CHIP_SHOKWAVE_NAME", "ShokWave");
             LanguageAPI.Add(prefix + "CHIP_SHOKWAVE_DESCRIPTION", "chip");
 
             LanguageAPI.Add(prefix + "CHIP_SHOTGUN_NAME", "Shotgun");
             LanguageAPI.Add(prefix + "CHIP_SHOTGUN_DESCRIPTION", "chip");
+
+            LanguageAPI.Add(prefix + "CHIP_STEPSWORD_NAME", "Step Sword");
+            LanguageAPI.Add(prefix + "CHIP_STEPSWORD_DESCRIPTION", "Perform a dash and attack if enemy is on range");
 
             LanguageAPI.Add(prefix + "CHIP_SUPRVULC_NAME", "Supr Vulcan");
             LanguageAPI.Add(prefix + "CHIP_SUPRVULC_DESCRIPTION", "chip");
@@ -180,7 +183,7 @@ namespace MegamanEXEMod.Modules
             LanguageAPI.Add(prefix + "CHIP_THUNDER_DESCRIPTION", "chip");
 
             LanguageAPI.Add(prefix + "CHIP_VULCAN_NAME", "Vulcan");
-            LanguageAPI.Add(prefix + "CHIP_VULCAN_DESCRIPTION", "chip");
+            LanguageAPI.Add(prefix + "CHIP_VULCAN_DESCRIPTION", "Fast gattling shots.");
 
             LanguageAPI.Add(prefix + "CHIP_YOYO_NAME", "Yoyo");
             LanguageAPI.Add(prefix + "CHIP_YOYO_DESCRIPTION", "chip");

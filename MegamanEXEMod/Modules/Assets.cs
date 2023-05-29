@@ -77,6 +77,8 @@ namespace MegamanEXEMod.Modules
 
         public static Sprite IconReflector;
 
+        public static Sprite IconStepSword;
+
         internal static GameObject VfxChargeeffect1C;
         internal static GameObject VfxChargeeffect1W;
         internal static GameObject VfxChargeeffect2C;
@@ -87,6 +89,7 @@ namespace MegamanEXEMod.Modules
         internal static GameObject VfxFullSync;
         internal static GameObject VfxRage;
         internal static GameObject VfxEvil;
+        internal static GameObject VfxDeleted;
 
         public static Material MatCyberSwordDefault;
         public static Material MatCyberSwordRed;
@@ -190,6 +193,8 @@ namespace MegamanEXEMod.Modules
             VfxRage = Assets.LoadEffect("VFXRage", true);
             VfxEvil = Assets.LoadEffect("VFXEnterEvil", true);
 
+            VfxDeleted = Assets.LoadEffect("DeathEffect", true);
+
             MatCyberSwordDefault = mainAssetBundle.LoadAsset<Material>("matMMBNSword");
             MatCyberSwordRed = mainAssetBundle.LoadAsset<Material>("matMMBNSwordRed");
             MatCyberSwordDark = mainAssetBundle.LoadAsset<Material>("matMMBNSwordDark");
@@ -254,6 +259,7 @@ namespace MegamanEXEMod.Modules
 
             IconReflector = mainAssetBundle.LoadAsset<Sprite>("IconReflector");
 
+            IconStepSword = mainAssetBundle.LoadAsset<Sprite>("IconStepSword");
         }
 
         private static GameObject CreateTracer(string originalTracerName, string newTracerName)

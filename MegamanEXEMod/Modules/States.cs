@@ -55,6 +55,8 @@ namespace MegamanEXEMod.Modules
             Modules.Content.AddEntityState(typeof(SendChip));
             Modules.Content.AddEntityState(typeof(ShokWav));
             Modules.Content.AddEntityState(typeof(ShotGun));
+            Modules.Content.AddEntityState(typeof(StepSwordAttack));
+            Modules.Content.AddEntityState(typeof(StepSwordDash));
             Modules.Content.AddEntityState(typeof(SuprVulc));
             Modules.Content.AddEntityState(typeof(Thunder));
             Modules.Content.AddEntityState(typeof(Vulcan));

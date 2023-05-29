@@ -20,6 +20,8 @@ namespace MegamanEXEMod.Modules
 
             switch (Index)
             {
+                case 0:
+                    break;
                 case 1:
                     GameObject.Find("EXEBuster").transform.localScale = new Vector3(1, 1, 1);
                     GameObject.Find("EXEBuster").GetComponent<MeshRenderer>().enabled = true;

@@ -15,6 +15,11 @@ namespace MegamanEXEMod.SkillStates.BaseStates
         public float baseDuration = 0.5f;
         private Animator animator;
 
+        private Transform modelTransform;
+        private CharacterModel characterModel;
+        private HurtBoxGroup hurtboxGroup;
+
+
         public override void OnEnter()
         {
             base.OnEnter();
@@ -29,14 +34,44 @@ namespace MegamanEXEMod.SkillStates.BaseStates
             SyncNetworkExe.EmotionValue = 25;
 
 
+            ArmHelper.ArmChanger(0);
+
+
             base.PlayAnimation("FullBody, Override", "Deleted", "attackSpeed", this.duration);
             Util.PlaySound(Sounds.SFXDeleted, this.gameObject);
+
+
+            EffectManager.SimpleMuzzleFlash(Modules.Assets.VfxDeleted, base.gameObject, "CenterMZR", true);
+
+            modelTransform = GetModelTransform();
+            if ((bool)modelTransform)
+            {
+                animator = modelTransform.GetComponent<Animator>();
+                characterModel = modelTransform.GetComponent<CharacterModel>();
+                hurtboxGroup = modelTransform.GetComponent<HurtBoxGroup>();
+            }
+
+            if ((bool)characterModel)
+            {
+                characterModel.invisibilityCount++;
+            }
+
+
+
 
 
         }
 
         public override void OnExit()
         {
+
+            if ((bool)characterModel)
+            {
+                characterModel.invisibilityCount--;
+            }
+
+            base.PlayAnimation("FullBody, Override", "BufferEmpty", "attackSpeed", this.duration);
+
             base.OnExit();
         }
         public override void FixedUpdate()

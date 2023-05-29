@@ -26,6 +26,7 @@ namespace MegamanEXEMod.SkillStates.BaseStates
         public static float DamageReceived = 0f;
 
         public static int VulcanLetter = 0;
+        public static int InfVulcanLetter = 0;
 
         public float RDuration = 0.5f;
 
@@ -87,7 +88,15 @@ namespace MegamanEXEMod.SkillStates.BaseStates
             {
                 MemoryCode = MemoryCode + "V";
 
+                InfVulcanLetter = 0;
                 VulcanLetter = 0;
+            }
+
+            if (InfVulcanLetter >= 50)
+            {
+                MemoryCode = MemoryCode + "X";
+
+                InfVulcanLetter = 0;
             }
 
             //Debug.Log("EvilMotionValue:" + EvilEmotionValue);

@@ -55,6 +55,8 @@ namespace MegamanEXEMod.SkillStates
 
             //SyncNetworkExe.MemoryCode = SyncNetworkExe.MemoryCode + "X";
 
+            SyncNetworkExe.InfVulcanLetter++;
+
             base.OnExit();
         }
 
