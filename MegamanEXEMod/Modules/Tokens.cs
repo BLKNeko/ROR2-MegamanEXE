@@ -186,7 +186,7 @@ namespace MegamanEXEMod.Modules
             LanguageAPI.Add(prefix + "CHIP_VULCAN_DESCRIPTION", "Fast gattling shots.");
 
             LanguageAPI.Add(prefix + "CHIP_YOYO_NAME", "Yoyo");
-            LanguageAPI.Add(prefix + "CHIP_YOYO_DESCRIPTION", "chip");
+            LanguageAPI.Add(prefix + "CHIP_YOYO_DESCRIPTION", "Shoot a metal yoyo");
 
 
 

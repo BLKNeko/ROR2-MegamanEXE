@@ -6,10 +6,10 @@ place the dll in your plugins folder or extract to a folder inside plugins.
 
 
 # Screenshots
-![](https://i.imgur.com/6wxbu0M.png)
-![](https://i.imgur.com/e7Xdapm.png)
-![](https://i.imgur.com/gtfzcpG.png)
-![](https://i.imgur.com/pFeJtnX.png)
+![](https://i.imgur.com/lKsRPB8.png)
+![](https://i.imgur.com/C6Xuiei.png)
+![](https://i.imgur.com/ve5qV6S.png)
+![](https://i.imgur.com/EfMejb1.png)
 
 
 # Changelog
