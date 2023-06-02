@@ -1,0 +1,12 @@
+{
+    "name": "MegamanEXEMod",
+    "version_number": "1.0.0",
+    "website_url": "https://github.com/BLKNeko/ROR2-MegamanEXE",
+    "description": "Megaman EXE as a Survivor for Risk Of Rain2 - Battle runtime set! Execute!",
+    "dependencies": [
+        "tristanmcpherson-R2API-3.0.59",
+        "bbepis-BepInExPack-5.4.9",
+        "kinggrinyov-KingModUtilities-1.7.4",
+        "KingEnderBrine-ExtraSkillSlots-1.5.1"
+    ]
+}
