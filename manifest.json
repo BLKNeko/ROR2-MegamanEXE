@@ -1,6 +1,6 @@
 {
     "name": "MegamanEXEMod",
-    "version_number": "1.0.0",
+    "version_number": "1.0.2",
     "website_url": "https://github.com/BLKNeko/ROR2-MegamanEXE",
     "description": "Megaman EXE as a Survivor for Risk Of Rain2 - Battle runtime set! Execute!",
     "dependencies": [

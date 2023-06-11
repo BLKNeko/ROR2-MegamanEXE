@@ -35,7 +35,7 @@ namespace MegamanEXEMod
         //   this shouldn't even have to be said
         public const string MODUID = "com.BLKNeko.MegamanEXE";
         public const string MODNAME = "MegamanEXE";
-        public const string MODVERSION = "1.0.0";
+        public const string MODVERSION = "1.0.2";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string DEVELOPER_PREFIX = "BLKNeko";
@@ -80,15 +80,24 @@ namespace MegamanEXEMod
 
         private void CharacterModel_Awake(On.RoR2.CharacterModel.orig_Awake orig, CharacterModel self)
         {
+
             orig(self);
-            if (self.gameObject.name.Contains("MegamanEXE"))
+
+            if (self)
             {
-                Util.PlaySound(Sounds.SFXChipConfirm, self.gameObject);
 
-                
+                if (self.gameObject.name.Contains("MegamanEXE"))
+                {
+                    Util.PlaySound(Sounds.SFXChipConfirm, self.gameObject);
 
-                //I think TeaL used this on DekuMod to make the character select menu audio
+
+
+                    //I think TeaL used this on DekuMod to make the character select menu audio
+                }
+
             }
+
+            
 
         }
 
@@ -96,38 +105,57 @@ namespace MegamanEXEMod
 
         private static void CheckDMG(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo info)
         {
-            //if (info.HasModdedDamageType(DamageTypes.yourNameHere)
 
-            //seens like this is triggered even when i attack, so i filter here to don't do anything if attacker is Megaman
+            orig(self, info);
 
-            //now i see turrets is triggering too, so i add a new filter to see if the one damaged are MegamanEXE
-
-            if (!info.attacker.name.Contains("MegamanEXE") && self.name.Contains("MegamanEXE"))
+            //iDeathHD helped me on that, self is not null so we can continue
+            if (self)
             {
+                //seens like this is triggered even when i attack, so i filter here to don't do anything if attacker is Megaman
+                //now i see turrets is triggering too, so i add a new filter to see if the one damaged are MegamanEXE
+                //now i found out the reason for bugs, fall damage don't have an attacker
+                if (info.attacker)
+                {
 
-                SyncNetworkExe.EmotionValue--;
 
-                Debug.Log("self.body.name:" + self.body.name);
-                Debug.Log("self.body.isLocalPlayer:" + self.body.isLocalPlayer);
-                Debug.Log("self.name:" + self.name);
+                    if (!info.attacker.name.Contains("MegamanEXE") && self.name.Contains("MegamanEXE"))
+                    {
+
+                        SyncNetworkExe.EmotionValue--;
+
+                        Debug.Log("self.body.name:" + self.body.name);
+                        Debug.Log("self.body.isLocalPlayer:" + self.body.isLocalPlayer);
+                        Debug.Log("self.name:" + self.name);
+
+
+
+
+
+                        SyncNetworkExe.DamageReceived += info.damage;
+
+                        Debug.Log("DamageReceived:" + SyncNetworkExe.DamageReceived);
+                        Debug.Log("attacker:" + info.attacker);
+                        Debug.Log("damage:" + info.damage);
+                        Debug.Log("position:" + info.position);
+
+                        SyncNetworkExe.Hurt = true;
+
+
+                    }
+
+
+
+                }
 
                 
 
 
-
-                SyncNetworkExe.DamageReceived += info.damage;
-
-                Debug.Log("DamageReceived:" + SyncNetworkExe.DamageReceived);
-                Debug.Log("attacker:" + info.attacker);
-                Debug.Log("damage:" + info.damage);
-                Debug.Log("position:" + info.position);
-
-                SyncNetworkExe.Hurt = true;
-
-
+                
             }
 
-            orig(self, info);
+            
+
+            
 
         }
 
