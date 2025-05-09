@@ -5,160 +5,76 @@ using System;
 using System.Collections.Generic;
 using MegamanEXEMod;
 using UnityEngine;
-using ExtraSkillSlots;
 
 namespace MegamanEXEMod.Modules
 {
-
     internal static class Skills
     {
         #region genericskills
-        public static void CreateSkillFamilies(GameObject targetPrefab, bool destroyExisting = true)
+        public static void CreateSkillFamilies(GameObject targetPrefab) => CreateSkillFamilies(targetPrefab, SkillSlot.Primary, SkillSlot.Secondary, SkillSlot.Utility, SkillSlot.Special);
+        /// <summary>
+        /// Create in order the GenericSkills for the skillslots desired, and create skillfamilies for them.
+        /// </summary>
+        /// <param name="targetPrefab">Body prefab to add GenericSkills</param>
+        /// <param name="slots">Order of slots to add to the body prefab.</param>
+        public static void CreateSkillFamilies(GameObject targetPrefab, params SkillSlot[] slots)
         {
-            if (destroyExisting)
-            {
-                foreach (GenericSkill obj in targetPrefab.GetComponentsInChildren<GenericSkill>())
-                {
-                    UnityEngine.Object.DestroyImmediate(obj);
-                }
-            }
-
             SkillLocator skillLocator = targetPrefab.GetComponent<SkillLocator>();
 
-            skillLocator.primary = CreateGenericSkillWithSkillFamily(targetPrefab, "Primary");
-            skillLocator.secondary = CreateGenericSkillWithSkillFamily(targetPrefab, "Secondary");
-            skillLocator.utility = CreateGenericSkillWithSkillFamily(targetPrefab, "Utility");
-            skillLocator.special = CreateGenericSkillWithSkillFamily(targetPrefab, "Special");
-        }
-
-        //Following Deku mod as example to use extra skill slots we create the skill families here.
-
-        internal static void CreateFirstExtraSkillFamily(GameObject targetPrefab)
-        {
-            ExtraSkillLocator skillLocator = targetPrefab.GetComponent<ExtraSkillLocator>();
-            if (!skillLocator)
+            for (int i = 0; i < slots.Length; i++)
             {
-                skillLocator = targetPrefab.AddComponent<ExtraSkillLocator>();
-            }
-            skillLocator.extraFirst = targetPrefab.AddComponent<GenericSkill>();
-            SkillFamily firstExtraFamily = ScriptableObject.CreateInstance<SkillFamily>();
-            firstExtraFamily.variants = new SkillFamily.Variant[0];
-            skillLocator.extraFirst._skillFamily = firstExtraFamily;
-        }
-
-        internal static void CreateSecondExtraSkillFamily(GameObject targetPrefab)
-        {
-            ExtraSkillLocator skillLocator = targetPrefab.GetComponent<ExtraSkillLocator>();
-            if (!skillLocator)
-            {
-                skillLocator = targetPrefab.AddComponent<ExtraSkillLocator>();
-            }
-            skillLocator.extraSecond = targetPrefab.AddComponent<GenericSkill>();
-            SkillFamily secondExtraFamily = ScriptableObject.CreateInstance<SkillFamily>();
-            secondExtraFamily.variants = new SkillFamily.Variant[0];
-            skillLocator.extraSecond._skillFamily = secondExtraFamily;
-        }
-        internal static void CreateThirdExtraSkillFamily(GameObject targetPrefab)
-        {
-            ExtraSkillLocator skillLocator = targetPrefab.GetComponent<ExtraSkillLocator>();
-            if (!skillLocator)
-            {
-                skillLocator = targetPrefab.AddComponent<ExtraSkillLocator>();
-            }
-            skillLocator.extraThird = targetPrefab.AddComponent<GenericSkill>();
-            SkillFamily thirdExtraFamily = ScriptableObject.CreateInstance<SkillFamily>();
-            thirdExtraFamily.variants = new SkillFamily.Variant[0];
-            skillLocator.extraThird._skillFamily = thirdExtraFamily;
-        }
-        internal static void CreateFourthExtraSkillFamily(GameObject targetPrefab)
-        {
-            ExtraSkillLocator skillLocator = targetPrefab.GetComponent<ExtraSkillLocator>();
-            if (!skillLocator)
-            {
-                skillLocator = targetPrefab.AddComponent<ExtraSkillLocator>();
-            }
-            skillLocator.extraFourth = targetPrefab.AddComponent<GenericSkill>();
-            SkillFamily fourthExtraFamily = ScriptableObject.CreateInstance<SkillFamily>();
-            fourthExtraFamily.variants = new SkillFamily.Variant[0];
-            skillLocator.extraFourth._skillFamily = fourthExtraFamily;
-        }
-
-
-        //Following Deku mod as example after creating the families we need to add them.
-        internal static void AddFirstExtraSkill(GameObject targetPrefab, SkillDef skillDef)
-        {
-            ExtraSkillLocator skillLocator = targetPrefab.GetComponent<ExtraSkillLocator>();
-            if (skillLocator)
-            {
-                SkillFamily skillFamily = skillLocator.extraFirst.skillFamily;
-
-                Array.Resize(ref skillFamily.variants, skillFamily.variants.Length + 1);
-                skillFamily.variants[skillFamily.variants.Length - 1] = new SkillFamily.Variant
+                switch (slots[i])
                 {
-                    skillDef = skillDef,
-                    unlockableName = "",
-                    viewableNode = new ViewablesCatalog.Node(skillDef.skillNameToken, false, null)
-                };
+                    case SkillSlot.Primary:
+                        skillLocator.primary = CreateGenericSkillWithSkillFamily(targetPrefab, "Primary");
+                        break;
+                    case SkillSlot.Secondary:
+                        skillLocator.secondary = CreateGenericSkillWithSkillFamily(targetPrefab, "Secondary");
+                        break;
+                    case SkillSlot.Utility:
+                        skillLocator.utility = CreateGenericSkillWithSkillFamily(targetPrefab, "Utility");
+                        break;
+                    case SkillSlot.Special:
+                        skillLocator.special = CreateGenericSkillWithSkillFamily(targetPrefab, "Special");
+                        break;
+                    case SkillSlot.None:
+                        break;
+                }
             }
         }
 
-        internal static void AddSecondExtraSkill(GameObject targetPrefab, SkillDef skillDef)
+        public static void ClearGenericSkills(GameObject targetPrefab)
         {
-            ExtraSkillLocator skillLocator = targetPrefab.GetComponent<ExtraSkillLocator>();
-            if (skillLocator)
+            foreach (GenericSkill obj in targetPrefab.GetComponentsInChildren<GenericSkill>())
             {
-                SkillFamily skillFamily = skillLocator.extraSecond.skillFamily;
-
-                Array.Resize(ref skillFamily.variants, skillFamily.variants.Length + 1);
-                skillFamily.variants[skillFamily.variants.Length - 1] = new SkillFamily.Variant
-                {
-                    skillDef = skillDef,
-                    unlockableName = "",
-                    viewableNode = new ViewablesCatalog.Node(skillDef.skillNameToken, false, null)
-                };
+                UnityEngine.Object.DestroyImmediate(obj);
             }
         }
 
-        internal static void AddThirdExtraSkill(GameObject targetPrefab, SkillDef skillDef)
+        public static GenericSkill CreateGenericSkillWithSkillFamily(GameObject targetPrefab, SkillSlot skillSlot, bool hidden = false)
         {
-            ExtraSkillLocator skillLocator = targetPrefab.GetComponent<ExtraSkillLocator>();
-            if (skillLocator)
+            SkillLocator skillLocator = targetPrefab.GetComponent<SkillLocator>();
+            switch (skillSlot)
             {
-                SkillFamily skillFamily = skillLocator.extraThird.skillFamily;
-
-                Array.Resize(ref skillFamily.variants, skillFamily.variants.Length + 1);
-                skillFamily.variants[skillFamily.variants.Length - 1] = new SkillFamily.Variant
-                {
-                    skillDef = skillDef,
-                    unlockableName = "",
-                    viewableNode = new ViewablesCatalog.Node(skillDef.skillNameToken, false, null)
-                };
+                case SkillSlot.Primary:
+                    return skillLocator.primary = CreateGenericSkillWithSkillFamily(targetPrefab, "Primary", hidden);
+                case SkillSlot.Secondary:
+                    return skillLocator.secondary = CreateGenericSkillWithSkillFamily(targetPrefab, "Secondary", hidden);
+                case SkillSlot.Utility:
+                    return skillLocator.utility = CreateGenericSkillWithSkillFamily(targetPrefab, "Utility", hidden);
+                case SkillSlot.Special:
+                    return skillLocator.special = CreateGenericSkillWithSkillFamily(targetPrefab, "Special", hidden);
+                case SkillSlot.None:
+                    Log.Error("Failed to create GenericSkill with skillslot None. If making a GenericSkill outside of the main 4, specify a familyName, and optionally a genericSkillName");
+                    return null;
             }
+            return null;
         }
-
-        internal static void AddFourthExtraSkill(GameObject targetPrefab, SkillDef skillDef)
-        {
-            ExtraSkillLocator skillLocator = targetPrefab.GetComponent<ExtraSkillLocator>();
-            if (skillLocator)
-            {
-                SkillFamily skillFamily = skillLocator.extraFourth.skillFamily;
-
-                Array.Resize(ref skillFamily.variants, skillFamily.variants.Length + 1);
-                skillFamily.variants[skillFamily.variants.Length - 1] = new SkillFamily.Variant
-                {
-                    skillDef = skillDef,
-                    unlockableName = "",
-                    viewableNode = new ViewablesCatalog.Node(skillDef.skillNameToken, false, null)
-                };
-            }
-        }
-
-
-
-        public static GenericSkill CreateGenericSkillWithSkillFamily(GameObject targetPrefab, string familyName, bool hidden = false)
+        public static GenericSkill CreateGenericSkillWithSkillFamily(GameObject targetPrefab, string familyName, bool hidden = false) => CreateGenericSkillWithSkillFamily(targetPrefab, familyName, familyName, hidden);
+        public static GenericSkill CreateGenericSkillWithSkillFamily(GameObject targetPrefab, string genericSkillName, string familyName, bool hidden = false)
         {
             GenericSkill skill = targetPrefab.AddComponent<GenericSkill>();
-            skill.skillName = familyName;
+            skill.skillName = genericSkillName;
             skill.hideInCharacterSelect = hidden;
 
             SkillFamily newFamily = ScriptableObject.CreateInstance<SkillFamily>();
@@ -167,7 +83,7 @@ namespace MegamanEXEMod.Modules
 
             skill._skillFamily = newFamily;
 
-            MegamanEXEMod.Modules.Content.AddSkillFamily(newFamily);
+            Content.AddSkillFamily(newFamily);
             return skill;
         }
         #endregion
@@ -248,20 +164,24 @@ namespace MegamanEXEMod.Modules
 
             skillDef.activationState = skillDefInfo.activationState;
             skillDef.activationStateMachineName = skillDefInfo.activationStateMachineName;
+            skillDef.interruptPriority = skillDefInfo.interruptPriority;
+
             skillDef.baseMaxStock = skillDefInfo.baseMaxStock;
             skillDef.baseRechargeInterval = skillDefInfo.baseRechargeInterval;
+
+            skillDef.rechargeStock = skillDefInfo.rechargeStock;
+            skillDef.requiredStock = skillDefInfo.requiredStock;
+            skillDef.stockToConsume = skillDefInfo.stockToConsume;
+
+            skillDef.dontAllowPastMaxStocks = skillDefInfo.dontAllowPastMaxStocks;
             skillDef.beginSkillCooldownOnSkillEnd = skillDefInfo.beginSkillCooldownOnSkillEnd;
             skillDef.canceledFromSprinting = skillDefInfo.canceledFromSprinting;
             skillDef.forceSprintDuringState = skillDefInfo.forceSprintDuringState;
             skillDef.fullRestockOnAssign = skillDefInfo.fullRestockOnAssign;
-            skillDef.interruptPriority = skillDefInfo.interruptPriority;
             skillDef.resetCooldownTimerOnUse = skillDefInfo.resetCooldownTimerOnUse;
             skillDef.isCombatSkill = skillDefInfo.isCombatSkill;
             skillDef.mustKeyPress = skillDefInfo.mustKeyPress;
             skillDef.cancelSprintingOnActivation = skillDefInfo.cancelSprintingOnActivation;
-            skillDef.rechargeStock = skillDefInfo.rechargeStock;
-            skillDef.requiredStock = skillDefInfo.requiredStock;
-            skillDef.stockToConsume = skillDefInfo.stockToConsume;
 
             skillDef.keywordTokens = skillDefInfo.keywordTokens;
 
@@ -271,17 +191,6 @@ namespace MegamanEXEMod.Modules
             return skillDef;
         }
         #endregion skilldefs
-
-        internal static void PassiveSetup(GameObject targetPrefab)
-        {
-            SkillLocator skillLocator = targetPrefab.GetComponent<SkillLocator>();
-            string prefix = MegamanEXEPlugin.DEVELOPER_PREFIX + "_MEGAMAN_EXE_BODY_";
-            skillLocator.passiveSkill.enabled = true;
-            skillLocator.passiveSkill.skillNameToken = prefix + "PASSIVE_NAME";
-            skillLocator.passiveSkill.skillDescriptionToken = prefix + "PASSIVE_DESCRIPTION";
-            skillLocator.passiveSkill.icon = Assets.IconPassive;
-        }
-
     }
 
     /// <summary>
@@ -292,29 +201,30 @@ namespace MegamanEXEMod.Modules
         public string skillName;
         public string skillNameToken;
         public string skillDescriptionToken;
-        public string[] keywordTokens = new string[0];
+        public string[] keywordTokens = Array.Empty<string>();
         public Sprite skillIcon;
 
         public SerializableEntityStateType activationState;
-        public InterruptPriority interruptPriority;
         public string activationStateMachineName;
+        public InterruptPriority interruptPriority;
 
         public float baseRechargeInterval;
-
         public int baseMaxStock = 1;
+
         public int rechargeStock = 1;
         public int requiredStock = 1;
         public int stockToConsume = 1;
 
-        public bool isCombatSkill = true;
-        public bool canceledFromSprinting;
-        public bool forceSprintDuringState;
-        public bool cancelSprintingOnActivation = true;
-
-        public bool beginSkillCooldownOnSkillEnd;
+        public bool resetCooldownTimerOnUse = false;
         public bool fullRestockOnAssign = true;
-        public bool resetCooldownTimerOnUse;
-        public bool mustKeyPress;
+        public bool dontAllowPastMaxStocks = false;
+        public bool beginSkillCooldownOnSkillEnd = false;
+        public bool mustKeyPress = false;
+
+        public bool isCombatSkill = true;
+        public bool canceledFromSprinting = false;
+        public bool cancelSprintingOnActivation = true;
+        public bool forceSprintDuringState = false;
 
         #region constructors
         public SkillDefInfo() { }
@@ -322,7 +232,8 @@ namespace MegamanEXEMod.Modules
         /// Creates a skilldef for a typical primary.
         /// <para>combat skill, cooldown: 0, required stock: 0, InterruptPriority: Any</para>
         /// </summary>
-        public SkillDefInfo(string skillNameToken,
+        public SkillDefInfo(string skillName,
+                            string skillNameToken,
                             string skillDescriptionToken,
                             Sprite skillIcon,
 
@@ -330,7 +241,7 @@ namespace MegamanEXEMod.Modules
                             string activationStateMachineName = "Weapon",
                             bool agile = false)
         {
-            this.skillName = skillNameToken;
+            this.skillName = skillName;
             this.skillNameToken = skillNameToken;
             this.skillDescriptionToken = skillDescriptionToken;
             this.skillIcon = skillIcon;
@@ -338,16 +249,16 @@ namespace MegamanEXEMod.Modules
             this.activationState = activationState;
             this.activationStateMachineName = activationStateMachineName;
 
+            this.cancelSprintingOnActivation = !agile;
+
+            if (agile) this.keywordTokens = new string[] { "KEYWORD_AGILE" };
+
             this.interruptPriority = InterruptPriority.Any;
             this.isCombatSkill = true;
             this.baseRechargeInterval = 0;
 
             this.requiredStock = 0;
             this.stockToConsume = 0;
-
-            this.cancelSprintingOnActivation = !agile;
-
-            if (agile) this.keywordTokens = new string[] { "KEYWORD_AGILE" };
 
         }
         #endregion construction complete

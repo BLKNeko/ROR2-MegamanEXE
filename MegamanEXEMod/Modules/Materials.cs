@@ -9,31 +9,43 @@ namespace MegamanEXEMod.Modules
 
         internal static Shader hotpoo = RoR2.LegacyResourcesAPI.Load<Shader>("Shaders/Deferred/HGStandard");
 
-        public static Material CreateHopooMaterial(string materialName)
+        public static Material LoadMaterial(this AssetBundle assetBundle, string materialName) => CreateHopooMaterialFromBundle(assetBundle, materialName);
+        public static Material CreateHopooMaterialFromBundle(this AssetBundle assetBundle, string materialName)
         {
             Material tempMat = cachedMaterials.Find(mat =>
             {
                 materialName.Replace(" (Instance)", "");
                 return mat.name.Contains(materialName);
             });
-            if (tempMat)
+            if (tempMat) {
+                Log.Debug($"{tempMat.name} has already been loaded. returning cached");
                 return tempMat;
-
-            tempMat = Assets.mainAssetBundle.LoadAsset<Material>(materialName);
+            }
+            tempMat = assetBundle.LoadAsset<Material>(materialName);
 
             if (!tempMat)
             {
-                Log.Error("Failed to load material: " + materialName + " - Check to see that the material in your Unity project matches this name");
+                Log.ErrorAssetBundle(materialName, assetBundle.name);
                 return new Material(hotpoo);
             }
 
-            return tempMat.SetHopooMaterial();
+            return tempMat.ConvertDefaultShaderToHopoo();
         }
 
-        public static Material SetHopooMaterial(this Material tempMat)
+        public static Material SetHopooMaterial(this Material tempMat) => ConvertDefaultShaderToHopoo(tempMat);
+        public static Material ConvertDefaultShaderToHopoo(this Material tempMat)
         {
-            if (cachedMaterials.Contains(tempMat))
+            if (cachedMaterials.Contains(tempMat)) {
+                Log.Debug($"{tempMat.name} has already been converted. returning cached");
                 return tempMat;
+            }
+
+            string name = tempMat.shader.name.ToLowerInvariant();
+            if (!name.StartsWith("standard") && !name.StartsWith("autodesk"))
+            {
+                Log.Debug($"{tempMat.name} is not unity standard shader. aborting material conversion");
+                return tempMat;
+            }
 
             float? bumpScale = null;
             Color? emissionColor = null;
@@ -52,14 +64,13 @@ namespace MegamanEXEMod.Modules
             tempMat.shader = hotpoo;
 
             //apply values after shader is set
-            tempMat.SetColor("_Color", tempMat.GetColor("_Color"));
-            tempMat.SetTexture("_MainTex", tempMat.GetTexture("_MainTex"));
             tempMat.SetTexture("_EmTex", tempMat.GetTexture("_EmissionMap"));
             tempMat.EnableKeyword("DITHER");
-
+            
             if (bumpScale != null)
             {
                 tempMat.SetFloat("_NormalStrength", (float)bumpScale);
+                tempMat.SetTexture("_NormalTex", tempMat.GetTexture("_BumpMap"));
             }
             if (emissionColor != null)
             {
@@ -89,7 +100,6 @@ namespace MegamanEXEMod.Modules
         /// </summary>
         public static Material MakeUnique(this Material material)
         {
-
             if (cachedMaterials.Contains(material))
             {
                 return new Material(material);
@@ -120,6 +130,18 @@ namespace MegamanEXEMod.Modules
         public static Material SetCull(this Material material, bool cull = false)
         {
             material.SetInt("_Cull", cull ? 1 : 0);
+            return material;
+        }
+
+        public static Material SetSpecular(this Material material, float strength)
+        {
+            material.SetFloat("_SpecularStrength", strength);
+            return material;
+        }
+        public static Material SetSpecular(this Material material, float strength, float exponent)
+        {
+            material.SetFloat("_SpecularStrength", strength);
+            material.SetFloat("SpecularExponent", exponent);
             return material;
         }
     }

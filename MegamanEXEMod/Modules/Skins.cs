@@ -93,10 +93,11 @@ namespace MegamanEXEMod.Modules
         ///    "meshHenry");
         /// </code>
         /// </summary>
+        /// <param name="assetBundle">your skindef's rendererinfos to access the renderers</param>
         /// <param name="defaultRendererInfos">your skindef's rendererinfos to access the renderers</param>
         /// <param name="meshes">name of the mesh assets in your project</param>
         /// <returns></returns>
-        internal static SkinDef.MeshReplacement[] getMeshReplacements(CharacterModel.RendererInfo[] defaultRendererInfos, params string[] meshes)
+        internal static SkinDef.MeshReplacement[] getMeshReplacements(AssetBundle assetBundle, CharacterModel.RendererInfo[] defaultRendererInfos, params string[] meshes)
         {
 
             List<SkinDef.MeshReplacement> meshReplacements = new List<SkinDef.MeshReplacement>();
@@ -110,7 +111,7 @@ namespace MegamanEXEMod.Modules
                 new SkinDef.MeshReplacement
                 {
                     renderer = defaultRendererInfos[i].renderer,
-                    mesh = Assets.mainAssetBundle.LoadAsset<Mesh>(meshes[i])
+                    mesh = assetBundle.LoadAsset<Mesh>(meshes[i])
                 });
             }
 
