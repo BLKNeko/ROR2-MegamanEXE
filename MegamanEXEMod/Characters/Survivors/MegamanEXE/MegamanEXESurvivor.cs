@@ -14,17 +14,17 @@ namespace MegamanEXEMod.Survivors.Henry
     public class MegamanEXESurvivor : SurvivorBase<MegamanEXESurvivor>
     {
         //used to load the assetbundle for this character. must be unique
-        public override string assetBundleName => "myassetbundle"; //if you do not change this, you are giving permission to deprecate the mod
+        public override string assetBundleName => "megamanexebundle"; //if you do not change this, you are giving permission to deprecate the mod
 
         //the name of the prefab we will create. conventionally ending in "Body". must be unique
-        public override string bodyName => "HenryBody"; //if you do not change this, you get the point by now
+        public override string bodyName => "MegamanEXEBody"; //if you do not change this, you get the point by now
 
         //name of the ai master for vengeance and goobo. must be unique
-        public override string masterName => "HenryMonsterMaster"; //if you do not
+        public override string masterName => "MegamanEXEMonsterMaster"; //if you do not
 
         //the names of the prefabs you set up in unity that we will use to build your character
-        public override string modelPrefabName => "mdlHenry";
-        public override string displayPrefabName => "HenryDisplay";
+        public override string modelPrefabName => "mdlMegamanEXE";
+        public override string displayPrefabName => "MegamanEXEDisplay";
 
         public const string HENRY_PREFIX = MegamanEXEPlugin.DEVELOPER_PREFIX + "_HENRY_";
 
@@ -55,16 +55,48 @@ namespace MegamanEXEMod.Survivors.Henry
         {
                 new CustomRendererInfo
                 {
-                    childName = "SwordModel",
-                    material = assetBundle.LoadMaterial("matHenry"),
+                    childName = "EXEBodyMesh",
+                    material = assetBundle.LoadMaterial("matMMEXE"),
                 },
                 new CustomRendererInfo
                 {
-                    childName = "GunModel",
+                    childName = "EXEHandLMesh",
+                    material = assetBundle.LoadMaterial("matMMEXE"),
                 },
                 new CustomRendererInfo
                 {
-                    childName = "Model",
+                    childName = "EXEHandRMesh",
+                    material = assetBundle.LoadMaterial("matMMEXE"),
+                },
+                new CustomRendererInfo
+                {
+                    childName = "EXEBuster",
+                    material = assetBundle.LoadMaterial("matMMEXE"),
+                },
+                new CustomRendererInfo
+                {
+                    childName = "ProtoBuster",
+                    material = assetBundle.LoadMaterial("matProtoBuster"),
+                },
+                new CustomRendererInfo
+                {
+                    childName = "RollBuster",
+                    material = assetBundle.LoadMaterial("matRBuster"),
+                },
+                new CustomRendererInfo
+                {
+                    childName = "BassBuster",
+                    material = assetBundle.LoadMaterial("matBassEXE"),
+                },
+                new CustomRendererInfo
+                {
+                    childName = "CYSword",
+                    material = assetBundle.LoadMaterial("matEXESword"),
+                },
+                new CustomRendererInfo
+                {
+                    childName = "EXEMask",
+                    material = assetBundle.LoadMaterial("matMMEXE"),
                 }
         };
 
@@ -103,7 +135,7 @@ namespace MegamanEXEMod.Survivors.Henry
             HenryStates.Init();
             HenryTokens.Init();
 
-            HenryAssets.Init(assetBundle);
+            EXEAssets.Init(assetBundle);
             HenryBuffs.Init(assetBundle);
 
             InitializeEntityStateMachines();
@@ -127,7 +159,7 @@ namespace MegamanEXEMod.Survivors.Henry
         public void AddHitboxes()
         {
             //example of how to create a HitBoxGroup. see summary for more details
-            Prefabs.SetupHitBoxGroup(characterModelObject, "SwordGroup", "SwordHitbox");
+            //Prefabs.SetupHitBoxGroup(characterModelObject, "SwordGroup", "SwordHitbox");
         }
 
         public override void InitializeEntityStateMachines() 
@@ -358,21 +390,330 @@ namespace MegamanEXEMod.Survivors.Henry
                 prefabCharacterModel.gameObject);
 
             //these are your Mesh Replacements. The order here is based on your CustomRendererInfos from earlier
-                //pass in meshes as they are named in your assetbundle
+            //pass in meshes as they are named in your assetbundle
             //currently not needed as with only 1 skin they will simply take the default meshes
-                //uncomment this when you have another skin
-            //defaultSkin.meshReplacements = Modules.Skins.getMeshReplacements(assetBundle, defaultRendererinfos,
-            //    "meshHenrySword",
-            //    "meshHenryGun",
-            //    "meshHenry");
+            //uncomment this when you have another skin
+            defaultSkin.meshReplacements = Modules.Skins.getMeshReplacements(assetBundle, defaultRendererinfos,
+                "EXEBodyMesh",
+                "EXELHandMesh",
+                "EXERHandMesh",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
+
+            //you can simply access the RendererInfos' materials and set them to the new materials for your skin.
+            defaultSkin.rendererInfos[0].defaultMaterial = EXEAssets.EXEMat;
+            defaultSkin.rendererInfos[1].defaultMaterial = EXEAssets.EXEMat;
+            defaultSkin.rendererInfos[2].defaultMaterial = EXEAssets.EXEMat;
+            defaultSkin.rendererInfos[4].defaultMaterial = EXEAssets.EXEMat;
+            defaultSkin.rendererInfos[7].defaultMaterial = EXEAssets.EXESwordMat;
+
+            //here's a barebones example of using gameobjectactivations that could probably be streamlined or rewritten entirely, truthfully, but it works
+            defaultSkin.gameObjectActivations = new SkinDef.GameObjectActivation[]
+            {
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("EXEBodyMesh"),
+                    shouldActivate = true,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("EXEHandLMesh"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("EXEHandRMesh"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("EXEBuster"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("ProtoBuster"),
+                    shouldActivate = true,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("RollBuster"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("BassBuster"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("CYSword"),
+                    shouldActivate = true,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("EXEMask"),
+                    shouldActivate = true,
+                }
+            };
 
             //add new skindef to our list of skindefs. this is what we'll be passing to the SkinController
             skins.Add(defaultSkin);
             #endregion
 
+            ////creating a new skindef as we did before
+            SkinDef protoSkin = Modules.Skins.CreateSkinDef(HENRY_PREFIX + "MASTERY_SKIN_NAME",
+                assetBundle.LoadAsset<Sprite>("texMasteryAchievement"),
+                defaultRendererinfos,
+                prefabCharacterModel.gameObject);
+
+            //adding the mesh replacements as above. 
+            //if you don't want to replace the mesh (for example, you only want to replace the material), pass in null so the order is preserved
+            protoSkin.meshReplacements = Modules.Skins.getMeshReplacements(assetBundle, defaultRendererinfos,
+                "ProtomanBodyMesh",
+                "PHandLMesh",
+                "PHandRMesh",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
+
+            //masterySkin has a new set of RendererInfos (based on default rendererinfos)
+            //you can simply access the RendererInfos' materials and set them to the new materials for your skin.
+            protoSkin.rendererInfos[0].defaultMaterial = EXEAssets.ProtoMat;
+            protoSkin.rendererInfos[1].defaultMaterial = EXEAssets.ProtoMat;
+            protoSkin.rendererInfos[2].defaultMaterial = EXEAssets.ProtoMat;
+            protoSkin.rendererInfos[4].defaultMaterial = EXEAssets.ProtoBusterMat;
+            protoSkin.rendererInfos[7].defaultMaterial = EXEAssets.ProtoSwordMat;
+
+            //here's a barebones example of using gameobjectactivations that could probably be streamlined or rewritten entirely, truthfully, but it works
+            protoSkin.gameObjectActivations = new SkinDef.GameObjectActivation[]
+            {
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("EXEBodyMesh"),
+                    shouldActivate = true,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("EXEHandLMesh"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("EXEHandRMesh"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("EXEBuster"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("ProtoBuster"),
+                    shouldActivate = true,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("RollBuster"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("BassBuster"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("CYSword"),
+                    shouldActivate = true,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("EXEMask"),
+                    shouldActivate = false,
+                }
+            };
+            //simply find an object on your child locator you want to activate/deactivate and set if you want to activate/deacitvate it with this skin
+
+            skins.Add(protoSkin);
+
+            #region ROLL
+
+            ////creating a new skindef as we did before
+            SkinDef rollSkin = Modules.Skins.CreateSkinDef(HENRY_PREFIX + "MASTERY_SKIN_NAME",
+                assetBundle.LoadAsset<Sprite>("texMasteryAchievement"),
+                defaultRendererinfos,
+                prefabCharacterModel.gameObject);
+
+            //adding the mesh replacements as above. 
+            //if you don't want to replace the mesh (for example, you only want to replace the material), pass in null so the order is preserved
+            rollSkin.meshReplacements = Modules.Skins.getMeshReplacements(assetBundle, defaultRendererinfos,
+                "RollBodyMesh",
+                "RollHandLMesh",
+                "RollHandRMesh",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
+
+            //masterySkin has a new set of RendererInfos (based on default rendererinfos)
+            //you can simply access the RendererInfos' materials and set them to the new materials for your skin.
+            rollSkin.rendererInfos[0].defaultMaterial = EXEAssets.RollMat;
+            rollSkin.rendererInfos[1].defaultMaterial = EXEAssets.RollMat;
+            rollSkin.rendererInfos[2].defaultMaterial = EXEAssets.RollMat;
+            rollSkin.rendererInfos[7].defaultMaterial = EXEAssets.RollSwordMat;
+
+            //here's a barebones example of using gameobjectactivations that could probably be streamlined or rewritten entirely, truthfully, but it works
+            rollSkin.gameObjectActivations = new SkinDef.GameObjectActivation[]
+            {
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("EXEBodyMesh"),
+                    shouldActivate = true,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("EXEHandLMesh"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("EXEHandRMesh"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("EXEBuster"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("ProtoBuster"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("RollBuster"),
+                    shouldActivate = true,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("BassBuster"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("CYSword"),
+                    shouldActivate = true,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("EXEMask"),
+                    shouldActivate = false,
+                }
+            };
+            //simply find an object on your child locator you want to activate/deactivate and set if you want to activate/deacitvate it with this skin
+
+            skins.Add(rollSkin);
+
+            #endregion
+
+            #region BASS
+
+            ////creating a new skindef as we did before
+            SkinDef bassSkin = Modules.Skins.CreateSkinDef(HENRY_PREFIX + "MASTERY_SKIN_NAME",
+                assetBundle.LoadAsset<Sprite>("texMasteryAchievement"),
+                defaultRendererinfos,
+                prefabCharacterModel.gameObject);
+
+            //adding the mesh replacements as above. 
+            //if you don't want to replace the mesh (for example, you only want to replace the material), pass in null so the order is preserved
+            bassSkin.meshReplacements = Modules.Skins.getMeshReplacements(assetBundle, defaultRendererinfos,
+                "BEBodyMesh",
+                "BEHandLMesh",
+                "BEHandRMesh",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
+
+            //masterySkin has a new set of RendererInfos (based on default rendererinfos)
+            //you can simply access the RendererInfos' materials and set them to the new materials for your skin.
+            bassSkin.rendererInfos[0].defaultMaterial = EXEAssets.BassMat;
+            bassSkin.rendererInfos[1].defaultMaterial = EXEAssets.BassMat;
+            bassSkin.rendererInfos[2].defaultMaterial = EXEAssets.BassMat;
+            bassSkin.rendererInfos[7].defaultMaterial = EXEAssets.BassSwordMat;
+
+            //here's a barebones example of using gameobjectactivations that could probably be streamlined or rewritten entirely, truthfully, but it works
+            bassSkin.gameObjectActivations = new SkinDef.GameObjectActivation[]
+            {
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("EXEBodyMesh"),
+                    shouldActivate = true,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("EXEHandLMesh"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("EXEHandRMesh"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("EXEBuster"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("ProtoBuster"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("RollBuster"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("BassBuster"),
+                    shouldActivate = true,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("CYSword"),
+                    shouldActivate = true,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("EXEMask"),
+                    shouldActivate = false,
+                }
+            };
+            //simply find an object on your child locator you want to activate/deactivate and set if you want to activate/deacitvate it with this skin
+
+            skins.Add(bassSkin);
+
+            #endregion
+
             //uncomment this when you have a mastery skin
             #region MasterySkin
-            
+
             ////creating a new skindef as we did before
             //SkinDef masterySkin = Modules.Skins.CreateSkinDef(HENRY_PREFIX + "MASTERY_SKIN_NAME",
             //    assetBundle.LoadAsset<Sprite>("texMasteryAchievement"),
@@ -405,7 +746,7 @@ namespace MegamanEXEMod.Survivors.Henry
             ////simply find an object on your child locator you want to activate/deactivate and set if you want to activate/deacitvate it with this skin
 
             //skins.Add(masterySkin);
-            
+
             #endregion
 
             skinController.skins = skins.ToArray();
