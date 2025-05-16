@@ -4,7 +4,7 @@ using MegamanEXEMod.Modules;
 using System;
 using RoR2.Projectile;
 
-namespace MegamanEXEMod.Survivors.Henry
+namespace MegamanEXEMod.Survivors.MegamanEXE
 {
     public static class EXEAssets
     {

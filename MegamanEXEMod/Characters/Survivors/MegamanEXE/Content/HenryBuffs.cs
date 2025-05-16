@@ -1,7 +1,7 @@
 ﻿using RoR2;
 using UnityEngine;
 
-namespace MegamanEXEMod.Survivors.Henry
+namespace MegamanEXEMod.Survivors.MegamanEXE
 {
     public static class HenryBuffs
     {

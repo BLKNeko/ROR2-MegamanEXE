@@ -1,12 +1,12 @@
-﻿using MegamanEXEMod.Survivors.Henry.SkillStates;
+﻿using MegamanEXEMod.Survivors.MegamanEXE.SkillStates;
 
-namespace MegamanEXEMod.Survivors.Henry
+namespace MegamanEXEMod.Survivors.MegamanEXE
 {
     public static class HenryStates
     {
         public static void Init()
         {
-            Modules.Content.AddEntityState(typeof(SlashCombo));
+            //Modules.Content.AddEntityState(typeof(SlashCombo));
 
             Modules.Content.AddEntityState(typeof(Shoot));
 

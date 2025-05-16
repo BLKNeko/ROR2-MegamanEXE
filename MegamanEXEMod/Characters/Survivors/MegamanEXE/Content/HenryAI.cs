@@ -2,7 +2,7 @@
 using RoR2.CharacterAI;
 using UnityEngine;
 
-namespace MegamanEXEMod.Survivors.Henry
+namespace MegamanEXEMod.Survivors.MegamanEXE
 {
     public static class HenryAI
     {

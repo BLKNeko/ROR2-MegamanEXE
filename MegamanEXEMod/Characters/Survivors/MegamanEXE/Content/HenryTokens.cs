@@ -1,8 +1,8 @@
 ﻿using System;
 using MegamanEXEMod.Modules;
-using MegamanEXEMod.Survivors.Henry.Achievements;
+using MegamanEXEMod.Survivors.MegamanEXE.Achievements;
 
-namespace MegamanEXEMod.Survivors.Henry
+namespace MegamanEXEMod.Survivors.MegamanEXE
 {
     public static class HenryTokens
     {
@@ -12,7 +12,7 @@ namespace MegamanEXEMod.Survivors.Henry
 
             ////uncomment this to spit out a lanuage file with all the above tokens that people can translate
             ////make sure you set Language.usingLanguageFolder and printingEnabled to true
-            //Language.PrintOutput("Henry.txt");
+            //Language.PrintOutput("MegamanEXE.txt");
             ////refer to guide on how to build and distribute your mod with the proper folders
         }
 
@@ -20,7 +20,7 @@ namespace MegamanEXEMod.Survivors.Henry
         {
             string prefix = MegamanEXESurvivor.HENRY_PREFIX;
 
-            string desc = "Henry is a skilled fighter who makes use of a wide arsenal of weaponry to take down his foes.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine
+            string desc = "MegamanEXE is a skilled fighter who makes use of a wide arsenal of weaponry to take down his foes.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine
              + "< ! > Sword is a good all-rounder while Boxing Gloves are better for laying a beatdown on more powerful foes." + Environment.NewLine + Environment.NewLine
              + "< ! > Pistol is a powerful anti air, with its low cooldown and high damage." + Environment.NewLine + Environment.NewLine
              + "< ! > Roll has a lingering armor buff that helps to use it aggressively." + Environment.NewLine + Environment.NewLine
@@ -29,7 +29,7 @@ namespace MegamanEXEMod.Survivors.Henry
             string outro = "..and so he left, searching for a new identity.";
             string outroFailure = "..and so he vanished, forever a blank slate.";
 
-            Language.Add(prefix + "NAME", "Henry");
+            Language.Add(prefix + "NAME", "MegamanEXE");
             Language.Add(prefix + "DESCRIPTION", desc);
             Language.Add(prefix + "SUBTITLE", "The Chosen One");
             Language.Add(prefix + "LORE", "sample lore");
@@ -41,7 +41,7 @@ namespace MegamanEXEMod.Survivors.Henry
             #endregion
 
             #region Passive
-            Language.Add(prefix + "PASSIVE_NAME", "Henry passive");
+            Language.Add(prefix + "PASSIVE_NAME", "MegamanEXE passive");
             Language.Add(prefix + "PASSIVE_DESCRIPTION", "Sample text.");
             #endregion
 
@@ -66,8 +66,8 @@ namespace MegamanEXEMod.Survivors.Henry
             #endregion
 
             #region Achievements
-            Language.Add(Tokens.GetAchievementNameToken(HenryMasteryAchievement.identifier), "Henry: Mastery");
-            Language.Add(Tokens.GetAchievementDescriptionToken(HenryMasteryAchievement.identifier), "As Henry, beat the game or obliterate on Monsoon.");
+            Language.Add(Tokens.GetAchievementNameToken(HenryMasteryAchievement.identifier), "MegamanEXE: Mastery");
+            Language.Add(Tokens.GetAchievementDescriptionToken(HenryMasteryAchievement.identifier), "As MegamanEXE, beat the game or obliterate on Monsoon.");
             #endregion
         }
     }

@@ -1,5 +1,5 @@
 ﻿using BepInEx;
-using MegamanEXEMod.Survivors.Henry;
+using MegamanEXEMod.Survivors.MegamanEXE;
 using R2API.Utils;
 using RoR2;
 using System.Collections.Generic;

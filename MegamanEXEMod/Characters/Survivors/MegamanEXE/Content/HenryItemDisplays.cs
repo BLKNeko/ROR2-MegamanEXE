@@ -11,7 +11,7 @@ using UnityEngine;
                     {localScale})
 */
 
-namespace MegamanEXEMod.Survivors.Henry
+namespace MegamanEXEMod.Survivors.MegamanEXE
 {
     public class HenryItemDisplays : ItemDisplaysBase
     {

@@ -1,10 +1,10 @@
 ﻿using EntityStates;
-using MegamanEXEMod.Survivors.Henry;
+using MegamanEXEMod.Survivors.MegamanEXE;
 using RoR2;
-using RoR2.Projectile;
 using UnityEngine;
+using UnityEngine.Networking;
 
-namespace MegamanEXEMod.Survivors.Henry.SkillStates
+namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 {
     public class ThrowBomb : GenericProjectileBaseState
     {

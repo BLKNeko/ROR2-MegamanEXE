@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MegamanEXEMod.Survivors.Henry
+namespace MegamanEXEMod.Survivors.MegamanEXE
 {
     public static class HenryStaticValues
     {

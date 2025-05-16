@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace MegamanEXEMod.Survivors.Henry.Components
+namespace MegamanEXEMod.Survivors.MegamanEXE.Components
 {
     internal class HenryWeaponComponent : MonoBehaviour
     {

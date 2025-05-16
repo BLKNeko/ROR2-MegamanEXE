@@ -1,15 +1,15 @@
 ﻿using BepInEx.Configuration;
 using MegamanEXEMod.Modules;
 using MegamanEXEMod.Modules.Characters;
-using MegamanEXEMod.Survivors.Henry.Components;
-using MegamanEXEMod.Survivors.Henry.SkillStates;
+using MegamanEXEMod.Survivors.MegamanEXE.Components;
+using MegamanEXEMod.Survivors.MegamanEXE.SkillStates;
 using RoR2;
 using RoR2.Skills;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MegamanEXEMod.Survivors.Henry
+namespace MegamanEXEMod.Survivors.MegamanEXE
 {
     public class MegamanEXESurvivor : SurvivorBase<MegamanEXESurvivor>
     {
@@ -30,7 +30,55 @@ namespace MegamanEXEMod.Survivors.Henry
 
         //used when registering your survivor's language tokens
         public override string survivorTokenPrefix => HENRY_PREFIX;
-        
+
+
+        //Skill Defs
+
+        internal static SkillDef BusterEXESkillDef;
+
+        internal static SkillDef AdvBarr500SkillDef;
+        internal static SkillDef AdvGigaCannonSkillDef;
+        internal static SkillDef AdvGreatYoyoSkillDef;
+        internal static SkillDef AdvInfiniteVulcanSkillDef;
+        internal static SkillDef AdvLifeSwordSkillDef;
+        internal static SkillDef AirShotSkillDef;
+        internal static SkillDef AquaSwrdSkillDef;
+        internal static SkillDef Attack10SkillDef;
+        internal static SkillDef Attack20SkillDef;
+        internal static SkillDef Attack30SkillDef;
+        internal static SkillDef Barr100SkillDef;
+        internal static SkillDef Barr200SkillDef;
+        internal static SkillDef BugFixSkillDef;
+        internal static SkillDef CannonSkillDef;
+        internal static SkillDef CyberSwordSkillDef;
+        internal static SkillDef DrkBombSkillDef;
+        internal static SkillDef DrkCannonSkillDef;
+        internal static SkillDef DrkRecovSkillDef;
+        internal static SkillDef DrkSwordSkillDef;
+        internal static SkillDef DrkVulcanSkillDef;
+        internal static SkillDef ElecSkillDef;
+        internal static SkillDef FireSwrdSkillDef;
+        internal static SkillDef FstGaugeSkillDef;
+        internal static SkillDef GutPunchSkillDef;
+        internal static SkillDef HiCannonSkillDef;
+        internal static SkillDef InvisSkillDef;
+        internal static SkillDef MCannonSkillDef;
+        internal static SkillDef MiniBombSkillDef;
+        internal static SkillDef MuramasaSkillDef;
+        internal static SkillDef NoDataSkillDef;
+        internal static SkillDef Recov300SkillDef;
+        internal static SkillDef Recov50SkillDef;
+        internal static SkillDef ReflectorSkillDef;
+        internal static SkillDef SendChipSkillDef;
+        internal static SkillDef ShokWaveSkillDef;
+        internal static SkillDef ShotGunSkillDef;
+        internal static SkillDef StepSwordSkillDef;
+        internal static SkillDef SuprVulcSkillDef;
+        internal static SkillDef ThunderSkillDef;
+        internal static SkillDef VulcanSkillDef;
+        internal static SkillDef YoyoSkillDef;
+
+
         public override BodyInfo bodyInfo => new BodyInfo
         {
             bodyName = bodyName,
@@ -116,7 +164,7 @@ namespace MegamanEXEMod.Survivors.Henry
         public override void Initialize()
         {
             //uncomment if you have multiple characters
-            //ConfigEntry<bool> characterEnabled = Config.CharacterEnableConfig("Survivors", "Henry");
+            //ConfigEntry<bool> characterEnabled = Config.CharacterEnableConfig("Survivors", "MegamanEXE");
 
             //if (!characterEnabled.Value)
             //    return;
@@ -151,7 +199,7 @@ namespace MegamanEXEMod.Survivors.Henry
         private void AdditionalBodySetup()
         {
             AddHitboxes();
-            bodyPrefab.AddComponent<HenryWeaponComponent>();
+            bodyPrefab.AddComponent<EXEBaseComponent>();
             //bodyPrefab.AddComponent<HuntressTrackerComopnent>();
             //anything else here
         }
@@ -183,11 +231,57 @@ namespace MegamanEXEMod.Survivors.Henry
             //remove the genericskills from the commando body we cloned
             Skills.ClearGenericSkills(bodyPrefab);
             //add our own
+            Skills.CreateFirstExtraSkillFamily(bodyPrefab);
+            Skills.CreateSecondExtraSkillFamily(bodyPrefab);
+            Skills.CreateThirdExtraSkillFamily(bodyPrefab);
+            Skills.CreateFourthExtraSkillFamily(bodyPrefab);
             //AddPassiveSkill();
+
+            CreateSkillDefs();
+
             AddPrimarySkills();
             AddSecondarySkills();
             AddUtiitySkills();
             AddSpecialSkills();
+
+            AddExtraFirstSkills();
+            AddExtraSecondSkills();
+            AddExtraThirdSkills();
+            AddExtraFourthSkills();
+
+        }
+
+        private void CreateSkillDefs()
+        {
+            BusterEXESkillDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = "BusterEXE",
+                skillNameToken = HENRY_PREFIX + "WEAPON_ZSABER_NAME",
+                skillDescriptionToken = HENRY_PREFIX + "WEAPON_ZSABER_DESCRIPTION",
+                //skillIcon = ZeroAssets.ZSaberIcon,
+
+                activationState = new EntityStates.SerializableEntityStateType(typeof(BusterEXE)),
+                activationStateMachineName = "Weapon",
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+
+                baseRechargeInterval = 0f,
+                baseMaxStock = 1,
+
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+
+                resetCooldownTimerOnUse = false,
+                fullRestockOnAssign = true,
+                dontAllowPastMaxStocks = false,
+                mustKeyPress = false,
+                beginSkillCooldownOnSkillEnd = false,
+
+                isCombatSkill = true,
+                canceledFromSprinting = false,
+                cancelSprintingOnActivation = false,
+                forceSprintDuringState = false,
+            });
         }
 
         //skip if you don't have a passive
@@ -256,7 +350,7 @@ namespace MegamanEXEMod.Survivors.Henry
                     HENRY_PREFIX + "PRIMARY_SLASH_NAME",
                     HENRY_PREFIX + "PRIMARY_SLASH_DESCRIPTION",
                     assetBundle.LoadAsset<Sprite>("texPrimaryIcon"),
-                    new EntityStates.SerializableEntityStateType(typeof(SkillStates.SlashCombo)),
+                    new EntityStates.SerializableEntityStateType(typeof(SkillStates.BusterEXE)),
                     "Weapon",
                     true
                 ));
@@ -371,7 +465,28 @@ namespace MegamanEXEMod.Survivors.Henry
             Skills.AddSpecialSkills(bodyPrefab, specialSkillDef1);
         }
         #endregion skills
-        
+
+        #region extraskills
+
+        private void AddExtraFirstSkills()
+        {
+            Skills.AddFirstExtraSkill(bodyPrefab, BusterEXESkillDef);
+        }
+        private void AddExtraSecondSkills()
+        {
+            Skills.AddSecondExtraSkill(bodyPrefab, BusterEXESkillDef);
+        }
+        private void AddExtraThirdSkills()
+        {
+            Skills.AddThirdExtraSkill(bodyPrefab, BusterEXESkillDef);
+        }
+        private void AddExtraFourthSkills()
+        {
+            Skills.AddFourthExtraSkill(bodyPrefab, BusterEXESkillDef);
+        }
+
+        #endregion
+
         #region skins
         public override void InitializeSkins()
         {

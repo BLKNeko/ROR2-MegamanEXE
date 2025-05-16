@@ -1,7 +1,7 @@
 ﻿using BepInEx.Configuration;
 using MegamanEXEMod.Modules;
 
-namespace MegamanEXEMod.Survivors.Henry
+namespace MegamanEXEMod.Survivors.MegamanEXE
 {
     public static class HenryConfig
     {
@@ -11,7 +11,7 @@ namespace MegamanEXEMod.Survivors.Henry
 
         public static void Init()
         {
-            string section = "Henry";
+            string section = "MegamanEXE";
 
             someConfigBool = Config.BindAndOptions(
                 section,
