@@ -25,6 +25,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
         public static Material ProtoMat;
         public static Material RollMat;
         public static Material BassMat;
+        public static Material DiveMat;
 
 
         public static Material EXESwordMat;
@@ -49,6 +50,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             ProtoMat = _assetBundle.LoadAsset<Material>("matProtoEXE");
             RollMat = _assetBundle.LoadAsset<Material>("matROLLEXE");
             BassMat = _assetBundle.LoadAsset<Material>("matBassEXE");
+            DiveMat = _assetBundle.LoadAsset<Material>("matDVEXE");
             EXESwordMat = _assetBundle.LoadAsset<Material>("matEXESword");
             ProtoSwordMat = _assetBundle.LoadAsset<Material>("matProtoSword");
             RollSwordMat = _assetBundle.LoadAsset<Material>("matROLLSword");

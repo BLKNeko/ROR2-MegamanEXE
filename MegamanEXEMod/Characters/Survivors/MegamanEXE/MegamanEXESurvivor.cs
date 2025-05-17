@@ -145,6 +145,21 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 {
                     childName = "EXEMask",
                     material = assetBundle.LoadMaterial("matMMEXE"),
+                },
+                new CustomRendererInfo
+                {
+                    childName = "GutsPunch",
+                    material = assetBundle.LoadMaterial("matGutsPunch"),
+                },
+                new CustomRendererInfo
+                {
+                    childName = "DiveEXESword",
+                    material = assetBundle.LoadMaterial("matDVEXE"),
+                },
+                new CustomRendererInfo
+                {
+                    childName = "DiveEXEBuster",
+                    material = assetBundle.LoadMaterial("matDVEXE"),
                 }
         };
 
@@ -207,7 +222,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
         public void AddHitboxes()
         {
             //example of how to create a HitBoxGroup. see summary for more details
-            //Prefabs.SetupHitBoxGroup(characterModelObject, "SwordGroup", "SwordHitbox");
+            Prefabs.SetupHitBoxGroup(characterModelObject, "EXESwordGroup", "EXESwordHitbox");
         }
 
         public override void InitializeEntityStateMachines() 
@@ -517,6 +532,9 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 null,
                 null,
                 null,
+                null,
+                null,
+                null,
                 null);
 
             //you can simply access the RendererInfos' materials and set them to the new materials for your skin.
@@ -573,6 +591,21 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 {
                     gameObject = childLocator.FindChildGameObject("EXEMask"),
                     shouldActivate = true,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("GutsPunch"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("DiveEXESword"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("DiveEXEBuster"),
+                    shouldActivate = false,
                 }
             };
 
@@ -592,6 +625,9 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 "ProtomanBodyMesh",
                 "PHandLMesh",
                 "PHandRMesh",
+                null,
+                null,
+                null,
                 null,
                 null,
                 null,
@@ -654,6 +690,21 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 {
                     gameObject = childLocator.FindChildGameObject("EXEMask"),
                     shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("GutsPunch"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("DiveEXESword"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("DiveEXEBuster"),
+                    shouldActivate = false,
                 }
             };
             //simply find an object on your child locator you want to activate/deactivate and set if you want to activate/deacitvate it with this skin
@@ -674,6 +725,9 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 "RollBodyMesh",
                 "RollHandLMesh",
                 "RollHandRMesh",
+                null,
+                null,
+                null,
                 null,
                 null,
                 null,
@@ -735,6 +789,21 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 {
                     gameObject = childLocator.FindChildGameObject("EXEMask"),
                     shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("GutsPunch"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("DiveEXESword"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("DiveEXEBuster"),
+                    shouldActivate = false,
                 }
             };
             //simply find an object on your child locator you want to activate/deactivate and set if you want to activate/deacitvate it with this skin
@@ -757,6 +826,9 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 "BEBodyMesh",
                 "BEHandLMesh",
                 "BEHandRMesh",
+                null,
+                null,
+                null,
                 null,
                 null,
                 null,
@@ -818,11 +890,126 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 {
                     gameObject = childLocator.FindChildGameObject("EXEMask"),
                     shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("GutsPunch"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("DiveEXESword"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("DiveEXEBuster"),
+                    shouldActivate = false,
                 }
             };
             //simply find an object on your child locator you want to activate/deactivate and set if you want to activate/deacitvate it with this skin
 
             skins.Add(bassSkin);
+
+            #endregion
+
+            #region DIVE
+
+            ////creating a new skindef as we did before
+            SkinDef diveSkin = Modules.Skins.CreateSkinDef(HENRY_PREFIX + "MASTERY_SKIN_NAME",
+                assetBundle.LoadAsset<Sprite>("texMasteryAchievement"),
+                defaultRendererinfos,
+                prefabCharacterModel.gameObject);
+
+            //adding the mesh replacements as above. 
+            //if you don't want to replace the mesh (for example, you only want to replace the material), pass in null so the order is preserved
+            diveSkin.meshReplacements = Modules.Skins.getMeshReplacements(assetBundle, defaultRendererinfos,
+                "DiveEXEBodyMesh",
+                "DiveEXEHandLMesh",
+                "DiveEXEHandRMesh",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
+
+            //masterySkin has a new set of RendererInfos (based on default rendererinfos)
+            //you can simply access the RendererInfos' materials and set them to the new materials for your skin.
+            diveSkin.rendererInfos[0].defaultMaterial = EXEAssets.DiveMat;
+            diveSkin.rendererInfos[1].defaultMaterial = EXEAssets.DiveMat;
+            diveSkin.rendererInfos[2].defaultMaterial = EXEAssets.DiveMat;
+
+            //here's a barebones example of using gameobjectactivations that could probably be streamlined or rewritten entirely, truthfully, but it works
+            diveSkin.gameObjectActivations = new SkinDef.GameObjectActivation[]
+            {
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("EXEBodyMesh"),
+                    shouldActivate = true,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("EXEHandLMesh"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("EXEHandRMesh"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("EXEBuster"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("ProtoBuster"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("RollBuster"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("BassBuster"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("CYSword"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("EXEMask"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("GutsPunch"),
+                    shouldActivate = false,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("DiveEXESword"),
+                    shouldActivate = true,
+                },
+                new SkinDef.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("DiveEXEBuster"),
+                    shouldActivate = true,
+                }
+            };
+            //simply find an object on your child locator you want to activate/deactivate and set if you want to activate/deacitvate it with this skin
+
+            skins.Add(diveSkin);
 
             #endregion
 

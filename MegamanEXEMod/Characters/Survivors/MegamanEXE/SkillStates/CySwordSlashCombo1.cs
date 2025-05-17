@@ -12,7 +12,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
         public override void OnEnter()
         {
-            hitboxGroupName = "ZSaberHitBox";
+            hitboxGroupName = "EXESwordGroup";
 
             damageType = DamageTypeCombo.GenericSecondary;
             damageCoefficient = 1f;
