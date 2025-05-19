@@ -1,4 +1,7 @@
 ﻿using EntityStates;
+using MegamanEXEMod.Survivors.MegamanEXE;
+using MegamanEXEMod.Survivors.MegamanEXE.Components;
+using R2API;
 using RoR2;
 using RoR2.Audio;
 using RoR2.Skills;
@@ -56,6 +59,17 @@ namespace MegamanEXEMod.Modules.BaseStates
         private int amountOfHits = 1;
         private bool shouldResetHit = false;
 
+        private EXEBaseComponent execomponent;
+        protected int EMValue = 0;
+        protected int EVValue = 0;
+        protected float DMGValue = 0f;
+
+        protected bool RollDebuff = false;
+
+        protected string chatMessage = "";
+        protected string netNaviName = "";
+        protected char chipMemoryCode = ' ';
+
         public override void OnEnter()
         {
             base.OnEnter();
@@ -65,6 +79,8 @@ namespace MegamanEXEMod.Modules.BaseStates
             hitResetTime = duration / amountOfHits;
 
             PlayAttackAnimation();
+
+            execomponent = GetComponent<EXEBaseComponent>();
 
             attack = new OverlapAttack();
             attack.damageType = damageType;
@@ -93,6 +109,27 @@ namespace MegamanEXEMod.Modules.BaseStates
                 RemoveHitstop();
             }
             shouldResetHit = false;
+
+            if (RollDebuff && NetworkServer.active)
+            {
+
+                var rand = UnityEngine.Random.Range(0, 9);
+                characterBody.AddTimedBuff(GetDebuffByIndex(rand), 3f);
+
+                RollDebuff = false;
+
+            }
+
+            if(chipMemoryCode != ' ')
+            {
+                execomponent.UpdateMemoryCode(chipMemoryCode);
+
+                chipMemoryCode = ' ';
+
+            }
+
+            //execomponent.UpdateModel(base.GetModelTransform().GetComponent<CharacterModel>(), base.GetModelTransform().GetComponent<CharacterModel>().GetComponent<ChildLocator>());
+
             base.OnExit();
         }
 
@@ -114,6 +151,9 @@ namespace MegamanEXEMod.Modules.BaseStates
 
                 hasHopped = true;
             }
+
+            if (isAuthority)
+                execomponent.UpdateEmotionalValue(EMValue, EVValue, DMGValue);
 
             ApplyHitstop();
         }
@@ -272,5 +312,69 @@ namespace MegamanEXEMod.Modules.BaseStates
             shouldResetHit = reset;
             amountOfHits = amount;
         }
+
+        private static BuffDef GetDebuffByIndex(int index)
+        {
+            BuffDef[] debuffs =
+            {
+                EXEBuffs.DarkDebuff1,
+                EXEBuffs.DarkDebuff2,
+                EXEBuffs.DarkDebuff3,
+                EXEBuffs.DarkDebuff4,
+                EXEBuffs.DarkDebuff5,
+                EXEBuffs.DarkDebuff6,
+                EXEBuffs.DarkDebuff7,
+                EXEBuffs.DarkDebuff8,
+                EXEBuffs.DarkDebuff9
+            };
+
+            return debuffs[Mathf.Clamp(index, 0, debuffs.Length - 1)];
+        }
+
+        public void SendChatMessage(string message)
+        {
+            Chat.SendBroadcastChat(new Chat.SimpleChatMessage
+            {
+                baseToken = message
+            });
+        }
+
+        public string GetNetNaviName(uint skinIndex)
+        {
+            //return characterBody.modelLocator.modelTransform.GetComponent<ModelSkinController>().skins[skinIndex].name;
+
+            var skinController = characterBody.modelLocator.modelTransform.GetComponent<ModelSkinController>();
+            if (skinController && skinIndex < skinController.skins.Length)
+            {
+                switch (skinIndex)
+                {
+                    case 0:
+                        return "Megaman.EXE";
+                    break;
+
+                    case 1:
+                        return "Protoman.EXE";
+                    break;
+
+                    case 2:
+                        return "Roll.EXE";
+                    break;
+
+                    case 3:
+                        return "Bass.EXE";
+                    break;
+
+                    case 4:
+                        return "Megaman.EXE Dive";
+                    break;
+
+
+
+                }
+            }
+            return "NetNavi";
+
+        }
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BepInEx.Configuration;
+using EntityStates.AffixVoid;
 using MegamanEXEMod.Modules;
 using MegamanEXEMod.Modules.Characters;
 using MegamanEXEMod.Survivors.MegamanEXE.Components;
@@ -8,6 +9,7 @@ using RoR2.Skills;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace MegamanEXEMod.Survivors.MegamanEXE
 {
@@ -26,10 +28,10 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
         public override string modelPrefabName => "mdlMegamanEXE";
         public override string displayPrefabName => "MegamanEXEDisplay";
 
-        public const string HENRY_PREFIX = MegamanEXEPlugin.DEVELOPER_PREFIX + "_HENRY_";
+        public const string MMEXE_PREFIX = MegamanEXEPlugin.DEVELOPER_PREFIX + "_MMEXE_";
 
         //used when registering your survivor's language tokens
-        public override string survivorTokenPrefix => HENRY_PREFIX;
+        public override string survivorTokenPrefix => MMEXE_PREFIX;
 
 
         //Skill Defs
@@ -50,7 +52,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
         internal static SkillDef Barr200SkillDef;
         internal static SkillDef BugFixSkillDef;
         internal static SkillDef CannonSkillDef;
-        internal static SkillDef CyberSwordSkillDef;
+        internal static SteppedSkillDef CyberSwordSkillDef;
         internal static SkillDef DrkBombSkillDef;
         internal static SkillDef DrkCannonSkillDef;
         internal static SkillDef DrkRecovSkillDef;
@@ -82,8 +84,8 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
         public override BodyInfo bodyInfo => new BodyInfo
         {
             bodyName = bodyName,
-            bodyNameToken = HENRY_PREFIX + "NAME",
-            subtitleNameToken = HENRY_PREFIX + "SUBTITLE",
+            bodyNameToken = MMEXE_PREFIX + "NAME",
+            subtitleNameToken = MMEXE_PREFIX + "SUBTITLE",
 
             characterPortrait = assetBundle.LoadAsset<Texture>("texHenryIcon"),
             bodyColor = Color.white,
@@ -196,10 +198,10 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
             HenryConfig.Init();
             HenryStates.Init();
-            HenryTokens.Init();
+            EXETokens.Init();
 
             EXEAssets.Init(assetBundle);
-            HenryBuffs.Init(assetBundle);
+            EXEBuffs.Init(assetBundle);
 
             InitializeEntityStateMachines();
             InitializeSkills();
@@ -222,7 +224,16 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
         public void AddHitboxes()
         {
             //example of how to create a HitBoxGroup. see summary for more details
-            Prefabs.SetupHitBoxGroup(characterModelObject, "EXESwordGroup", "EXESwordHitbox");
+            //Prefabs.SetupHitBoxGroup(characterModelObject, "EXESwordGroup", "EXESwordHitbox");
+
+            ChildLocator childLocator = bodyPrefab.GetComponentInChildren<ChildLocator>();
+            GameObject model = childLocator.gameObject;
+
+            Transform hitboxTransform = childLocator.FindChild("EXESwordHitbox");
+            Prefabs.SetupHitBoxGroup(model, "EXESwordGroup", "EXESwordHitbox");
+            //hitboxTransform.localScale = new Vector3(5.2f, 5.2f, 5.2f);
+            hitboxTransform.localScale = new Vector3(6f, 6f, 6f);
+
         }
 
         public override void InitializeEntityStateMachines() 
@@ -271,9 +282,9 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             BusterEXESkillDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = "BusterEXE",
-                skillNameToken = HENRY_PREFIX + "WEAPON_ZSABER_NAME",
-                skillDescriptionToken = HENRY_PREFIX + "WEAPON_ZSABER_DESCRIPTION",
-                //skillIcon = ZeroAssets.ZSaberIcon,
+                skillNameToken = MMEXE_PREFIX + "WEAPON_ZSABER_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "WEAPON_ZSABER_DESCRIPTION",
+                skillIcon = EXEAssets.IconBusterEXE,
 
                 activationState = new EntityStates.SerializableEntityStateType(typeof(BusterEXE)),
                 activationStateMachineName = "Weapon",
@@ -297,6 +308,64 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 cancelSprintingOnActivation = false,
                 forceSprintDuringState = false,
             });
+
+            CyberSwordSkillDef = Skills.CreateSkillDef<SteppedSkillDef>(new SkillDefInfo
+            {
+                skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_SECONDARY_CYBERSWORD_NAME",
+                skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_SECONDARY_CYBERSWORD_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_SECONDARY_CYBERSWORD_DESCRIPTION",
+                skillIcon = EXEAssets.IconCyberSword,
+
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.CySwordSlashCombo1)),
+                activationStateMachineName = "Weapon",
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+
+                baseMaxStock = 3,
+                baseRechargeInterval = 2f,
+
+                beginSkillCooldownOnSkillEnd = false,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = true,
+                
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1
+            });
+            CyberSwordSkillDef.stepCount = 2;
+            CyberSwordSkillDef.stepGraceDuration = 0.5f;
+
+            DrkSwordSkillDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_DRKSWRD_NAME",
+                skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_DRKSWRD_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_DRKSWRD_DESCRIPTION",
+                skillIcon = EXEAssets.IconDrkSword,
+
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.DrkSword)),
+                activationStateMachineName = "Weapon",
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+
+                baseMaxStock = 5,
+                baseRechargeInterval = 15f,
+                beginSkillCooldownOnSkillEnd = false,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = true,
+                
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 5,
+                requiredStock = 1,
+                stockToConsume = 1
+            });
+
         }
 
         //skip if you don't have a passive
@@ -307,8 +376,8 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             bodyPrefab.GetComponent<SkillLocator>().passiveSkill = new SkillLocator.PassiveSkill
             {
                 enabled = true,
-                skillNameToken = HENRY_PREFIX + "PASSIVE_NAME",
-                skillDescriptionToken = HENRY_PREFIX + "PASSIVE_DESCRIPTION",
+                skillNameToken = MMEXE_PREFIX + "PASSIVE_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "PASSIVE_DESCRIPTION",
                 keywordToken = "KEYWORD_STUNNING",
                 icon = assetBundle.LoadAsset<Sprite>("texPassiveIcon"),
             };
@@ -318,8 +387,8 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             SkillDef passiveSkillDef1 = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = "HenryPassive",
-                skillNameToken = HENRY_PREFIX + "PASSIVE_NAME",
-                skillDescriptionToken = HENRY_PREFIX + "PASSIVE_DESCRIPTION",
+                skillNameToken = MMEXE_PREFIX + "PASSIVE_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "PASSIVE_DESCRIPTION",
                 keywordTokens = new string[] { "KEYWORD_AGILE" },
                 skillIcon = assetBundle.LoadAsset<Sprite>("texPassiveIcon"),
 
@@ -362,8 +431,8 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             SteppedSkillDef primarySkillDef1 = Skills.CreateSkillDef<SteppedSkillDef>(new SkillDefInfo
                 (
                     "HenrySlash",
-                    HENRY_PREFIX + "PRIMARY_SLASH_NAME",
-                    HENRY_PREFIX + "PRIMARY_SLASH_DESCRIPTION",
+                    MMEXE_PREFIX + "PRIMARY_SLASH_NAME",
+                    MMEXE_PREFIX + "PRIMARY_SLASH_DESCRIPTION",
                     assetBundle.LoadAsset<Sprite>("texPrimaryIcon"),
                     new EntityStates.SerializableEntityStateType(typeof(SkillStates.BusterEXE)),
                     "Weapon",
@@ -373,7 +442,8 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             primarySkillDef1.stepCount = 2;
             primarySkillDef1.stepGraceDuration = 0.5f;
 
-            Skills.AddPrimarySkills(bodyPrefab, primarySkillDef1);
+            //Skills.AddPrimarySkills(bodyPrefab, primarySkillDef1);
+            Skills.AddPrimarySkills(bodyPrefab, BusterEXESkillDef);
         }
 
         private void AddSecondarySkills()
@@ -384,8 +454,8 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             SkillDef secondarySkillDef1 = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = "HenryGun",
-                skillNameToken = HENRY_PREFIX + "SECONDARY_GUN_NAME",
-                skillDescriptionToken = HENRY_PREFIX + "SECONDARY_GUN_DESCRIPTION",
+                skillNameToken = MMEXE_PREFIX + "SECONDARY_GUN_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "SECONDARY_GUN_DESCRIPTION",
                 keywordTokens = new string[] { "KEYWORD_AGILE" },
                 skillIcon = assetBundle.LoadAsset<Sprite>("texSecondaryIcon"),
 
@@ -413,7 +483,8 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
             });
 
-            Skills.AddSecondarySkills(bodyPrefab, secondarySkillDef1);
+            //Skills.AddSecondarySkills(bodyPrefab, secondarySkillDef1);
+            Skills.AddSecondarySkills(bodyPrefab, CyberSwordSkillDef);
         }
 
         private void AddUtiitySkills()
@@ -424,8 +495,8 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             SkillDef utilitySkillDef1 = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = "HenryRoll",
-                skillNameToken = HENRY_PREFIX + "UTILITY_ROLL_NAME",
-                skillDescriptionToken = HENRY_PREFIX + "UTILITY_ROLL_DESCRIPTION",
+                skillNameToken = MMEXE_PREFIX + "UTILITY_ROLL_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "UTILITY_ROLL_DESCRIPTION",
                 skillIcon = assetBundle.LoadAsset<Sprite>("texUtilityIcon"),
 
                 activationState = new EntityStates.SerializableEntityStateType(typeof(Roll)),
@@ -462,8 +533,8 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             SkillDef specialSkillDef1 = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = "HenryBomb",
-                skillNameToken = HENRY_PREFIX + "SPECIAL_BOMB_NAME",
-                skillDescriptionToken = HENRY_PREFIX + "SPECIAL_BOMB_DESCRIPTION",
+                skillNameToken = MMEXE_PREFIX + "SPECIAL_BOMB_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "SPECIAL_BOMB_DESCRIPTION",
                 skillIcon = assetBundle.LoadAsset<Sprite>("texSpecialIcon"),
 
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.ThrowBomb)),
@@ -485,7 +556,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
         private void AddExtraFirstSkills()
         {
-            Skills.AddFirstExtraSkill(bodyPrefab, BusterEXESkillDef);
+            Skills.AddFirstExtraSkill(bodyPrefab, DrkSwordSkillDef);
         }
         private void AddExtraSecondSkills()
         {
@@ -514,7 +585,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
             #region DefaultSkin
             //this creates a SkinDef with all default fields
-            SkinDef defaultSkin = Skins.CreateSkinDef("DEFAULT_SKIN",
+            SkinDef defaultSkin = Skins.CreateSkinDef(MMEXE_PREFIX + "MMEXE_SKIN_NAME",
                 assetBundle.LoadAsset<Sprite>("texMainSkin"),
                 defaultRendererinfos,
                 prefabCharacterModel.gameObject);
@@ -613,8 +684,10 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             skins.Add(defaultSkin);
             #endregion
 
+            #region PROTO
+
             ////creating a new skindef as we did before
-            SkinDef protoSkin = Modules.Skins.CreateSkinDef(HENRY_PREFIX + "MASTERY_SKIN_NAME",
+            SkinDef protoSkin = Modules.Skins.CreateSkinDef(MMEXE_PREFIX + "PROTO_SKIN_NAME",
                 assetBundle.LoadAsset<Sprite>("texMasteryAchievement"),
                 defaultRendererinfos,
                 prefabCharacterModel.gameObject);
@@ -711,10 +784,12 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
             skins.Add(protoSkin);
 
+            #endregion
+
             #region ROLL
 
             ////creating a new skindef as we did before
-            SkinDef rollSkin = Modules.Skins.CreateSkinDef(HENRY_PREFIX + "MASTERY_SKIN_NAME",
+            SkinDef rollSkin = Modules.Skins.CreateSkinDef(MMEXE_PREFIX + "ROLL_SKIN_NAME",
                 assetBundle.LoadAsset<Sprite>("texMasteryAchievement"),
                 defaultRendererinfos,
                 prefabCharacterModel.gameObject);
@@ -815,7 +890,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             #region BASS
 
             ////creating a new skindef as we did before
-            SkinDef bassSkin = Modules.Skins.CreateSkinDef(HENRY_PREFIX + "MASTERY_SKIN_NAME",
+            SkinDef bassSkin = Modules.Skins.CreateSkinDef(MMEXE_PREFIX + "BASS_SKIN_NAME",
                 assetBundle.LoadAsset<Sprite>("texMasteryAchievement"),
                 defaultRendererinfos,
                 prefabCharacterModel.gameObject);
@@ -916,7 +991,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             #region DIVE
 
             ////creating a new skindef as we did before
-            SkinDef diveSkin = Modules.Skins.CreateSkinDef(HENRY_PREFIX + "MASTERY_SKIN_NAME",
+            SkinDef diveSkin = Modules.Skins.CreateSkinDef(MMEXE_PREFIX + "DIVEEXE_SKIN_NAME",
                 assetBundle.LoadAsset<Sprite>("texMasteryAchievement"),
                 defaultRendererinfos,
                 prefabCharacterModel.gameObject);
@@ -1017,7 +1092,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             #region MasterySkin
 
             ////creating a new skindef as we did before
-            //SkinDef masterySkin = Modules.Skins.CreateSkinDef(HENRY_PREFIX + "MASTERY_SKIN_NAME",
+            //SkinDef masterySkin = Modules.Skins.CreateSkinDef(MMEXE_PREFIX + "MASTERY_SKIN_NAME",
             //    assetBundle.LoadAsset<Sprite>("texMasteryAchievement"),
             //    defaultRendererinfos,
             //    prefabCharacterModel.gameObject,
@@ -1073,15 +1148,136 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
         private void AddHooks()
         {
             R2API.RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
+            On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
+        }
+
+        private void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo damageInfo)
+        {
+            orig(self, damageInfo);
+
+            if (self != null && damageInfo != null && damageInfo.attacker != null)
+            {
+                if (!damageInfo.attacker.name.Contains("MegamanEXE") && self.name.Contains("MegamanEXE"))
+                {
+
+                    self.GetComponent<CharacterBody>().GetComponent<EXEBaseComponent>().UpdateEmotionalValue(-1, 0, damageInfo.damage);
+
+                }
+            }
+
+
         }
 
         private void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, R2API.RecalculateStatsAPI.StatHookEventArgs args)
         {
 
-            if (sender.HasBuff(HenryBuffs.armorBuff))
+            if (sender.HasBuff(EXEBuffs.armorBuff))
             {
                 args.armorAdd += 300;
             }
+
+            if (sender.HasBuff(EXEBuffs.Attack10Buff))
+            {
+                args.baseDamageAdd *= 1.1f;
+
+            }
+
+            if (sender.HasBuff(EXEBuffs.Attack20Buff))
+            {
+                args.baseDamageAdd *= 1.2f;
+
+            }
+
+            if (sender.HasBuff(EXEBuffs.Attack30Buff))
+            {
+                args.baseDamageAdd *= 1.3f;
+
+            }
+
+            if (sender.HasBuff(EXEBuffs.FullSyncBuff))
+            {
+                args.baseDamageAdd *= 2f;
+                args.critDamageMultAdd *= 2f;
+                args.critAdd *= 2f;
+                args.baseMoveSpeedAdd *= 1.4f;
+                args.baseRegenAdd *= 1.5f;
+
+            }
+
+            if (sender.HasBuff(EXEBuffs.RageBuff))
+            {
+                args.baseDamageAdd *= 3f;
+                args.baseMoveSpeedAdd *= 1.5f;
+
+            }
+
+
+            if (sender.HasBuff(EXEBuffs.AnxiousBuff))
+            {
+                args.baseDamageAdd *= 0.9f;
+                args.armorAdd *= 0.8f;
+                args.baseMoveSpeedAdd *= 1.25f;
+
+            }
+
+            if (sender.HasBuff(EXEBuffs.DarkDebuff1))
+            {
+                args.jumpPowerMultAdd *= 0.1f;
+                args.moveSpeedMultAdd *= 0.25f;
+            }
+
+            if (sender.HasBuff(EXEBuffs.DarkDebuff2))
+            {
+                args.jumpPowerMultAdd *= 10f;
+                args.moveSpeedMultAdd *= 10f;
+            }
+
+            if (sender.HasBuff(EXEBuffs.DarkDebuff3))
+            {
+                args.baseDamageAdd *= 0.1f;
+                args.primaryCooldownMultAdd *= 3f;
+            }
+
+            if (sender.HasBuff(EXEBuffs.DarkDebuff4))
+            {
+                if (NetworkServer.active)
+                {
+                    sender.AddHelfireDuration(2f);
+                    sender.AddTimedBuff(RoR2Content.Buffs.Weak, 5f);
+                }
+                
+            }
+
+            if (sender.HasBuff(EXEBuffs.DarkDebuff5))
+            {
+                sender.hideCrosshair = true;
+            }
+            else
+            {
+                sender.hideCrosshair = false;
+            }
+
+            if (sender.HasBuff(EXEBuffs.DarkDebuff6))
+            {
+                args.cooldownMultAdd *= 3f;
+
+            }
+
+            if (sender.HasBuff(EXEBuffs.DarkDebuff7))
+            {
+                args.armorAdd *= 0.4f;
+            }
+
+            if (sender.HasBuff(EXEBuffs.DarkDebuff8))
+            {
+                sender.level *= 0.9f;
+            }
+
+            if (sender.HasBuff(EXEBuffs.DarkDebuff9))
+            {
+                sender.healthComponent.health *= 0.9f;
+            }
+
         }
     }
 }

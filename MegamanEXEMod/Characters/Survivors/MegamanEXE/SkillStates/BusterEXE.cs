@@ -48,6 +48,9 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
         public override void OnExit()
         {
             base.OnExit();
+
+            //execomponent.UpdateModel(base.GetModelTransform().GetComponent<CharacterModel>(), base.GetModelTransform().GetComponent<CharacterModel>().GetComponent<ChildLocator>());
+
         }
 
         public override void FixedUpdate()
@@ -68,7 +71,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
                     characterBody.AddSpreadBloom(0.4f);
                     EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, gameObject, muzzleString, false);
                     //Util.PlaySound(XStaticValues.X_Simple_Bullet, gameObject);
-                    PlayAnimation("Gesture, Override", "XBusterAttack", "attackSpeed", this.duration);
+                    PlayAnimation("Gesture, Override", "EXEBusterAttack", "attackSpeed", this.duration);
 
                     Ray aimRay = GetAimRay();
 
@@ -122,7 +125,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
                     characterBody.AddSpreadBloom(0.4f);
                     EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, gameObject, muzzleString, false);
                     //Util.PlaySound(XStaticValues.X_Simple_Bullet, gameObject);
-                    PlayAnimation("Gesture, Override", "XBusterAttack", "attackSpeed", this.duration);
+                    PlayAnimation("Gesture, Override", "EXEBusterAttack", "attackSpeed", this.duration);
 
                     Ray aimRay = GetAimRay();
 
@@ -173,7 +176,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
                     characterBody.AddSpreadBloom(0.4f);
                     EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, gameObject, muzzleString, false);
                     //Util.PlaySound(XStaticValues.X_Simple_Bullet, gameObject);
-                    PlayAnimation("Gesture, Override", "XBusterAttack", "attackSpeed", this.duration);
+                    PlayAnimation("Gesture, Override", "EXEBusterAttack", "attackSpeed", this.duration);
 
                     Ray aimRay = GetAimRay();
 

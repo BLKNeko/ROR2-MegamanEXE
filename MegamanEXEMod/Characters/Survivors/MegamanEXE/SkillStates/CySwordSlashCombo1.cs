@@ -1,14 +1,17 @@
 ﻿using EntityStates;
 using MegamanEXEMod.Modules.BaseStates;
 using MegamanEXEMod.Survivors.MegamanEXE;
+using MegamanEXEMod.Survivors.MegamanEXE.Components;
 using RoR2;
 using UnityEngine;
 using UnityEngine.Networking;
 
 namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 {
-    public class CySwordSlashCombo1 : BaseMeleeAttack2
+    public class CySwordSlashCombo1 : BaseMeleeAttack
     {
+
+        EXEBaseComponent execomponent;
 
         public override void OnEnter()
         {
@@ -43,6 +46,8 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
             impactSound = EXEAssets.swordHitSoundEvent.index;
 
+            execomponent = GetComponent<EXEBaseComponent>();
+
             //if(base.characterBody.skinIndex == 0)
             //    swingEffectPrefab = EXEAssets.ZSwordVFX;
             //if (base.characterBody.skinIndex == 1)
@@ -54,10 +59,6 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
 
             //SetHitReset(true, 3);
-
-            CySwordSlashCombo2 ZSS2 = new CySwordSlashCombo2();
-
-            SetNextEntityState(ZSS2);
 
             //if (ZeroConfig.enableVoiceBool.Value)
             //{
@@ -88,7 +89,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
         protected override void PlayAttackAnimation()
         {
             //PlayCrossfade("Gesture, Override", "Slash" + (1 + swingIndex), playbackRateParam, duration, 0.1f * duration);
-            base.PlayAnimation("Gesture, Override", "ZSSlash1", "attackSpeed", this.duration);
+            base.PlayAnimation("Gesture, Override", "CYSlash" + (1 + swingIndex), "attackSpeed", this.duration);
         }
 
         protected virtual void PlaySwingEffect()
@@ -99,12 +100,18 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
         protected override void OnHitEnemyAuthority()
         {
             base.OnHitEnemyAuthority();
+
+            //if(isAuthority)
+                //execomponent.UpdateEmotionalValue(2, 0, 0);
+
         }
 
         public override void OnExit()
         {
 
             base.PlayAnimation("Gesture, Override", "BufferEmpty", "attackSpeed", this.duration);
+
+            execomponent.UpdateModel(base.GetModelTransform().GetComponent<CharacterModel>(), base.GetModelTransform().GetComponent<CharacterModel>().GetComponent<ChildLocator>());
 
             base.OnExit();
         }

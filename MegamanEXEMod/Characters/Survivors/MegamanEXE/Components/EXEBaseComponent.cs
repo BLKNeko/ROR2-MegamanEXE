@@ -1,6 +1,7 @@
 ﻿using MegamanEXEMod.Modules;
 using RoR2;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace MegamanEXEMod.Survivors.MegamanEXE.Components
 {
@@ -32,9 +33,12 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
         private string MemoryCodeCheck;
 
         private static int EmotionValue = 25;
-        private static int EvilEmotionValue = 0;
+        private static float EvilEmotionValue = 0;
         private static float RandBugDebuf = 0;
         private static float DamageReceived = 0f;
+
+        private CharacterModel modelFromSkill;
+        private ChildLocator childLocatorFromSkill;
 
 
         private void Start()
@@ -88,8 +92,146 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
 
         private void FixedUpdate()
         {
-
+            UpdateEmotionState();
             IsEXEWeak();
+        }
+
+        private void UpdateEmotionState()
+        {
+            if (EXEBody.hasAuthority)
+            {
+                //SET TO DEFAULT NORMAL STATE
+                if (!EXEBody.HasBuff(EXEBuffs.AnxiousBuff) && !EXEBody.HasBuff(EXEBuffs.NormalBuff) && !EXEBody.HasBuff(EXEBuffs.RageBuff) && !EXEBody.HasBuff(EXEBuffs.EvilBuff) && !EXEBody.HasBuff(EXEBuffs.FullSyncBuff))
+                {
+                    if (NetworkServer.active)
+                    {
+                        EXEBody.AddBuff(EXEBuffs.NormalBuff);
+                    }
+                }
+                    
+
+                //SET TO ANXIOUS STATE
+                if(EXEBody.HasBuff(EXEBuffs.NormalBuff) && !EXEBody.HasBuff(EXEBuffs.AnxiousBuff) && !EXEBody.HasBuff(EXEBuffs.RageBuff) &&  EmotionValue <= 10)
+                {
+                    if (NetworkServer.active)
+                    {
+                        if (EXEBody.HasBuff(EXEBuffs.NormalBuff))
+                            EXEBody.RemoveBuff(EXEBuffs.NormalBuff);
+
+                        EXEBody.AddBuff(EXEBuffs.AnxiousBuff);
+                    }
+                    
+                }
+
+                //REMOVE ANXIOUS STATE
+                if (!EXEBody.HasBuff(EXEBuffs.NormalBuff) && EXEBody.HasBuff(EXEBuffs.AnxiousBuff) && EmotionValue > 15)
+                {
+                    if (NetworkServer.active)
+                    {
+                        if (EXEBody.HasBuff(EXEBuffs.AnxiousBuff))
+                            EXEBody.RemoveBuff(EXEBuffs.AnxiousBuff);
+
+                        EXEBody.AddBuff(EXEBuffs.NormalBuff);
+                    }
+                    
+                }
+
+                //SET TO RAGE STATE
+
+                if ((EXEBody.HasBuff(EXEBuffs.NormalBuff) || EXEBody.HasBuff(EXEBuffs.AnxiousBuff))
+                && !EXEBody.HasBuff(EXEBuffs.RageBuff)
+                && DamageReceived >= (EXEBody.maxHealth / 2))
+                {
+                    if(NetworkServer.active)
+                    {
+                        if (EXEBody.HasBuff(EXEBuffs.NormalBuff))
+                            EXEBody.RemoveBuff(EXEBuffs.NormalBuff);
+
+                        if (EXEBody.HasBuff(EXEBuffs.AnxiousBuff))
+                            EXEBody.RemoveBuff(EXEBuffs.AnxiousBuff);
+
+                        EXEBody.AddTimedBuff(EXEBuffs.RageBuff, 5f + EXEBody.level);
+                    }
+
+                    DamageReceived = 0f;
+                    
+                }
+
+                //SET TO FULL SYNC STATE
+                if (EXEBody.HasBuff(EXEBuffs.NormalBuff) && !EXEBody.HasBuff(EXEBuffs.FullSyncBuff) && EmotionValue >= 50)
+                {
+                    if(NetworkServer.active)
+                    {
+                        if (EXEBody.HasBuff(EXEBuffs.NormalBuff))
+                            EXEBody.RemoveBuff(EXEBuffs.NormalBuff);
+
+                        EXEBody.AddTimedBuff(EXEBuffs.FullSyncBuff, 5f + EXEBody.level);
+                    }
+                    
+                }
+
+                //SET TO EVIL STATE
+                if (!EXEBody.HasBuff(EXEBuffs.EvilBuff) && EvilEmotionValue >= 50)
+                {
+                    if (NetworkServer.active)
+                    {
+                        if (EXEBody.HasBuff(EXEBuffs.NormalBuff))
+                            EXEBody.RemoveBuff(EXEBuffs.NormalBuff);
+
+                        if (EXEBody.HasBuff(EXEBuffs.AnxiousBuff))
+                            EXEBody.RemoveBuff(EXEBuffs.AnxiousBuff);
+
+                        if (EXEBody.HasBuff(EXEBuffs.RageBuff))
+                            EXEBody.RemoveBuff(EXEBuffs.RageBuff);
+
+                        if (EXEBody.HasBuff(EXEBuffs.FullSyncBuff))
+                            EXEBody.RemoveBuff(EXEBuffs.FullSyncBuff);
+
+                        EXEBody.AddBuff(EXEBuffs.EvilBuff);
+                    }
+                    
+
+                    if(EXEBody.skinIndex == 0)
+                    {
+
+                        //if(modelFromSkill && childLocatorFromSkill)
+                        //{
+                        //    modelFromSkill.baseRendererInfos[0].defaultMaterial = EXEAssets.DarkEXEMat;
+
+                        //    childLocatorFromSkill.FindChildGameObject("EXEBodyMesh").GetComponent<SkinnedMeshRenderer>().sharedMaterial = EXEAssets.DarkEXEMat;
+
+
+                        //}
+
+                        SendChatMessage("Dark Megaman.EXE: Hahahaha, nevermind about the DarkChips, i feel powefull! Now stop slacking off and lets kill some losers.");
+                    }
+
+                }
+
+                //UPDATE EVIL STATE
+                if(EXEBody.HasBuff(EXEBuffs.EvilBuff) && EvilEmotionValue > 0)
+                {
+                    EvilEmotionValue -= Time.fixedDeltaTime;
+
+                }
+
+                //REMOVE EVIL STATE
+                if (EXEBody.HasBuff(EXEBuffs.EvilBuff) && EvilEmotionValue <= 0)
+                {
+                    if (NetworkServer.active)
+                    {
+                        if (EXEBody.HasBuff(EXEBuffs.EvilBuff))
+                            EXEBody.RemoveBuff(EXEBuffs.EvilBuff);
+                    }
+
+                    if (EXEBody.skinIndex == 0)
+                    {
+                        EXEmodelTransform.GetComponent<CharacterModel>().baseRendererInfos[0].defaultMaterial = EXEAssets.EXEMat;
+
+                    }
+                }
+
+            }
         }
 
         private void IsEXEWeak()
@@ -123,11 +265,33 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
             EvilEmotionValue += drkValue;
             DamageReceived += rageValue;
 
+            if (EmotionValue < 0)
+                EmotionValue = 0;
+
+            if (EvilEmotionValue < 0)
+                EvilEmotionValue = 0;
+
+            if (DamageReceived < 0)
+                DamageReceived = 0;
+
+            if (EmotionValue >= 50)
+                EmotionValue = 50;
+
+            if (EvilEmotionValue >= 50)
+                EvilEmotionValue = 50;
+
+
             //logs
             Debug.Log("Emotion: " + EmotionValue);
             Debug.Log("Dark: " + EvilEmotionValue);
             Debug.Log("DmgR: " + DamageReceived);
 
+        }
+
+        public void UpdateModel(CharacterModel model, ChildLocator child)
+        {
+            modelFromSkill = model;
+            childLocatorFromSkill = child;
         }
 
         public void UpdateMemoryCode(char letter)
@@ -144,9 +308,17 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
             return EmotionValue;
         }
 
-        public int GetDarkEmotionValue()
+        public float GetDarkEmotionValue()
         {
             return EvilEmotionValue;
+        }
+
+        public void SendChatMessage(string message)
+        {
+            Chat.SendBroadcastChat(new Chat.SimpleChatMessage
+            {
+                baseToken = message
+            });
         }
 
 

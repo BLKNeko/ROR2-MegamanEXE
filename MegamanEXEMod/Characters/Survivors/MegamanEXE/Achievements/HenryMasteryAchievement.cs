@@ -7,8 +7,8 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Achievements
     [RegisterAchievement(identifier, unlockableIdentifier, null, 10, null)]
     public class HenryMasteryAchievement : BaseMasteryAchievement
     {
-        public const string identifier = MegamanEXESurvivor.HENRY_PREFIX + "masteryAchievement";
-        public const string unlockableIdentifier = MegamanEXESurvivor.HENRY_PREFIX + "masteryUnlockable";
+        public const string identifier = MegamanEXESurvivor.MMEXE_PREFIX + "masteryAchievement";
+        public const string unlockableIdentifier = MegamanEXESurvivor.MMEXE_PREFIX + "masteryUnlockable";
 
         public override string RequiredCharacterBody => MegamanEXESurvivor.instance.bodyName;
 
