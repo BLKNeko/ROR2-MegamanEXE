@@ -1,4 +1,5 @@
 ﻿using MegamanEXEMod.Modules;
+using MegamanEXEMod.Modules.BaseStates;
 using RoR2;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -40,6 +41,9 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
         private CharacterModel modelFromSkill;
         private ChildLocator childLocatorFromSkill;
 
+        private CharacterModel EXEmodel;
+        private ChildLocator EXEchildLocator;
+
 
         private void Start()
         {
@@ -64,6 +68,13 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
             MemoryCodeCheck = "";
 
             footstepHandler = EXEBody.GetComponent<ModelLocator>().modelTransform.gameObject.GetComponent<CharacterModel>().GetComponent<FootstepHandler>();
+
+            EXEmodel = EXEBody.GetComponent<ModelLocator>().modelTransform.gameObject.GetComponent<CharacterModel>();
+
+            EXEchildLocator = EXEBody.GetComponent<ModelLocator>().modelTransform.gameObject.GetComponent<CharacterModel>().GetComponent<ChildLocator>();
+
+            Debug.Log("EXEmodel: " + EXEmodel);
+            Debug.Log("EXEchildLocator: " + EXEchildLocator);
 
             //Debug.Log("footstepHandler: " + footstepHandler);
 
@@ -194,16 +205,16 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
                     if(EXEBody.skinIndex == 0)
                     {
 
-                        //if(modelFromSkill && childLocatorFromSkill)
-                        //{
-                        //    modelFromSkill.baseRendererInfos[0].defaultMaterial = EXEAssets.DarkEXEMat;
+                        if (EXEmodel && EXEchildLocator)
+                        {
+                            EXEmodel.baseRendererInfos[0].defaultMaterial = EXEAssets.DarkEXEMat;
 
-                        //    childLocatorFromSkill.FindChildGameObject("EXEBodyMesh").GetComponent<SkinnedMeshRenderer>().sharedMaterial = EXEAssets.DarkEXEMat;
+                            EXEchildLocator.FindChildGameObject("EXEBodyMesh").GetComponent<SkinnedMeshRenderer>().sharedMaterial = EXEAssets.DarkEXEMat;
 
 
-                        //}
+                        }
 
-                        SendChatMessage("Dark Megaman.EXE: Hahahaha, nevermind about the DarkChips, i feel powefull! Now stop slacking off and lets kill some losers.");
+                        SendChatMessage("Dark Megaman.EXE: Hahahaha, nevermind about the DarkChips, i feel powerfull! Now stop slacking off and lets kill some losers.");
                     }
 
                 }
