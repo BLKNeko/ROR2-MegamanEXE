@@ -3,6 +3,7 @@ using MegamanEXEMod.Modules.BaseStates;
 using RoR2;
 using UnityEngine;
 using UnityEngine.Networking;
+using static Wamp;
 
 namespace MegamanEXEMod.Survivors.MegamanEXE.Components
 {
@@ -200,22 +201,10 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
 
                         EXEBody.AddBuff(EXEBuffs.EvilBuff);
                     }
-                    
 
-                    if(EXEBody.skinIndex == 0)
-                    {
-
-                        if (EXEmodel && EXEchildLocator)
-                        {
-                            EXEmodel.baseRendererInfos[0].defaultMaterial = EXEAssets.DarkEXEMat;
-
-                            EXEchildLocator.FindChildGameObject("EXEBodyMesh").GetComponent<SkinnedMeshRenderer>().sharedMaterial = EXEAssets.DarkEXEMat;
+                    SetDarkTex();
 
 
-                        }
-
-                        SendChatMessage("Dark Megaman.EXE: Hahahaha, nevermind about the DarkChips, i feel powerfull! Now stop slacking off and lets kill some losers.");
-                    }
 
                 }
 
@@ -235,11 +224,9 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
                             EXEBody.RemoveBuff(EXEBuffs.EvilBuff);
                     }
 
-                    if (EXEBody.skinIndex == 0)
-                    {
-                        EXEmodelTransform.GetComponent<CharacterModel>().baseRendererInfos[0].defaultMaterial = EXEAssets.EXEMat;
+                    SetEmotionalValue(0,0);
 
-                    }
+                    RemoverDarkTex();
                 }
 
             }
@@ -299,10 +286,273 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
 
         }
 
-        public void UpdateModel(CharacterModel model, ChildLocator child)
+        /// <summary>
+        /// Seta o valor emocional do NetNavi
+        /// </summary>
+        /// <param name="value">Valor emocional que se tornara</param>
+        /// <param name="id">Qual valor sera setado, 0 = Emotion, 1 = Evil, 2 = DmgRec, 3 = todos</param>
+        public void SetEmotionalValue(int value, int id)
         {
-            modelFromSkill = model;
-            childLocatorFromSkill = child;
+
+            switch (id)
+            {
+                case 0:
+                    EmotionValue = value; 
+                    break;
+                case 1:
+                    EvilEmotionValue = value;
+                    break;
+                case 2:
+                    DamageReceived = value;
+                    break;
+                case 3:
+                    EmotionValue = value;
+                    EvilEmotionValue = value;
+                    DamageReceived = value;
+                    break;
+
+            }
+
+            if (EmotionValue < 0)
+                EmotionValue = 0;
+
+            if (EvilEmotionValue < 0)
+                EvilEmotionValue = 0;
+
+            if (DamageReceived < 0)
+                DamageReceived = 0;
+
+            if (EmotionValue >= 50)
+                EmotionValue = 50;
+
+            if (EvilEmotionValue >= 50)
+                EvilEmotionValue = 50;
+
+
+            //logs
+            Debug.Log("Emotion: " + EmotionValue);
+            Debug.Log("Dark: " + EvilEmotionValue);
+            Debug.Log("DmgR: " + DamageReceived);
+
+        }
+
+        private void SetDarkTex()
+        {
+            if (EXEBody.skinIndex == 0)
+            {
+
+                if (EXEmodel && EXEchildLocator)
+                {
+                    EXEmodel.baseRendererInfos[0].defaultMaterial = EXEAssets.DarkEXEMat;
+                    EXEmodel.baseRendererInfos[1].defaultMaterial = EXEAssets.DarkEXEMat;
+                    EXEmodel.baseRendererInfos[2].defaultMaterial = EXEAssets.DarkEXEMat;
+                    EXEmodel.baseRendererInfos[4].defaultMaterial = EXEAssets.DarkEXEMat;
+                    EXEmodel.baseRendererInfos[7].defaultMaterial = EXEAssets.DarkEXESwordMat;
+
+                    EXEchildLocator.FindChildGameObject("EXEBodyMesh").GetComponent<SkinnedMeshRenderer>().sharedMaterial = EXEAssets.DarkEXEMat;
+                    EXEchildLocator.FindChildGameObject("CYSword").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.DarkEXESwordMat;
+                    EXEchildLocator.FindChildGameObject("ProtoBuster").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.DarkEXEMat;
+
+                    SendChatMessage("<color=#382a57>Dark Megaman.EXE</color>: Hahahaha, nevermind about the DarkChips, i feel powerfull! Now stop slacking off and lets kill some losers.");
+
+                }
+
+
+            }
+
+            if (EXEBody.skinIndex == 1)
+            {
+
+                if (EXEmodel && EXEchildLocator)
+                {
+                    EXEmodel.baseRendererInfos[0].defaultMaterial = EXEAssets.DarkProtoMat;
+                    EXEmodel.baseRendererInfos[1].defaultMaterial = EXEAssets.DarkProtoMat;
+                    EXEmodel.baseRendererInfos[2].defaultMaterial = EXEAssets.DarkProtoMat;
+                    EXEmodel.baseRendererInfos[4].defaultMaterial = EXEAssets.ProtoBusterMat;
+                    EXEmodel.baseRendererInfos[7].defaultMaterial = EXEAssets.DarkEXESwordMat;
+
+                    EXEchildLocator.FindChildGameObject("EXEBodyMesh").GetComponent<SkinnedMeshRenderer>().sharedMaterial = EXEAssets.DarkProtoMat;
+                    EXEchildLocator.FindChildGameObject("CYSword").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.DarkEXESwordMat;
+
+                    SendChatMessage("<color=#401412>Dark Protoman.EXE</color>: Hahahaha, nevermind about the DarkChips, i feel powerfull! Now stop slacking off and lets kill some losers.");
+
+                }
+
+
+            }
+
+            if (EXEBody.skinIndex == 2)
+            {
+
+                if (EXEmodel && EXEchildLocator)
+                {
+                    EXEmodel.baseRendererInfos[0].defaultMaterial = EXEAssets.DarkRollMat;
+                    EXEmodel.baseRendererInfos[1].defaultMaterial = EXEAssets.DarkRollMat;
+                    EXEmodel.baseRendererInfos[2].defaultMaterial = EXEAssets.DarkRollMat;
+                    EXEmodel.baseRendererInfos[7].defaultMaterial = EXEAssets.DarkEXESwordMat;
+
+                    EXEchildLocator.FindChildGameObject("EXEBodyMesh").GetComponent<SkinnedMeshRenderer>().sharedMaterial = EXEAssets.DarkRollMat;
+                    EXEchildLocator.FindChildGameObject("CYSword").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.DarkEXESwordMat;
+
+                    SendChatMessage("<color=#810491>Empress</color>: Hahahaha, nevermind about the DarkChips, i feel powerfull! Now stop slacking off and lets kill some losers.");
+
+                }
+
+
+            }
+
+            if (EXEBody.skinIndex == 3)
+            {
+
+                if (EXEmodel && EXEchildLocator)
+                {
+                    EXEmodel.baseRendererInfos[0].defaultMaterial = EXEAssets.DarkBassMat;
+                    EXEmodel.baseRendererInfos[1].defaultMaterial = EXEAssets.DarkBassMat;
+                    EXEmodel.baseRendererInfos[2].defaultMaterial = EXEAssets.DarkBassMat;
+                    EXEmodel.baseRendererInfos[6].defaultMaterial = EXEAssets.DarkBassMat;
+                    EXEmodel.baseRendererInfos[7].defaultMaterial = EXEAssets.DarkEXESwordMat;
+
+                    EXEchildLocator.FindChildGameObject("EXEBodyMesh").GetComponent<SkinnedMeshRenderer>().sharedMaterial = EXEAssets.DarkBassMat;
+                    EXEchildLocator.FindChildGameObject("BassBuster").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.DarkBassMat;
+                    EXEchildLocator.FindChildGameObject("CYSword").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.DarkEXESwordMat;
+
+                    SendChatMessage("<color=#140429>BASS XX.EXE</color>: Hahahaha, nevermind about the DarkChips, i feel powerfull! Now stop slacking off and lets kill some losers.");
+
+                }
+
+
+            }
+
+            if (EXEBody.skinIndex == 4)
+            {
+
+                if (EXEmodel && EXEchildLocator)
+                {
+                    EXEmodel.baseRendererInfos[0].defaultMaterial = EXEAssets.DarkDiveMat;
+                    EXEmodel.baseRendererInfos[1].defaultMaterial = EXEAssets.DarkDiveMat;
+                    EXEmodel.baseRendererInfos[2].defaultMaterial = EXEAssets.DarkDiveMat;
+                    EXEmodel.baseRendererInfos[10].defaultMaterial = EXEAssets.DarkDiveMat;
+                    EXEmodel.baseRendererInfos[11].defaultMaterial = EXEAssets.DarkDiveMat;
+
+                    EXEchildLocator.FindChildGameObject("EXEBodyMesh").GetComponent<SkinnedMeshRenderer>().sharedMaterial = EXEAssets.DarkDiveMat;
+                    EXEchildLocator.FindChildGameObject("DiveEXESword").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.DarkDiveMat;
+                    EXEchildLocator.FindChildGameObject("DiveEXEBuster").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.DarkDiveMat;
+
+                    SendChatMessage("<color=#401412>Dark Megaman.EXE Dive</color>: Hahahaha, nevermind about the DarkChips, i feel powerfull! Now stop slacking off and lets kill some losers.");
+
+                }
+
+
+            }
+        }
+
+        private void RemoverDarkTex()
+        {
+            if (EXEBody.skinIndex == 0)
+            {
+
+                if (EXEmodel && EXEchildLocator)
+                {
+                    EXEmodel.baseRendererInfos[0].defaultMaterial = EXEAssets.EXEMat;
+                    EXEmodel.baseRendererInfos[1].defaultMaterial = EXEAssets.EXEMat;
+                    EXEmodel.baseRendererInfos[2].defaultMaterial = EXEAssets.EXEMat;
+                    EXEmodel.baseRendererInfos[4].defaultMaterial = EXEAssets.EXEMat;
+                    EXEmodel.baseRendererInfos[7].defaultMaterial = EXEAssets.EXESwordMat;
+                    EXEmodel.baseRendererInfos[8].defaultMaterial = EXEAssets.EXEMat;
+
+                    EXEchildLocator.FindChildGameObject("EXEBodyMesh").GetComponent<SkinnedMeshRenderer>().sharedMaterial = EXEAssets.EXEMat;
+                    EXEchildLocator.FindChildGameObject("CYSword").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.EXESwordMat;
+                    EXEchildLocator.FindChildGameObject("ProtoBuster").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.EXEMat;
+                    EXEchildLocator.FindChildGameObject("EXEMask").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.EXEMat;
+
+                    SendChatMessage("<color=#043db8>Megaman.EXE</color>: I think... i am fine now...");
+
+                }
+
+
+            }
+
+            if (EXEBody.skinIndex == 1)
+            {
+
+                if (EXEmodel && EXEchildLocator)
+                {
+                    EXEmodel.baseRendererInfos[0].defaultMaterial = EXEAssets.ProtoMat;
+                    EXEmodel.baseRendererInfos[1].defaultMaterial = EXEAssets.ProtoMat;
+                    EXEmodel.baseRendererInfos[2].defaultMaterial = EXEAssets.ProtoMat;
+                    EXEmodel.baseRendererInfos[4].defaultMaterial = EXEAssets.ProtoBusterMat;
+                    EXEmodel.baseRendererInfos[7].defaultMaterial = EXEAssets.ProtoSwordMat;
+
+                    EXEchildLocator.FindChildGameObject("EXEBodyMesh").GetComponent<SkinnedMeshRenderer>().sharedMaterial = EXEAssets.ProtoMat;
+                    EXEchildLocator.FindChildGameObject("CYSword").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.ProtoSwordMat;
+
+                    SendChatMessage("<color=#cf1919>Protoman.EXE</color>: I think... i am fine now...");
+                }
+
+
+            }
+
+            if (EXEBody.skinIndex == 2)
+            {
+
+                if (EXEmodel && EXEchildLocator)
+                {
+                    EXEmodel.baseRendererInfos[0].defaultMaterial = EXEAssets.RollMat;
+                    EXEmodel.baseRendererInfos[1].defaultMaterial = EXEAssets.RollMat;
+                    EXEmodel.baseRendererInfos[2].defaultMaterial = EXEAssets.RollMat;
+                    EXEmodel.baseRendererInfos[7].defaultMaterial = EXEAssets.RollSwordMat;
+
+                    EXEchildLocator.FindChildGameObject("EXEBodyMesh").GetComponent<SkinnedMeshRenderer>().sharedMaterial = EXEAssets.RollMat;
+                    EXEchildLocator.FindChildGameObject("CYSword").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.RollSwordMat;
+
+                    SendChatMessage("<color=#ff7ade>Roll.EXE</color>: I think... i am fine now...");
+                }
+
+
+            }
+
+            if (EXEBody.skinIndex == 3)
+            {
+
+                if (EXEmodel && EXEchildLocator)
+                {
+                    EXEmodel.baseRendererInfos[0].defaultMaterial = EXEAssets.BassMat;
+                    EXEmodel.baseRendererInfos[1].defaultMaterial = EXEAssets.BassMat;
+                    EXEmodel.baseRendererInfos[2].defaultMaterial = EXEAssets.BassMat;
+                    EXEmodel.baseRendererInfos[6].defaultMaterial = EXEAssets.BassMat;
+                    EXEmodel.baseRendererInfos[7].defaultMaterial = EXEAssets.BassSwordMat;
+
+                    EXEchildLocator.FindChildGameObject("EXEBodyMesh").GetComponent<SkinnedMeshRenderer>().sharedMaterial = EXEAssets.BassMat;
+                    EXEchildLocator.FindChildGameObject("BassBuster").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.BassMat;
+                    EXEchildLocator.FindChildGameObject("CYSword").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.BassSwordMat;
+
+                    SendChatMessage("<<color=#8a4601>Bass.EXE</color>: I think... i am fine now...");
+                }
+
+
+            }
+
+            if (EXEBody.skinIndex == 4)
+            {
+
+                if (EXEmodel && EXEchildLocator)
+                {
+                    EXEmodel.baseRendererInfos[0].defaultMaterial = EXEAssets.DiveMat;
+                    EXEmodel.baseRendererInfos[1].defaultMaterial = EXEAssets.DiveMat;
+                    EXEmodel.baseRendererInfos[2].defaultMaterial = EXEAssets.DiveMat;
+                    EXEmodel.baseRendererInfos[10].defaultMaterial = EXEAssets.DiveMat;
+                    EXEmodel.baseRendererInfos[11].defaultMaterial = EXEAssets.DiveMat;
+
+                    EXEchildLocator.FindChildGameObject("EXEBodyMesh").GetComponent<SkinnedMeshRenderer>().sharedMaterial = EXEAssets.DiveMat;
+                    EXEchildLocator.FindChildGameObject("DiveEXESword").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.DiveMat;
+                    EXEchildLocator.FindChildGameObject("DiveEXEBuster").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.DiveMat;
+
+                    SendChatMessage("<color=#00d0fa>Megaman.EXE Dive</color>: I think... i am fine now...");
+                }
+
+
+            }
+
         }
 
         public void UpdateMemoryCode(char letter)
@@ -332,6 +582,157 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
             });
         }
 
+        public string GetDarkChipWarningMessage()
+        {
+
+            if(EvilEmotionValue <= 25)
+            {
+                string[] messages =
+                {
+                    $"Hey!! {EXEBody.GetUserName()}, I don't think it's a good idea to keep using <color=#40128a>DARK CHIPS</color>!",
+                    $"{EXEBody.GetUserName()}... I'm not feeling very well...",
+                    $"{EXEBody.GetUserName()}... I think I'm hearing a strange voice... inside my mind.",
+                    $"That <color=#40128a>DARK CHIP</color> was really powerful... but it hurts... a little.",
+                    $"01101000 01100101 01101100 01101100 01101111 00100000 01110111 01101111 01110010 01101100 01100100", // (hello world em binário, perfeito!)
+                    $"{EXEBody.GetUserName()}... <color=#40128a>DARK CHIPS</color> are dangerous... Please... stop using them...",
+                    $"{EXEBody.GetUserName()}... Something... feels... wrong...",
+                };
+
+                return messages[UnityEngine.Random.Range(0, messages.Length)];
+            }
+            else
+            {
+
+                string[] messages2 =
+                {
+                    $"System error... System error... Please... stop... <color=#40128a>DARK CHIP</color> usage...",
+                    $"I can't... control... myself...",
+                    $"Why... does it... hurt... so much...?",
+                    $"Darkness... it's... consuming... me...",
+                    $"{EXEBody.GetUserName()}... You... wouldn't abandon me... right?",
+                    $"Signal distortion... Data corruption detected... <color=#40128a>DARK CHIP</color> usage critical.",
+                    $"Whispers... I hear... whispers... from... somewhere...",
+                    $"Am I... still... me...?",
+                    $"...Error... Error... Error... Error..."
+                };
+
+                return messages2[UnityEngine.Random.Range(0, messages2.Length)];
+
+            }
+           
+
+        }
+
+        public string GetDarkModeMessage()
+        {
+            string[] messages =
+            {
+                $"<color=#40128a>Hahaha!</color> {EXEBody.GetUserName()}... Forget the warnings about <color=#40128a>DARK CHIPS</color>... I feel <b>UNSTOPPABLE!</b> Now quit slacking and let's go crush those pathetic losers!",
+
+                $"<b>POWER... I NEED MORE POWER!!</b> Feed me stronger chips, you useless fleshbag!",
+
+                $"01110111 01101000 01111001 00100000 01100001 01101101 00100000 01100100 01101111 01101001 01101110 01100111 00100000 01110100 01101000 01101001 01110011 00111111", 
+                // (Por que estou fazendo isso?) traduzido do binário.
+
+                "Tch... I don't need you. I don't need ANYONE anymore!",
+
+                "My code... my soul... it doesn't matter anymore. Only power matters!",
+
+                "<color=#ff0000>ERROR</color>... <color=#40128a>Consciousness override complete.</color>",
+
+                "Do you hear it...? The void... is calling... and I answer.",
+
+                "Hahahaha... Their screams... are music to me now.",
+
+                $"<color=#ff0000>E̸̖̟̦̯͇̐̈́͑̓͝R̸̢̤͓͇̺͊̽̍̚R̴̛̥̰̺̙͌̓͠ͅO̷̫̞̪̙̎̍̕̕ͅR̶̪̯͖̤̿͊̿͑ͅ</color>... {EXEBody.GetUserName()}...",
+
+                $"D̸͉͐͌͛͗͜A̵̼̰̺̪̗̿̒͝T̶͇̥̺̫̝̍̒̐͂A̴̪̳͌͋̋͘ ̶͉̞̰̔̅͝C̴̳̰̋̄̕͠O̶̪̙̜͖̓̎͒R̶̞̤̳̰̾̏̓̕R̷͓̈́̈́͂͝U̶̪̺͖͑̔̔P̷̗͍̼̬̓̓̽̇T̶̙̱̞̺̏̈́̎͐É̸̘̰̠̬͊̐̾D̵̟̪̙̞̾́̀͝...",
+
+                $"<color=#8a00ff>Whispers... I hear... ẅ̵͓̙́h̸͍̪̐i̴͓̯̚s̵̥̦̃p̶̛̰è̵̢̦r̴͇͌s̵̞̳̐... from... the void...</color>",
+
+                $"<color=#40128a>S̷̥̒͜͠y̸̱̠̦͊̑̈́s̸̞͍̖̀̀̕t̸̰̜͑e̷̙̖̿͋̈́m̸̛̟̓͜</color>... <color=#ff0000>FAILING</color>..."       
+
+            };
+
+            return messages[UnityEngine.Random.Range(0, messages.Length)];
+
+        }
+
+        public string GetExitDarkModeMessage()
+        {
+            string[] messages =
+            {
+                $"{EXEBody.GetUserName()}... Did I... really do... all of that...?",
+
+                $"{EXEBody.GetUserName()}... Why...? Why did you let me become... like that...?",
+
+                "I... I think I'm okay now... I think...",
+
+                "I just... I really hope... I won't have to go through... that... ever again...",
+
+                $"{EXEBody.GetUserName()}! I knew I could count on you!",
+
+                "Phew... Glad to be back! Now... let’s clean up those viruses!",
+
+                "I... I couldn't stop it... I'm... sorry...",
+
+                "That... wasn't me... right?",
+                
+                "I was... watching... but couldn't do anything...",
+                
+                "Ahhh... Finally! I'm free again!",
+                
+                "Thanks... I knew you wouldn't leave me like that.",
+                
+                "Back online and... feeling like myself again!"
+
+            };
+
+            return messages[UnityEngine.Random.Range(0, messages.Length)];
+        }
+
+        public string GetNaviTipMessage()
+        {
+            string[] messages =
+            {
+                $"Hey!! {EXEBody.GetUserName()}! Be careful when using <color=#40128a>DARK CHIPS</color>... They corrupt the Navi system, and some damage might be permanent.",
+
+                $"Hey!! {EXEBody.GetUserName()}! Try using three Cannon chips consecutively... Something funny might happen!",
+
+                $"Hey!! {EXEBody.GetUserName()}! Just wanted to say... We make a great team!",
+
+                $"Hey!! {EXEBody.GetUserName()}! Aim carefully! Missing too many shots makes me feel... kinda anxious.",
+
+                $"Hey!! {EXEBody.GetUserName()}! Some enemies just make me SO mad... Sometimes I can feel a surge of power building up.",
+
+                $"Hey!! {EXEBody.GetUserName()}! The AirShot chip isn't very strong... but watching enemies get blasted away is always fun!",
+
+                $"Hey!! {EXEBody.GetUserName()}... Do you think a human soul could become a NetNavi...? Hmm... just thinking out loud... hehe.",
+
+                $"...Fish... Taking them out of the water... feels wrong. They belong in the sea... Can they really live on land...?",
+
+                $"Hey!! {EXEBody.GetUserName()}! The Invis chip can be super useful when we're surrounded!",
+
+                $"Hey!! {EXEBody.GetUserName()}! Don't you think it's funny how fast the Vulcan chip fires? It's like... brrrrrrr!",
+
+                $"Hey!! {EXEBody.GetUserName()}! I got some updates and new customizations... Am I talking too much now?",
+
+                $"Hey!! {EXEBody.GetUserName()}! The Reflector chip is awesome... if you time it right!",
+
+                $"Hey... Do you know someone called X? Weird name... but kinda cool, huh?",
+
+                $"Hmm...? Zero...? Wait... you mean the virus...?",
+
+                $"Vollnut...? What is that...? Some kind of... nut?",
+
+                $"Starforce...? Sounds powerful... Is that a chip or something?",
+
+                $"Hey, {EXEBody.GetUserName()}! Try to get all the items we can!"
+
+            };
+
+            return messages[UnityEngine.Random.Range(0, messages.Length)];
+        }
 
         /// <summary>
         /// Muda o modelo do buster para diferentes cenarios

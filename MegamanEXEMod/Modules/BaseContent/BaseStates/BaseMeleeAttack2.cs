@@ -349,23 +349,23 @@ namespace MegamanEXEMod.Modules.BaseStates
                 switch (skinIndex)
                 {
                     case 0:
-                        return "Megaman.EXE";
+                        return "<color=#043db8>Megaman.EXE</color>";
                     break;
 
                     case 1:
-                        return "Protoman.EXE";
+                        return "<color=#cf1919>Protoman.EXE</color>";
                     break;
 
                     case 2:
-                        return "Roll.EXE";
+                        return "<color=#ff7ade>Roll.EXE</color>";
                     break;
 
                     case 3:
-                        return "Bass.EXE";
+                        return "<color=#8a4601>Bass.EXE</color>";
                     break;
 
                     case 4:
-                        return "Megaman.EXE Dive";
+                        return "<color=#00d0fa>Megaman.EXE Dive</color>";
                     break;
 
 

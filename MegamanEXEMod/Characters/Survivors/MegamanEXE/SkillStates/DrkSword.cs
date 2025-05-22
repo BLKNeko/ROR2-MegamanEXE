@@ -47,7 +47,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
             impactSound = EXEAssets.swordHitSoundEvent.index;
 
-            SetHitReset(true, 3);
+            SetHitReset(true, 2);
 
             EMValue = -1;
             EVValue = 10;

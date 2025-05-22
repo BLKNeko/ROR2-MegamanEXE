@@ -94,10 +94,19 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             crosshair = Asset.LoadCrosshair("Standard"),
             podPrefab = LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/SurvivorPod"),
 
-            maxHealth = 110f,
+            maxHealth = 100f,
             healthRegen = 1.5f,
-            armor = 0f,
+            healthGrowth = 25f,
+            regenGrowth = 0.2f,
+            armor = 25f,
+            armorGrowth = 1.5f,
+            moveSpeedGrowth = 0.05f,
+            damage = 10f,
+            shieldGrowth = 0.25f,
+            critGrowth = 0.15f,
+            attackSpeedGrowth = 0.005f,
 
+            jumpPowerGrowth = 0.25f,
             jumpCount = 1,
         };
 
@@ -196,7 +205,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
             base.InitializeCharacter();
 
-            HenryConfig.Init();
+            EXEConfig.Init();
             HenryStates.Init();
             EXETokens.Init();
 
@@ -1178,64 +1187,70 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
             if (sender.HasBuff(EXEBuffs.Attack10Buff))
             {
-                args.baseDamageAdd *= 1.1f;
+                args.damageMultAdd += 0.1f;
 
             }
 
             if (sender.HasBuff(EXEBuffs.Attack20Buff))
             {
-                args.baseDamageAdd *= 1.2f;
+                args.damageMultAdd += 0.2f;
 
             }
 
             if (sender.HasBuff(EXEBuffs.Attack30Buff))
             {
-                args.baseDamageAdd *= 1.3f;
+                args.damageMultAdd += 0.3f;
 
             }
 
             if (sender.HasBuff(EXEBuffs.FullSyncBuff))
             {
-                args.baseDamageAdd *= 2f;
-                args.critDamageMultAdd *= 2f;
-                args.critAdd *= 2f;
-                args.baseMoveSpeedAdd *= 1.4f;
-                args.baseRegenAdd *= 1.5f;
+                args.damageMultAdd += 2f;
+                args.critDamageMultAdd += 2f;
+                args.critAdd += 45f;
+                args.moveSpeedMultAdd += 0.4f;
+                args.regenMultAdd += 0.5f;
 
             }
 
             if (sender.HasBuff(EXEBuffs.RageBuff))
             {
-                args.baseDamageAdd *= 3f;
-                args.baseMoveSpeedAdd *= 1.5f;
+                args.damageMultAdd += 3f;
+                args.moveSpeedMultAdd += 0.5f;
 
             }
 
 
             if (sender.HasBuff(EXEBuffs.AnxiousBuff))
             {
-                args.baseDamageAdd *= 0.9f;
-                args.armorAdd *= 0.8f;
-                args.baseMoveSpeedAdd *= 1.25f;
+                args.damageMultAdd -= 0.2f;
+                args.armorAdd -= sender.baseArmor * 0.8f;
+                args.moveSpeedMultAdd += 0.5f;
 
             }
 
             if (sender.HasBuff(EXEBuffs.DarkDebuff1))
             {
-                args.jumpPowerMultAdd *= 0.1f;
-                args.moveSpeedMultAdd *= 0.25f;
+                args.jumpPowerMultAdd = 0.1f;
+                args.baseJumpPowerAdd = 0.1f;
+                args.moveSpeedMultAdd = 0.25f;
+                args.baseMoveSpeedAdd = 0.25f;
+                args.moveSpeedReductionMultAdd += 2f;
             }
 
             if (sender.HasBuff(EXEBuffs.DarkDebuff2))
             {
-                args.jumpPowerMultAdd *= 10f;
-                args.moveSpeedMultAdd *= 10f;
+                args.jumpPowerMultAdd += 3f;
+                args.baseJumpPowerAdd += 3f;
+                args.moveSpeedMultAdd += 3f;
+                args.baseMoveSpeedAdd += 3f;
             }
 
             if (sender.HasBuff(EXEBuffs.DarkDebuff3))
             {
-                args.baseDamageAdd *= 0.1f;
-                args.primaryCooldownMultAdd *= 3f;
+                args.damageMultAdd = 0.1f;
+                args.baseDamageAdd -= sender.baseDamage/2;
+                args.primaryCooldownMultAdd += 3f;
             }
 
             if (sender.HasBuff(EXEBuffs.DarkDebuff4))
@@ -1259,23 +1274,30 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
             if (sender.HasBuff(EXEBuffs.DarkDebuff6))
             {
-                args.cooldownMultAdd *= 3f;
+                if (NetworkServer.active)
+                {
+                    sender.AddTimedBuff(RoR2Content.Buffs.Slow50, 5f);
+                    sender.AddTimedBuff(RoR2Content.Buffs.Poisoned, 5f);
+                    sender.AddTimedBuff(DLC1Content.Buffs.Blinded, 8f);
+                }
 
             }
 
             if (sender.HasBuff(EXEBuffs.DarkDebuff7))
             {
-                args.armorAdd *= 0.4f;
+                args.armorAdd -= sender.baseArmor * 0.4f;
             }
 
             if (sender.HasBuff(EXEBuffs.DarkDebuff8))
             {
-                sender.level *= 0.9f;
+                sender.AddTimedBuff(DLC1Content.Buffs.Blinded, 15f);
             }
 
             if (sender.HasBuff(EXEBuffs.DarkDebuff9))
             {
-                sender.healthComponent.health *= 0.9f;
+                sender.skillLocator.primary.temporaryCooldownPenalty = 3f;
+                sender.skillLocator.secondary.temporaryCooldownPenalty = 10f;
+                sender.skillLocator.utility.temporaryCooldownPenalty = 20f;
             }
 
         }

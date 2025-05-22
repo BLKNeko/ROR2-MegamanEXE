@@ -19,7 +19,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
-            damageCoefficient = 1f;
+            damageCoefficient = EXEStaticValues.EXEBusterDamageCoefficient;
             procCoefficient = 1f;
             baseDuration = 0.4f;
             firePercentTime = 0.0f;
@@ -134,7 +134,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
                         bulletCount = 1,
                         aimVector = aimRay.direction,
                         origin = aimRay.origin,
-                        damage = damageCoefficient * damageStat,
+                        damage = (damageCoefficient * EXEStaticValues.XMidChargeDamageCoefficient) * damageStat,
                         damageColorIndex = DamageColorIndex.Default,
                         damageType = DamageTypeCombo.GenericPrimary,
                         falloffModel = BulletAttack.FalloffModel.None,
@@ -185,7 +185,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
                         bulletCount = 1,
                         aimVector = aimRay.direction,
                         origin = aimRay.origin,
-                        damage = damageCoefficient * damageStat,
+                        damage = (damageCoefficient * EXEStaticValues.XFullChargeDamageCoefficient) * damageStat,
                         damageColorIndex = DamageColorIndex.Default,
                         damageType = DamageTypeCombo.GenericPrimary,
                         falloffModel = BulletAttack.FalloffModel.None,

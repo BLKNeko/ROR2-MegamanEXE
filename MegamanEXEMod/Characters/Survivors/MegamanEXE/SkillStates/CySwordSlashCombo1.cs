@@ -111,8 +111,6 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
             base.PlayAnimation("Gesture, Override", "BufferEmpty", "attackSpeed", this.duration);
 
-            execomponent.UpdateModel(base.GetModelTransform().GetComponent<CharacterModel>(), base.GetModelTransform().GetComponent<CharacterModel>().GetComponent<ChildLocator>());
-
             base.OnExit();
         }
 
