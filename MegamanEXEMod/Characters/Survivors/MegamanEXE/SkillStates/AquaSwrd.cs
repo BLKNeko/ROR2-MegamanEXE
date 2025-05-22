@@ -103,6 +103,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
         {
 
             base.PlayAnimation("FullBody, Override", "BufferEmpty", "attackSpeed", this.duration);
+            base.PlayAnimation("Gesture, Override", "BufferEmpty", "attackSpeed", this.duration);
 
             base.OnExit();
         }

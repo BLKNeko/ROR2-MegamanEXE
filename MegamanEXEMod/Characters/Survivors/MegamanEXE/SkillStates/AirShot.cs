@@ -13,7 +13,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
         public static float damageCoefficient = 1.2f;
         public static float procCoefficient = 1f;
         public static float baseDuration = 0.2f;
-        public static float force = 10000f;
+        public static float force = 15000f;
         public static float recoil = 3f;
         public static float range = 256f;
         public static GameObject tracerEffectPrefab = Resources.Load<GameObject>("prefabs/effects/tracers/TracerBanditPistol");

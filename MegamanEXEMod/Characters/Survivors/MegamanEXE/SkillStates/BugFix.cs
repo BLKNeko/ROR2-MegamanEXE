@@ -76,7 +76,8 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
                 }
 
-            
+                EffectManager.SimpleMuzzleFlash(EXEAssets.VfxRecov, base.gameObject, "CorePosition", true);
+
                 execomponent.SetEmotionalValue(25, 0);
                 execomponent.SetEmotionalValue(0, 1);
 

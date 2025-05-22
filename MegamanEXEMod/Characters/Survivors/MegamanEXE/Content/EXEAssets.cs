@@ -117,6 +117,10 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
         internal static GameObject YellowSwordSwingVFX;
 
 
+        //EMOTE API
+        public static GameObject EXEEmotePrefab;
+        public static Sprite IconEXEEmote;
+
         private static AssetBundle _assetBundle;
 
         public static void Init(AssetBundle assetBundle)
@@ -125,6 +129,11 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             _assetBundle = assetBundle;
 
             swordHitSoundEvent = Content.CreateAndAddNetworkSoundEventDef("HenrySwordHit");
+
+            //EMOTE API
+            EXEEmotePrefab = _assetBundle.LoadAsset<GameObject>("emoteskele");
+            IconEXEEmote = _assetBundle.LoadAsset<Sprite>("EXEEmoteIcon");
+
 
             BlueSwordSwingVFX = _assetBundle.LoadEffect("BlueSwordSwingEffect", true);
             CyanSwordSwingVFX = _assetBundle.LoadEffect("CyanSwordSwingEffect", true);

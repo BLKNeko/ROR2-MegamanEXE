@@ -171,7 +171,9 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
                     }
 
                     DamageReceived = 0f;
-                    
+
+                    EffectManager.SimpleMuzzleFlash(EXEAssets.VfxRage, base.gameObject, "BaseMZ", true);
+
                 }
 
                 //SET TO FULL SYNC STATE
@@ -184,7 +186,9 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
 
                         EXEBody.AddTimedBuff(EXEBuffs.FullSyncBuff, 5f + EXEBody.level);
                     }
-                    
+
+                    EffectManager.SimpleMuzzleFlash(EXEAssets.VfxFullSync, base.gameObject, "CorePosition", true);
+
                 }
 
                 //SET TO EVIL STATE
@@ -209,7 +213,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
 
                     SetDarkTex();
 
-
+                    EffectManager.SimpleMuzzleFlash(EXEAssets.VfxEvil, base.gameObject, "BaseMZ", true);
 
                 }
 

@@ -1,4 +1,5 @@
 ﻿using BepInEx.Configuration;
+using EmotesAPI;
 using EntityStates.AffixVoid;
 using MegamanEXEMod.Modules;
 using MegamanEXEMod.Modules.Characters;
@@ -32,6 +33,10 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
         //used when registering your survivor's language tokens
         public override string survivorTokenPrefix => MMEXE_PREFIX;
+
+        internal bool setupEmoteSkeleton = false;
+        private float EXETakeDamageValue = 0f;
+        private CharacterMaster EXEMaster;
 
 
         //Skill Defs
@@ -1344,6 +1349,9 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
         {
             R2API.RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
             On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
+            On.RoR2.SurvivorCatalog.Init += SurvivorCatalog_Init;
+            CustomEmotesAPI.animChanged += CustomEmotesAPI_animChanged;
+            On.RoR2.CharacterMaster.OnBodyStart += RestoreHPAfterRespawn;
         }
 
         private void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo damageInfo)
@@ -1487,5 +1495,87 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             }
 
         }
+
+        private void RestoreHPAfterRespawn(On.RoR2.CharacterMaster.orig_OnBodyStart orig, CharacterMaster self, CharacterBody newBody)
+        {
+            orig(self, newBody);
+
+            //Debug.Log("xTakeDamageValue: " + xTakeDamageValue);
+            //Debug.Log("xMaster: " + xMaster);
+            //Debug.Log("self: " + self);
+
+            if (self == EXEMaster) // Certifica-se de que estamos restaurando o HP do personagem correto
+            {
+                float restoredHP = EXETakeDamageValue;
+
+                if (newBody && newBody.healthComponent)
+                {
+                    newBody.healthComponent.health = Mathf.Clamp(restoredHP, 1f, newBody.healthComponent.fullHealth);
+                    //Debug.Log($"HP restaurado para {newBody.healthComponent.health}");
+                }
+            }
+        }
+
+        private void CustomEmotesAPI_animChanged(string newAnimation, BoneMapper mapper)
+        {
+            //Debug.Log("newAnimation: " + newAnimation);
+            //Debug.Log("mapper: " + mapper);
+            //Debug.Log("mapper.bodyPrefab.name: " + mapper.bodyPrefab.name);
+
+            if (mapper.bodyPrefab.name.Contains("MegamanEXEBody"))
+            {
+                if (newAnimation == "none")
+                {
+                    if (mapper.bodyPrefab.GetComponent<CharacterBody>())
+                    {
+
+                        //Debug.Log("ANim changed to NONE");
+
+                        //NA MORAL VOU DEIXAR ISSO TUDO COMENTADO PELO ÓDIO QUE EU SENTI!
+
+                        float savedHP = mapper.bodyPrefab.GetComponent<CharacterBody>().healthComponent.health;
+
+                        EXETakeDamageValue = savedHP;
+                        EXEMaster = mapper.bodyPrefab.GetComponent<CharacterBody>().master;
+
+
+                        //Debug.Log("xTakeDamageValue: " + xTakeDamageValue);
+
+                        // Mata o personagem atual (sem contar como "morte real")
+                        GameObject.Destroy(mapper.bodyPrefab.GetComponent<CharacterBody>().gameObject);
+
+                        // Força o CharacterMaster a reaparecer o personagem
+                        mapper.bodyPrefab.GetComponent<CharacterBody>().master.Respawn(mapper.bodyPrefab.GetComponent<CharacterBody>().footPosition, Quaternion.identity);
+
+
+                    }
+                }
+            }
+        }
+
+        private void SurvivorCatalog_Init(On.RoR2.SurvivorCatalog.orig_Init orig)
+        {
+            orig();
+            if (!setupEmoteSkeleton)
+            {
+                setupEmoteSkeleton = true;
+                foreach (var item in SurvivorCatalog.allSurvivorDefs)
+                {
+                    if (item.bodyPrefab.name == "MegamanEXEBody")
+                    {
+                        var skele = EXEAssets.EXEEmotePrefab;
+                        //Debug.Log("Before Emote: " + item.bodyPrefab.transform.position);
+                        CustomEmotesAPI.ImportArmature(item.bodyPrefab, skele, true);
+                        CustomEmotesAPI.CreateNameTokenSpritePair(MMEXE_PREFIX + "NAME", EXEAssets.IconEXEEmote);
+                        //skele.GetComponentInChildren<BoneMapper>().scale = 1.05f;
+                        //item.bodyPrefab.GetComponentInChildren<BoneMapper>().scale = 0.5f;
+                        //skele.GetComponentInChildren<BoneMapper>().scale = 0.5f;
+                        //Debug.Log("after Emote: " + item.bodyPrefab.transform.position);
+                        //Debug.Log("skele pos: " + skele.transform.position);
+                    }
+                }
+            }
+        }
+
     }
 }

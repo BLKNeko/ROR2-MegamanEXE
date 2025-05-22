@@ -640,7 +640,7 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: Gesture, Override
     m_StateMachine: {fileID: 1107117215636118238}
-    m_Mask: {fileID: 31900000, guid: 58403dfd8abffdc478795b8b8dbdf851, type: 2}
+    m_Mask: {fileID: 31900000, guid: 49d2494b75284ec41bbdf407bb71db11, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
@@ -688,7 +688,7 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: AimPitch
     m_StateMachine: {fileID: 1107239154905128930}
-    m_Mask: {fileID: 31900000, guid: 6e8a88b422755c24f82618cdef745600, type: 2}
+    m_Mask: {fileID: 0}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 1
@@ -700,7 +700,7 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: AimYaw
     m_StateMachine: {fileID: 1107717964553556870}
-    m_Mask: {fileID: 31900000, guid: 15befd3f32425c24199edcca9dcb398e, type: 2}
+    m_Mask: {fileID: 0}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 1
