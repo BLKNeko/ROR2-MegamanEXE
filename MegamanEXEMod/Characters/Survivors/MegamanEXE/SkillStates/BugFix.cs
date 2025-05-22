@@ -1,5 +1,6 @@
 ﻿using EntityStates;
 using MegamanEXEMod.Survivors.MegamanEXE;
+using MegamanEXEMod.Survivors.MegamanEXE.Components;
 using RoR2;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -9,11 +10,12 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
     public class BugFix : BaseSkillState
     {
 
-        public static float BaseDuration = 0.1f;
+        public static float BaseDuration = 0.4f;
         private bool Fix = false;
 
         private Animator animator;
 
+        private EXEBaseComponent execomponent;
 
 
         public override void OnEnter()
@@ -23,31 +25,62 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
             //Util.PlaySound(Sounds.SFXBugFix, this.gameObject);
 
+            execomponent = GetComponent<EXEBaseComponent>();
 
         }
 
         public void ApplyFix()
         {
 
-            //SyncNetworkExe.EvilEmotionValue = 0;
-
-            //if (//SyncNetworkExe.EmotionValue < 25)
-                //SyncNetworkExe.EmotionValue = 25;
-
-            if (NetworkServer.active)
+            if (isAuthority)
             {
-                base.characterBody.RemoveBuff(RoR2Content.Buffs.OnFire);
-                base.characterBody.RemoveBuff(RoR2Content.Buffs.Slow50);
-                base.characterBody.RemoveBuff(RoR2Content.Buffs.Slow60);
-                base.characterBody.RemoveBuff(RoR2Content.Buffs.Slow80);
-                base.characterBody.RemoveBuff(RoR2Content.Buffs.Poisoned);
-                base.characterBody.RemoveBuff(RoR2Content.Buffs.Weak);
-                base.characterBody.helfireLifetime = 0f;
+
+                if (NetworkServer.active)
+                {
+
+                    if(characterBody.HasBuff(RoR2Content.Buffs.OnFire))
+                        characterBody.RemoveBuff(RoR2Content.Buffs.OnFire);
+
+                    if (characterBody.HasBuff(RoR2Content.Buffs.Slow50))
+                        characterBody.RemoveBuff(RoR2Content.Buffs.Slow50);
+
+                    if (characterBody.HasBuff(RoR2Content.Buffs.Slow60))
+                        characterBody.RemoveBuff(RoR2Content.Buffs.Slow60);
+
+                    if (characterBody.HasBuff(RoR2Content.Buffs.Slow80))
+                        characterBody.RemoveBuff(RoR2Content.Buffs.Slow80);
+
+                    if (characterBody.HasBuff(RoR2Content.Buffs.Poisoned))
+                        characterBody.RemoveBuff(RoR2Content.Buffs.Poisoned);
+
+                    if (characterBody.HasBuff(RoR2Content.Buffs.Weak))
+                        characterBody.RemoveBuff(RoR2Content.Buffs.Weak);
+
+                    if (characterBody.HasBuff(RoR2Content.Buffs.Bleeding))
+                        characterBody.RemoveBuff(RoR2Content.Buffs.Bleeding);
+
+                    if (characterBody.HasBuff(RoR2Content.Buffs.HealingDisabled))
+                        characterBody.RemoveBuff(RoR2Content.Buffs.HealingDisabled);
+
+                    if (characterBody.HasBuff(RoR2Content.Buffs.SuperBleed))
+                        characterBody.RemoveBuff(RoR2Content.Buffs.SuperBleed);
+
+                    if (characterBody.HasBuff(DLC1Content.Buffs.Blinded))
+                        characterBody.RemoveBuff(DLC1Content.Buffs.Blinded);
+
+                    if (characterBody.HasBuff(DLC1Content.Buffs.JailerSlow))
+                        characterBody.RemoveBuff(DLC1Content.Buffs.JailerSlow);
 
 
-                //base.characterBody.RemoveBuff(Modules.Buffs.DarkDebuff);
-                //base.characterBody.RemoveOldestTimedBuff(Modules.Buffs.DarkDebuff);
+                    characterBody.helfireLifetime = 0f;
 
+                }
+
+            
+                execomponent.SetEmotionalValue(25, 0);
+                execomponent.SetEmotionalValue(0, 1);
+
+                execomponent.UpdateMemoryCode('X');
             }
 
 
@@ -76,14 +109,12 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
         public override void OnExit()
         {
 
-            ////SyncNetworkExe.MemoryCode = ////SyncNetworkExe.MemoryCode + "X";
-
             base.OnExit();
         }
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {
-            return InterruptPriority.Skill;
+            return InterruptPriority.Frozen;
         }
 
         public override void OnSerialize(NetworkWriter writer)

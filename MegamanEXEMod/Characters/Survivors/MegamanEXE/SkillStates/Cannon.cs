@@ -20,15 +20,6 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
 
 
-        public float chargeTime = 0f;
-        public float LastChargeTime = 0f;
-        public bool chargeFullSFX = false;
-        public bool hasTime = false;
-        public bool hasCharged = false;
-        public bool chargingSFX = false;
-
-
-
         private float duration;
         private float fireDuration;
         private bool hasFired;
@@ -57,21 +48,23 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
             base.OnExit();
         }
 
-        private void FireArrow()
+        private void Fire()
         {
             if (!this.hasFired)
             {
                 this.hasFired = true;
 
-                base.characterBody.AddSpreadBloom(1.5f);
-                EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, base.gameObject, this.muzzleString, false);
-                //Util.PlaySound(Sounds.SFXCanon, base.gameObject);
-                base.PlayAnimation("Gesture, Override", "ShootBurst", "attackSpeed", this.duration);
+                
 
                 if (base.isAuthority)
                 {
                     Ray aimRay = base.GetAimRay();
-                    base.AddRecoil(-1f * Cannon.recoil, -2f * Cannon.recoil, -0.5f * Cannon.recoil, 0.5f * Cannon.recoil);
+                    //base.AddRecoil(-1f * Cannon.recoil, -2f * Cannon.recoil, -0.5f * Cannon.recoil, 0.5f * Cannon.recoil);
+
+                    base.characterBody.AddSpreadBloom(1.5f);
+                    EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, base.gameObject, this.muzzleString, false);
+                    //Util.PlaySound(Sounds.SFXCanon, base.gameObject);
+                    base.PlayAnimation("Gesture, Override", "ShootBurst", "attackSpeed", this.duration);
 
                     new BulletAttack
                     {
@@ -144,7 +137,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
             if ((base.fixedAge >= this.fireDuration))
             {
-                FireArrow();
+                Fire();
             }
 
             if (base.fixedAge >= this.duration && base.isAuthority)

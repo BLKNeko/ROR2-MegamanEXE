@@ -26,7 +26,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
             force = 500f;
             recoil = 2f;
             range = 500f;
-            muzzleString = "BusterMuzzPos";
+            muzzleString = "BusterMZ";
 
             duration = baseDuration / attackSpeedStat;
             fireTime = firePercentTime * duration;

@@ -1,5 +1,6 @@
 ﻿using EntityStates;
 using MegamanEXEMod.Survivors.MegamanEXE;
+using MegamanEXEMod.Survivors.MegamanEXE.Components;
 using RoR2;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -14,7 +15,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
         private Animator animator;
 
-
+        private EXEBaseComponent execomponent;
 
         public override void OnEnter()
         {
@@ -23,6 +24,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
             //Util.PlaySound(Sounds.SFXBarrier, base.gameObject);
 
+            execomponent = GetComponent<EXEBaseComponent>();
 
         }
 
@@ -59,8 +61,14 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
             ////SyncNetworkExe.MemoryCode = ////SyncNetworkExe.MemoryCode + "B";
 
             //if (//SyncNetworkExe.EvilEmotionValue > 0)
-                //SyncNetworkExe.EvilEmotionValue--;
+            //SyncNetworkExe.EvilEmotionValue--;
 
+            if (isAuthority)
+            {
+                execomponent.UpdateEmotionalValue(1, -1, 0);
+
+                execomponent.UpdateMemoryCode('B');
+            }
 
             base.OnExit();
         }

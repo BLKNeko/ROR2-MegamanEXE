@@ -29,7 +29,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
             if (NetworkServer.active)
             {
-                //base.characterBody.AddTimedBuff(Modules.Buffs.Attack10Buff, 20f);
+                base.characterBody.AddTimedBuff(EXEBuffs.Attack10Buff, 20f);
             }
 
             Attack = true;

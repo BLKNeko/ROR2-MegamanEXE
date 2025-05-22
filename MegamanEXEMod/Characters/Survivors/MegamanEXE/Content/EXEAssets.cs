@@ -98,6 +98,24 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
         public static Sprite IconStepSword;
 
+        internal static GameObject VfxChargeeffect1C;
+        internal static GameObject VfxChargeeffect2C;
+        internal static GameObject VfxSwordFire;
+        internal static GameObject VfxSwordIce;
+        internal static GameObject VfxSwordEletric;
+        internal static GameObject VfxRecov;
+        internal static GameObject VfxFullSync;
+        internal static GameObject VfxRage;
+        internal static GameObject VfxEvil;
+        internal static GameObject VfxDeleted;
+
+        internal static GameObject BlueSwordSwingVFX;
+        internal static GameObject CyanSwordSwingVFX;
+        internal static GameObject RedSwordSwingVFX;
+        internal static GameObject PinkSwordSwingVFX;
+        internal static GameObject PurpleSwordSwingVFX;
+        internal static GameObject YellowSwordSwingVFX;
+
 
         private static AssetBundle _assetBundle;
 
@@ -107,6 +125,26 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             _assetBundle = assetBundle;
 
             swordHitSoundEvent = Content.CreateAndAddNetworkSoundEventDef("HenrySwordHit");
+
+            BlueSwordSwingVFX = _assetBundle.LoadEffect("BlueSwordSwingEffect", true);
+            CyanSwordSwingVFX = _assetBundle.LoadEffect("CyanSwordSwingEffect", true);
+            PinkSwordSwingVFX = _assetBundle.LoadEffect("PinkSwordSwingEffect", true);
+            PurpleSwordSwingVFX = _assetBundle.LoadEffect("PurpleSwordSwingEffect", true);
+            RedSwordSwingVFX = _assetBundle.LoadEffect("RedSwordSwingEffect", true);
+            YellowSwordSwingVFX = _assetBundle.LoadEffect("YellowSwordSwingEffect", true);
+
+            VfxChargeeffect1C = _assetBundle.LoadEffect("Charge1VFX", true);
+            VfxChargeeffect2C = _assetBundle.LoadEffect("Charge2VFX", true);
+            VfxSwordFire = _assetBundle.LoadEffect("VFXFire1", true);
+            VfxSwordIce = _assetBundle.LoadEffect("VFXIce1", true);
+            VfxSwordEletric = _assetBundle.LoadEffect("VFXEletric", true);
+            VfxRecov = _assetBundle.LoadEffect("VFXRecov", true);
+            VfxFullSync = _assetBundle.LoadEffect("VFXFullSync", true);
+            VfxRage = _assetBundle.LoadEffect("VFXRage", true);
+            VfxEvil = _assetBundle.LoadEffect("VFXEnterEvil", true);
+
+            VfxDeleted = _assetBundle.LoadEffect("DeathEffect", true);
+
 
             EXEMat = _assetBundle.LoadAsset<Material>("matMMEXE");
             ProtoMat = _assetBundle.LoadAsset<Material>("matProtoEXE");
@@ -187,6 +225,10 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             IconReflector = _assetBundle.LoadAsset<Sprite>("IconReflector");
 
             IconStepSword = _assetBundle.LoadAsset<Sprite>("IconStepSword");
+
+
+
+
 
             CreateEffects();
 

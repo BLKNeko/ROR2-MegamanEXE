@@ -40,7 +40,8 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
             hitSoundString = "";
             //muzzleString = "SwordMuzzPos";
-            muzzleString = "SwingLeft";
+            //muzzleString = "SwingLeft";
+            muzzleString = swingIndex % 2 == 0 ? "SwingLeft" : "SwingRight";
             playbackRateParam = "attackSpeed";
             hitEffectPrefab = EXEAssets.swordHitImpactEffect;
 
@@ -48,17 +49,17 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
             execomponent = GetComponent<EXEBaseComponent>();
 
-            //if(base.characterBody.skinIndex == 0)
-            //    swingEffectPrefab = EXEAssets.ZSwordVFX;
-            //if (base.characterBody.skinIndex == 1)
-            //    swingEffectPrefab = EXEAssets.BZSwordVFX;
-            //if (base.characterBody.skinIndex == 2)
-            //    swingEffectPrefab = EXEAssets.NZSwordVFX;
-            //if (base.characterBody.skinIndex == 3)
-            //    swingEffectPrefab = EXEAssets.NZSwordVFX;
+            if (base.characterBody.skinIndex == 0)
+                swingEffectPrefab = EXEAssets.CyanSwordSwingVFX;
+            if (base.characterBody.skinIndex == 1)
+                swingEffectPrefab = EXEAssets.RedSwordSwingVFX;
+            if (base.characterBody.skinIndex == 2)
+                swingEffectPrefab = EXEAssets.PinkSwordSwingVFX;
+            if (base.characterBody.skinIndex == 3)
+                swingEffectPrefab = EXEAssets.PurpleSwordSwingVFX;
+            if (base.characterBody.skinIndex == 4)
+                swingEffectPrefab = EXEAssets.CyanSwordSwingVFX;
 
-
-            //SetHitReset(true, 3);
 
             //if (ZeroConfig.enableVoiceBool.Value)
             //{

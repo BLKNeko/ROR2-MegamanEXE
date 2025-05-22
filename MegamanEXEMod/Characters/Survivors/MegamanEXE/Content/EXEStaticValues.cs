@@ -13,6 +13,9 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
         public const float bombDamageCoefficient = 16f;
 
 
+        //CHIP DAMAGES
+
+
         public static readonly float XMidChargeDamageCoefficient = EXEConfig.midChargeMultiplierFloat.Value;
 
         public static readonly float XFullChargeDamageCoefficient = EXEConfig.fullChargeMultiplierFloat.Value;

@@ -113,8 +113,13 @@ namespace MegamanEXEMod.Modules.BaseStates
             if (RollDebuff && NetworkServer.active)
             {
 
+                execomponent.SendDarkChipWarningMessage();
+
                 var rand = UnityEngine.Random.Range(0, 9);
                 characterBody.AddTimedBuff(GetDebuffByIndex(rand), 3f);
+
+                if (isAuthority)
+                    execomponent.UpdateEmotionalValue(EMValue, EVValue, DMGValue);
 
                 RollDebuff = false;
 
@@ -127,6 +132,10 @@ namespace MegamanEXEMod.Modules.BaseStates
                 chipMemoryCode = ' ';
 
             }
+
+            EMValue = 0;
+            EVValue = 0;
+            DMGValue = 0;
 
             //execomponent.UpdateModel(base.GetModelTransform().GetComponent<CharacterModel>(), base.GetModelTransform().GetComponent<CharacterModel>().GetComponent<ChildLocator>());
 

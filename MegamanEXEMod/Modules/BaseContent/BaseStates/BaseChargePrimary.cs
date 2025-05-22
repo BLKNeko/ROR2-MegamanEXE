@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using MegamanEXEMod.Survivors.MegamanEXE;
 
 namespace MegamanEXEMod.Modules.BaseStates
 {
@@ -15,7 +16,7 @@ namespace MegamanEXEMod.Modules.BaseStates
         protected float damageCoefficient = 1f;
         protected float procCoefficient = 1f;
         protected float baseDuration = 1f;
-        protected string muzzleString = "BusterMuzzPos";
+        protected string muzzleString = "BusterMZ";
         protected GameObject hitEffectPrefab;
         protected GameObject muzzleEffectPrefab;
 
@@ -180,13 +181,13 @@ namespace MegamanEXEMod.Modules.BaseStates
                 case 1:
                     //Util.PlaySound(XStaticValues.charging, base.gameObject);
                     AkSoundEngine.PostEvent(3358936867, this.gameObject);
-                    //EffectManager.SimpleMuzzleFlash(XAssets.Charge1VFX, base.gameObject, "CorePosition", true);
+                    EffectManager.SimpleMuzzleFlash(EXEAssets.VfxChargeeffect1C, base.gameObject, "CorePosition", true);
                     break;
 
                 case 2:
                     //Util.PlaySound(XStaticValues.fullCharge, base.gameObject);
                     AkSoundEngine.PostEvent(992292707, this.gameObject);
-                    //EffectManager.SimpleMuzzleFlash(XAssets.Charge2VFX, base.gameObject, "CorePosition", true);
+                    EffectManager.SimpleMuzzleFlash(EXEAssets.VfxChargeeffect2C, base.gameObject, "CorePosition", true);
                     break;
 
                 default:

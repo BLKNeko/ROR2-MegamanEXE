@@ -11,6 +11,9 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
         public static ConfigEntry<float> midChargeMultiplierFloat;
         public static ConfigEntry<float> fullChargeMultiplierFloat;
 
+        public static ConfigEntry<bool> NaviChatBool;
+        public static ConfigEntry<float> NaviChatCooldown;
+
         public static void Init()
         {
             string section = "MegamanEXE";
@@ -44,6 +47,20 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 2f,
                 10f,
                 "This is the full charge damage multiplier.");
+
+            NaviChatBool = Config.BindAndOptions(
+                section,
+                "Enable NetNavi Chat",
+                true,
+                "At certain moments your NetNavi will talk to you, giving Hints, warnings, sharing thougths or just chat a little.");
+
+            NaviChatCooldown = Config.BindAndOptions(
+                section,
+                "NaviChatCooldown",
+                150f,
+                10f,
+                900f,
+                "This is the time between every chat message from the normal NetNavi state. \n\n WILL NOT WORK IF NETNAVICHAT IS DISABLED");
         }
     }
 }

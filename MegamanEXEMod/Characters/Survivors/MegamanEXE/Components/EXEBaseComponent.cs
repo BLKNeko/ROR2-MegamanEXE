@@ -28,6 +28,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
         private FootstepHandler footstepHandler;
 
         private float RedHpTimer = 0f;
+        private float NaviChatTimer = 0f;
         private float RedHpTimerCooldown = 6.5f;
 
         private string MemoryCode { get; set; }
@@ -106,6 +107,10 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
         {
             UpdateEmotionState();
             IsEXEWeak();
+
+            if (EXEConfig.NaviChatBool.Value)
+                NetNaviChat();
+
         }
 
         private void UpdateEmotionState()
@@ -353,7 +358,8 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
                     EXEchildLocator.FindChildGameObject("CYSword").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.DarkEXESwordMat;
                     EXEchildLocator.FindChildGameObject("ProtoBuster").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.DarkEXEMat;
 
-                    SendChatMessage("<color=#382a57>Dark Megaman.EXE</color>: Hahahaha, nevermind about the DarkChips, i feel powerfull! Now stop slacking off and lets kill some losers.");
+                    if (EXEConfig.NaviChatBool.Value)
+                        SendChatMessage("<color=#382a57>Dark Megaman.EXE</color>: " + GetDarkModeMessage());
 
                 }
 
@@ -374,7 +380,8 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
                     EXEchildLocator.FindChildGameObject("EXEBodyMesh").GetComponent<SkinnedMeshRenderer>().sharedMaterial = EXEAssets.DarkProtoMat;
                     EXEchildLocator.FindChildGameObject("CYSword").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.DarkEXESwordMat;
 
-                    SendChatMessage("<color=#401412>Dark Protoman.EXE</color>: Hahahaha, nevermind about the DarkChips, i feel powerfull! Now stop slacking off and lets kill some losers.");
+                    if (EXEConfig.NaviChatBool.Value)
+                        SendChatMessage("<color=#401412>Dark Protoman.EXE</color>: " + GetDarkModeMessage());
 
                 }
 
@@ -394,7 +401,8 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
                     EXEchildLocator.FindChildGameObject("EXEBodyMesh").GetComponent<SkinnedMeshRenderer>().sharedMaterial = EXEAssets.DarkRollMat;
                     EXEchildLocator.FindChildGameObject("CYSword").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.DarkEXESwordMat;
 
-                    SendChatMessage("<color=#810491>Empress</color>: Hahahaha, nevermind about the DarkChips, i feel powerfull! Now stop slacking off and lets kill some losers.");
+                    if (EXEConfig.NaviChatBool.Value)
+                        SendChatMessage("<color=#810491>Empress</color>: " + GetDarkModeMessage());
 
                 }
 
@@ -416,7 +424,8 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
                     EXEchildLocator.FindChildGameObject("BassBuster").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.DarkBassMat;
                     EXEchildLocator.FindChildGameObject("CYSword").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.DarkEXESwordMat;
 
-                    SendChatMessage("<color=#140429>BASS XX.EXE</color>: Hahahaha, nevermind about the DarkChips, i feel powerfull! Now stop slacking off and lets kill some losers.");
+                    if (EXEConfig.NaviChatBool.Value)
+                        SendChatMessage("<color=#140429>BASS XX.EXE</color>: " + GetDarkModeMessage());
 
                 }
 
@@ -438,7 +447,8 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
                     EXEchildLocator.FindChildGameObject("DiveEXESword").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.DarkDiveMat;
                     EXEchildLocator.FindChildGameObject("DiveEXEBuster").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.DarkDiveMat;
 
-                    SendChatMessage("<color=#401412>Dark Megaman.EXE Dive</color>: Hahahaha, nevermind about the DarkChips, i feel powerfull! Now stop slacking off and lets kill some losers.");
+                    if (EXEConfig.NaviChatBool.Value)
+                        SendChatMessage("<color=#401412>Dark Megaman.EXE Dive</color>: " + GetDarkModeMessage());
 
                 }
 
@@ -465,7 +475,8 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
                     EXEchildLocator.FindChildGameObject("ProtoBuster").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.EXEMat;
                     EXEchildLocator.FindChildGameObject("EXEMask").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.EXEMat;
 
-                    SendChatMessage("<color=#043db8>Megaman.EXE</color>: I think... i am fine now...");
+                    if (EXEConfig.NaviChatBool.Value)
+                        SendChatMessage("<color=#043db8>Megaman.EXE</color>: " + GetExitDarkModeMessage());
 
                 }
 
@@ -486,7 +497,8 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
                     EXEchildLocator.FindChildGameObject("EXEBodyMesh").GetComponent<SkinnedMeshRenderer>().sharedMaterial = EXEAssets.ProtoMat;
                     EXEchildLocator.FindChildGameObject("CYSword").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.ProtoSwordMat;
 
-                    SendChatMessage("<color=#cf1919>Protoman.EXE</color>: I think... i am fine now...");
+                    if (EXEConfig.NaviChatBool.Value)
+                        SendChatMessage("<color=#cf1919>Protoman.EXE</color>: " + GetExitDarkModeMessage());
                 }
 
 
@@ -505,7 +517,8 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
                     EXEchildLocator.FindChildGameObject("EXEBodyMesh").GetComponent<SkinnedMeshRenderer>().sharedMaterial = EXEAssets.RollMat;
                     EXEchildLocator.FindChildGameObject("CYSword").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.RollSwordMat;
 
-                    SendChatMessage("<color=#ff7ade>Roll.EXE</color>: I think... i am fine now...");
+                    if (EXEConfig.NaviChatBool.Value)
+                        SendChatMessage("<color=#ff7ade>Roll.EXE</color>: " + GetExitDarkModeMessage());
                 }
 
 
@@ -526,7 +539,8 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
                     EXEchildLocator.FindChildGameObject("BassBuster").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.BassMat;
                     EXEchildLocator.FindChildGameObject("CYSword").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.BassSwordMat;
 
-                    SendChatMessage("<<color=#8a4601>Bass.EXE</color>: I think... i am fine now...");
+                    if (EXEConfig.NaviChatBool.Value)
+                        SendChatMessage("<<color=#8a4601>Bass.EXE</color>: " + GetExitDarkModeMessage());
                 }
 
 
@@ -547,7 +561,8 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
                     EXEchildLocator.FindChildGameObject("DiveEXESword").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.DiveMat;
                     EXEchildLocator.FindChildGameObject("DiveEXEBuster").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.DiveMat;
 
-                    SendChatMessage("<color=#00d0fa>Megaman.EXE Dive</color>: I think... i am fine now...");
+                    if (EXEConfig.NaviChatBool.Value)
+                        SendChatMessage("<color=#00d0fa>Megaman.EXE Dive</color>: " + GetExitDarkModeMessage());
                 }
 
 
@@ -691,7 +706,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
             return messages[UnityEngine.Random.Range(0, messages.Length)];
         }
 
-        public string GetNaviTipMessage()
+        private string GetNaviTipMessage()
         {
             string[] messages =
             {
@@ -732,6 +747,88 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
             };
 
             return messages[UnityEngine.Random.Range(0, messages.Length)];
+        }
+
+        /// <summary>
+        /// Funcao para as conversas casuais do NetNavi
+        /// </summary>
+        private void NetNaviChat()
+        {
+
+            if(NaviChatTimer >= EXEConfig.NaviChatCooldown.Value && !EXEBody.HasBuff(EXEBuffs.EvilBuff) && EXEBody.healthComponent.alive)
+            {
+
+                switch (EXEBody.skinIndex)
+                {
+                    case 0:
+                        SendChatMessage("<color=#043db8>Megaman.EXE</color>: " + GetNaviTipMessage());
+                        break;
+
+                    case 1:
+                        SendChatMessage("<color=#cf1919>Protoman.EXE</color>: " + GetNaviTipMessage());
+                        break;
+
+                    case 2:
+                        SendChatMessage("<color=#ff7ade>Roll.EXE</color>: " + GetNaviTipMessage());
+                        break;
+
+                    case 3:
+                        SendChatMessage("<color=#8a4601>Bass.EXE</color>: " + GetNaviTipMessage());
+                        break;
+
+                    case 4:
+                        SendChatMessage("<color=#00d0fa>Megaman.EXE Dive</color>: " + GetNaviTipMessage());
+                        break;
+                }
+
+
+                NaviChatTimer = 0f;
+
+            }
+            else if(!EXEBody.HasBuff(EXEBuffs.EvilBuff) && EXEBody.healthComponent.alive)
+            {
+                NaviChatTimer += Time.fixedDeltaTime;
+            }
+
+            
+        }
+
+        /// <summary>
+        /// Funcao para enviar o aviso do dark chip no chat
+        /// </summary>
+        public void SendDarkChipWarningMessage()
+        {
+
+            if (!EXEBody.HasBuff(EXEBuffs.EvilBuff) && EXEBody.healthComponent.alive)
+            {
+
+                switch (EXEBody.skinIndex)
+                {
+                    case 0:
+                        SendChatMessage("<color=#043db8>Megaman.EXE</color>: " + GetDarkChipWarningMessage());
+                        break;
+
+                    case 1:
+                        SendChatMessage("<color=#cf1919>Protoman.EXE</color>: " + GetDarkChipWarningMessage());
+                        break;
+
+                    case 2:
+                        SendChatMessage("<color=#ff7ade>Roll.EXE</color>: " + GetDarkChipWarningMessage());
+                        break;
+
+                    case 3:
+                        SendChatMessage("<color=#8a4601>Bass.EXE</color>: " + GetDarkChipWarningMessage());
+                        break;
+
+                    case 4:
+                        SendChatMessage("<color=#00d0fa>Megaman.EXE Dive</color>: " + GetDarkChipWarningMessage());
+                        break;
+                }
+
+
+            }
+
+
         }
 
         /// <summary>

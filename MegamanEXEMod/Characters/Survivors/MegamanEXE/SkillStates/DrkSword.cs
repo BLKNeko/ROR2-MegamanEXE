@@ -41,11 +41,13 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
             hitSoundString = "";
             //muzzleString = "SwordMuzzPos";
-            muzzleString = "SwingLeft";
+            muzzleString = "SwingDown";
             playbackRateParam = "attackSpeed";
             hitEffectPrefab = Resources.Load<GameObject>("prefabs/effects/impacteffects/ImpactMercSwing");
 
             impactSound = EXEAssets.swordHitSoundEvent.index;
+
+            swingEffectPrefab = EXEAssets.PurpleSwordSwingVFX;
 
             SetHitReset(true, 2);
 
@@ -56,22 +58,6 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
             RollDebuff = true;
 
             chipMemoryCode = 'X';
-
-            chatMessage = $"{GetNetNaviName(characterBody.skinIndex)}: Hey!! {characterBody.GetUserName()} I don't think its a good ideia keep using dark chips!";
-            SendChatMessage(chatMessage);
-
-
-            //if(base.characterBody.skinIndex == 0)
-            //    swingEffectPrefab = EXEAssets.ZSwordVFX;
-            //if (base.characterBody.skinIndex == 1)
-            //    swingEffectPrefab = EXEAssets.BZSwordVFX;
-            //if (base.characterBody.skinIndex == 2)
-            //    swingEffectPrefab = EXEAssets.NZSwordVFX;
-            //if (base.characterBody.skinIndex == 3)
-            //    swingEffectPrefab = EXEAssets.NZSwordVFX;
-
-
-            //SetHitReset(true, 3);
 
             //if (ZeroConfig.enableVoiceBool.Value)
             //{

@@ -1,5 +1,6 @@
 ﻿using EntityStates;
 using MegamanEXEMod.Survivors.MegamanEXE;
+using MegamanEXEMod.Survivors.MegamanEXE.Components;
 using RoR2;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -20,20 +21,13 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
 
 
-        public float chargeTime = 0f;
-        public float LastChargeTime = 0f;
-        public bool chargeFullSFX = false;
-        public bool hasTime = false;
-        public bool hasCharged = false;
-        public bool chargingSFX = false;
-
-
-
         private float duration;
         private float fireDuration;
         private bool hasFired;
         private Animator animator;
         private string muzzleString;
+
+        private EXEBaseComponent execomponent;
 
         public override void OnEnter()
         {
@@ -42,8 +36,9 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
             this.fireDuration = 0.25f * this.duration;
             base.characterBody.SetAimTimer(2f);
             this.animator = base.GetModelAnimator();
-            this.muzzleString = "Weapon";
-            base.PlayAnimation("Gesture, Override", "ShootPose", "attackSpeed", this.duration);
+            this.muzzleString = "BusterMZ";
+
+            execomponent = GetComponent<EXEBaseComponent>();
 
             ////ArmHelper.ArmChanger(1);
 
@@ -53,6 +48,9 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
         {
 
             ////SyncNetworkExe.MemoryCode = ////SyncNetworkExe.MemoryCode + "X";
+            
+            //Verificar de criar um AdvAirshot
+            execomponent.UpdateMemoryCode('A');
 
             base.OnExit();
         }
@@ -63,15 +61,15 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
             {
                 this.hasFired = true;
 
-                base.characterBody.AddSpreadBloom(1.5f);
-                EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, base.gameObject, this.muzzleString, false);
-                Util.PlaySound("HenryShootPistol", base.gameObject);
-                base.PlayAnimation("Gesture, Override", "ShootBurst", "attackSpeed", this.duration);
-
                 if (base.isAuthority)
                 {
                     Ray aimRay = base.GetAimRay();
                     base.AddRecoil(-1f * AirShot.recoil, -2f * AirShot.recoil, -0.5f * AirShot.recoil, 0.5f * AirShot.recoil);
+
+                    base.characterBody.AddSpreadBloom(1.5f);
+                    EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, base.gameObject, this.muzzleString, false);
+                    Util.PlaySound("HenryShootPistol", base.gameObject);
+                    PlayAnimation("Gesture, Override", "EXEBusterAttack", "attackSpeed", this.duration);
 
                     new BulletAttack
                     {
@@ -116,20 +114,19 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
             if (hurtbox)
             {
-                //Debug.Log("Hit the enemy");
 
-                //SyncNetworkExe.EmotionValue++;
 
-                //Debug.Log("Emotion value:" + //SyncNetworkExe.EmotionValue);
+                if (isAuthority)
+                    execomponent.UpdateEmotionalValue(1, 0, 0);
+
 
             }
             else
             {
-                //Debug.Log("Miss the enemy");
 
-                //SyncNetworkExe.EmotionValue--;
+                if (isAuthority)
+                    execomponent.UpdateEmotionalValue(-1, 0, 0);
 
-                //Debug.Log("Emotion value:" + //SyncNetworkExe.EmotionValue);
 
             }
 
