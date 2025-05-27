@@ -64,7 +64,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
         internal static SkillDef DrkRecovSkillDef;
         internal static SkillDef DrkSwordSkillDef;
         internal static SkillDef DrkVulcanSkillDef;
-        internal static SkillDef ElecSkillDef;
+        internal static SkillDef ElecSwrdSkillDef;
         internal static SkillDef FireSwrdSkillDef;
         internal static SkillDef FstGaugeSkillDef;
         internal static SkillDef GutPunchSkillDef;
@@ -354,6 +354,30 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             CyberSwordSkillDef.stepCount = 2;
             CyberSwordSkillDef.stepGraceDuration = 0.5f;
 
+            NoDataSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_NODATA_NAME",
+                skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_NODATA_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_NODATA_DESCRIPTION",
+                skillIcon = EXEAssets.IconNoData,
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.NoData)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = false,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = true,
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = false,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1
+            });
+
             #region ADVPROG
 
             AdvAirShotSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
@@ -424,6 +448,30 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 mustKeyPress = true,
                 cancelSprintingOnActivation = true,
                 rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1
+            });
+
+            AdvInfiniteVulcanSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_INFVULC_NAME",
+                skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_INFVULC_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_INFVULC_DESCRIPTION",
+                skillIcon = EXEAssets.IconInfiniteVulcan,
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.AdvInfiniteVulcan)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 50,
+                baseRechargeInterval = 40f,
+                beginSkillCooldownOnSkillEnd = false,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = true,
+                interruptPriority = EntityStates.InterruptPriority.PrioritySkill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = true,
+                rechargeStock = 50,
                 requiredStock = 1,
                 stockToConsume = 1
             });
@@ -608,6 +656,54 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 stockToConsume = 1
             });
 
+            FstGaugeSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_FSTGAUGE_NAME",
+                skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_FSTGAUGE_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_FSTGAUGE_DESCRIPTION",
+                skillIcon = EXEAssets.IconFstGauge,
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.FstGauge)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 20f,
+                beginSkillCooldownOnSkillEnd = false,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = true,
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1
+            });
+
+            InvisSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_INVIS_NAME",
+                skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_INVIS_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_INVIS_DESCRIPTION",
+                skillIcon = EXEAssets.IconInvis,
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Invis)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 15f,
+                beginSkillCooldownOnSkillEnd = false,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = true,
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = false,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1
+            });
+
             #endregion
 
 
@@ -637,6 +733,78 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 stockToConsume = 1
             });
 
+            ElecSwrdSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_ELECSWRD_NAME",
+                skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_ELECSWRD_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_ELECSWRD_DESCRIPTION",
+                skillIcon = EXEAssets.IconElecSwrd,
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.ElecSwrd)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 3,
+                baseRechargeInterval = 20f,
+                beginSkillCooldownOnSkillEnd = false,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = true,
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 3,
+                requiredStock = 1,
+                stockToConsume = 1
+            });
+
+            FireSwrdSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_FIRESWRD_NAME",
+                skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_FIRESWRD_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_FIRESWRD_DESCRIPTION",
+                skillIcon = EXEAssets.IconFireSwrd,
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.FireSwrd)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 3,
+                baseRechargeInterval = 20f,
+                beginSkillCooldownOnSkillEnd = false,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = true,
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 3,
+                requiredStock = 1,
+                stockToConsume = 1
+            });
+
+            GutPunchSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_GUTPUNCH_NAME",
+                skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_GUTPUNCH_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_GUTPUNCH_DESCRIPTION",
+                skillIcon = EXEAssets.IconGutPunch,
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.GutPunch)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 2,
+                baseRechargeInterval = 20f,
+                beginSkillCooldownOnSkillEnd = false,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = true,
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 2,
+                requiredStock = 1,
+                stockToConsume = 1
+            });
+
             #endregion
 
             #region BUSTERCHIPS
@@ -648,6 +816,30 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_AIRSHOT_DESCRIPTION",
                 skillIcon = EXEAssets.IconAirShot,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.AirShot)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 5,
+                baseRechargeInterval = 15f,
+                beginSkillCooldownOnSkillEnd = false,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = true,
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = true,
+                rechargeStock = 5,
+                requiredStock = 1,
+                stockToConsume = 1
+            });
+
+            CannonSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_CANNON_NAME",
+                skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_CANNON_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_CANNON_DESCRIPTION",
+                skillIcon = EXEAssets.IconCannon,
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Cannon)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 5,
                 baseRechargeInterval = 15f,
@@ -858,18 +1050,23 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
         private void AddExtraFirstSkills()
         {
             Skills.AddFirstExtraSkill(bodyPrefab, DrkSwordSkillDef);
+            Skills.AddFirstExtraSkill(bodyPrefab, AdvInfiniteVulcanSkillDef);
         }
         private void AddExtraSecondSkills()
         {
             Skills.AddSecondExtraSkill(bodyPrefab, AquaSwrdSkillDef);
+            Skills.AddSecondExtraSkill(bodyPrefab, ElecSwrdSkillDef);
+            Skills.AddSecondExtraSkill(bodyPrefab, FireSwrdSkillDef);
         }
         private void AddExtraThirdSkills()
         {
             Skills.AddThirdExtraSkill(bodyPrefab, AirShotSkillDef);
+            Skills.AddThirdExtraSkill(bodyPrefab, CannonSkillDef);
         }
         private void AddExtraFourthSkills()
         {
             Skills.AddFourthExtraSkill(bodyPrefab, BugFixSkillDef);
+            Skills.AddFourthExtraSkill(bodyPrefab, InvisSkillDef);
         }
 
         #endregion

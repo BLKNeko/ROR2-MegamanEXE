@@ -40,7 +40,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
 
         private string MemoryCodeCheck;
 
-        private static int EmotionValue = 25;
+        private static float EmotionValue = 25;
         private static float EvilEmotionValue = 0;
         private static float RandBugDebuf = 0;
         private static float DamageReceived = 0f;
@@ -146,7 +146,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
 
         }
 
-        private static BuffDef GetDebuffByIndex(int index)
+        public BuffDef GetDebuffByIndex(int index)
         {
             BuffDef[] debuffs =
             {
@@ -317,7 +317,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
         /// <param name="value">Valor emocional a ser somado ou subtraido</param>
         /// <param name="drkValue">Valor emecional do uso dos DARKCHIP</param>
         /// <param name="rageValue">Valor a ser somado em danos sofridos</param>
-        public void UpdateEmotionalValue(int value, int drkValue, float rageValue)
+        public void UpdateEmotionalValue(float value, float drkValue, float rageValue)
         {
             EmotionValue += value;
             EvilEmotionValue += drkValue;
@@ -645,7 +645,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
 
         }
 
-        public int GetEmotionValue()
+        public float GetEmotionValue()
         {
             return EmotionValue;
         }

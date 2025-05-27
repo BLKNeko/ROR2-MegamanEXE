@@ -8,20 +8,17 @@ using UnityEngine.Networking;
 
 namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 {
-    public class AdvLifeSword : BaseMeleeAttack2
+    public class FireSwrd : BaseMeleeAttack2
     {
         public override void OnEnter()
         {
             hitboxGroupName = "EXESwordGroup";
 
-            damageType |= DamageTypeCombo.GenericSpecial;
-            damageType |= DamageType.WeakOnHit;
-            damageType |= DamageType.BypassArmor;
-            damageType |= DamageType.BypassBlock;
-            damageType |= DamageType.Stun1s;
-            damageCoefficient = 40f;
+            damageType |= DamageTypeCombo.Generic;
+            damageType |= DamageType.IgniteOnHit;
+            damageCoefficient = 5.5f;
             procCoefficient = 1f;
-            pushForce = 2000f;
+            pushForce = 500f;
             bonusForce = Vector3.zero;
             baseDuration = 0.5f;
 
@@ -40,24 +37,25 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
             //swingSoundString = swingIndex % 2 == 0 ? XStaticValues.X_Slash3_SFX : XStaticValues.X_Slash2_SFX;
 
             hitSoundString = "";
-            //muzzleString = "SwordMuzzPos";
-            muzzleString = "SwingDown";
+            muzzleString = "SwingLeft";
             playbackRateParam = "attackSpeed";
             hitEffectPrefab = Resources.Load<GameObject>("prefabs/effects/impacteffects/ImpactMercSwing");
 
             impactSound = EXEAssets.swordHitSoundEvent.index;
 
-            swingEffectPrefab = EXEAssets.YellowSwordSwingVFX;
+            swingEffectPrefab = EXEAssets.RedSwordSwingVFX;
 
             SetHitReset(true, 2);
 
-            EMValue = 5;
+            EMValue = 2;
             EVValue = 0;
             DMGValue = 0;
 
-            RollDebuff = false;
+            chipMemoryCode = 'S';
 
             SwordModelID = 0;
+
+            //SetHitReset(true, 3);
 
             //if (ZeroConfig.enableVoiceBool.Value)
             //{
@@ -88,7 +86,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
         protected override void PlayAttackAnimation()
         {
             //PlayCrossfade("Gesture, Override", "Slash" + (1 + swingIndex), playbackRateParam, duration, 0.1f * duration);
-            base.PlayAnimation("FullBody, Override", "DarkSlashStart", "attackSpeed", this.duration);
+            base.PlayAnimation("Gesture, Override", "CYSlash" + (1 + swingIndex), "attackSpeed", this.duration);
         }
 
         protected virtual void PlaySwingEffect()
@@ -106,6 +104,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
         {
 
             base.PlayAnimation("FullBody, Override", "BufferEmpty", "attackSpeed", this.duration);
+            base.PlayAnimation("Gesture, Override", "BufferEmpty", "attackSpeed", this.duration);
 
             base.OnExit();
         }

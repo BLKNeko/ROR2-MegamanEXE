@@ -1,4 +1,5 @@
 ﻿using EntityStates;
+using MegamanEXEMod.Modules.BaseStates;
 using MegamanEXEMod.Survivors.MegamanEXE;
 using MegamanEXEMod.Survivors.MegamanEXE.Components;
 using RoR2;
@@ -8,16 +9,25 @@ using static RoR2.BulletAttack;
 
 namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 {
-    public class Cannon : BaseSkillState
+    public class HiCannon : BaseSkillState
     {
-        public static float damageCoefficient = 1.5f;
+        public static float damageCoefficient = 2.25f;
         public static float procCoefficient = 1f;
         public static float baseDuration = 0.5f;
-        public static float force = 1000f;
+        public static float force = 1100f;
         public static float recoil = 3f;
         public static float range = 256f;
         public static GameObject tracerEffectPrefab = Resources.Load<GameObject>("prefabs/effects/tracers/TracerBanditPistol");
-        public static GameObject hitEffectPrefab = Resources.Load<GameObject>("Prefabs/Effects/ImpactEffects/ImpactPotMobileCannon");
+        public static GameObject hitEffectPrefab = Resources.Load<GameObject>("Prefabs/Effects/ImpactEffects/MissileExplosionVFX");
+
+
+
+        public float chargeTime = 0f;
+        public float LastChargeTime = 0f;
+        public bool chargeFullSFX = false;
+        public bool hasTime = false;
+        public bool hasCharged = false;
+        public bool chargingSFX = false;
 
 
 
@@ -32,11 +42,12 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
-            this.duration = Cannon.baseDuration / this.attackSpeedStat;
+            this.duration = HiCannon.baseDuration / this.attackSpeedStat;
             this.fireDuration = 0.25f * this.duration;
             base.characterBody.SetAimTimer(2f);
             this.animator = base.GetModelAnimator();
-            this.muzzleString = "BusterMZ";
+            this.muzzleString = "Weapon";
+            base.PlayAnimation("Gesture, Override", "ShootPose", "attackSpeed", this.duration);
 
             execomponent = GetComponent<EXEBaseComponent>();
 
@@ -52,7 +63,6 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
         public override void OnExit()
         {
 
-
             if (isAuthority)
             {
                 execomponent.UpdateMemoryCode('C');
@@ -62,18 +72,16 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
             base.OnExit();
         }
 
-        private void Fire()
+        private void FireArrow()
         {
             if (!this.hasFired)
             {
                 this.hasFired = true;
 
-                
-
                 if (base.isAuthority)
                 {
                     Ray aimRay = base.GetAimRay();
-                    //base.AddRecoil(-1f * Cannon.recoil, -2f * Cannon.recoil, -0.5f * Cannon.recoil, 0.5f * Cannon.recoil);
+                    base.AddRecoil(-1f * HiCannon.recoil, -2f * HiCannon.recoil, -0.5f * HiCannon.recoil, 0.5f * HiCannon.recoil);
 
                     base.characterBody.AddSpreadBloom(1.5f);
                     EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, base.gameObject, this.muzzleString, false);
@@ -85,12 +93,12 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
                         bulletCount = 1,
                         aimVector = aimRay.direction,
                         origin = aimRay.origin,
-                        damage = Cannon.damageCoefficient * this.damageStat,
+                        damage = HiCannon.damageCoefficient * this.damageStat,
                         damageColorIndex = DamageColorIndex.Default,
                         damageType = DamageType.Generic,
                         falloffModel = BulletAttack.FalloffModel.DefaultBullet,
-                        maxDistance = Cannon.range,
-                        force = Cannon.force,
+                        maxDistance = HiCannon.range,
+                        force = HiCannon.force,
                         hitMask = LayerIndex.CommonMasks.bullet,
                         minSpread = 0f,
                         maxSpread = 0f,
@@ -104,16 +112,17 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
                         sniper = false,
                         stopperMask = LayerIndex.CommonMasks.bullet,
                         weapon = null,
-                        tracerEffectPrefab = Cannon.tracerEffectPrefab,
+                        tracerEffectPrefab = HiCannon.tracerEffectPrefab,
                         spreadPitchScale = 0f,
                         spreadYawScale = 0f,
                         queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
-                        hitEffectPrefab = Cannon.hitEffectPrefab,
+                        hitEffectPrefab = HiCannon.hitEffectPrefab,
                         hitCallback = BulletHitCallback,
                     }.Fire();
                 }
             }
         }
+
 
         private bool BulletHitCallback(BulletAttack bulletAttack, ref BulletHit hitlnfo)
         {
@@ -150,7 +159,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
             if ((base.fixedAge >= this.fireDuration))
             {
-                Fire();
+                FireArrow();
             }
 
             if (base.fixedAge >= this.duration && base.isAuthority)

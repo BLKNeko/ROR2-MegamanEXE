@@ -1,23 +1,32 @@
 ﻿using EntityStates;
+using MegamanEXEMod.Modules.BaseStates;
 using MegamanEXEMod.Survivors.MegamanEXE;
 using MegamanEXEMod.Survivors.MegamanEXE.Components;
 using RoR2;
 using UnityEngine;
 using UnityEngine.Networking;
-using static RoR2.BulletAttack;
 
 namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 {
-    public class Cannon : BaseSkillState
+    public class DrkVulcan : BaseSkillState
     {
-        public static float damageCoefficient = 1.5f;
+        public static float damageCoefficient = 2.5f;
         public static float procCoefficient = 1f;
-        public static float baseDuration = 0.5f;
-        public static float force = 1000f;
+        public static float baseDuration = 0.15f;
+        public static float force = 1500f;
         public static float recoil = 3f;
         public static float range = 256f;
-        public static GameObject tracerEffectPrefab = Resources.Load<GameObject>("prefabs/effects/tracers/TracerBanditPistol");
-        public static GameObject hitEffectPrefab = Resources.Load<GameObject>("Prefabs/Effects/ImpactEffects/ImpactPotMobileCannon");
+        public static GameObject tracerEffectPrefab = Resources.Load<GameObject>("Prefabs/Effects/Tracers/TracerCommandoDefault");
+        public static GameObject hitEffectPrefab = Resources.Load<GameObject>("prefabs/effects/impacteffects/BulletImpactSoft");
+
+
+
+        public float chargeTime = 0f;
+        public float LastChargeTime = 0f;
+        public bool chargeFullSFX = false;
+        public bool hasTime = false;
+        public bool hasCharged = false;
+        public bool chargingSFX = false;
 
 
 
@@ -29,14 +38,16 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
         private EXEBaseComponent execomponent;
 
+
         public override void OnEnter()
         {
             base.OnEnter();
-            this.duration = Cannon.baseDuration / this.attackSpeedStat;
+            this.duration = DrkVulcan.baseDuration / this.attackSpeedStat;
             this.fireDuration = 0.25f * this.duration;
             base.characterBody.SetAimTimer(2f);
             this.animator = base.GetModelAnimator();
-            this.muzzleString = "BusterMZ";
+            this.muzzleString = "Weapon";
+            base.PlayAnimation("Gesture, Override", "ShootPose", "attackSpeed", this.duration);
 
             execomponent = GetComponent<EXEBaseComponent>();
 
@@ -52,45 +63,51 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
         public override void OnExit()
         {
 
-
             if (isAuthority)
             {
-                execomponent.UpdateMemoryCode('C');
+                execomponent.UpdateEmotionalValue(-0.1f, 0.1f, 0);
+
+                execomponent.UpdateMemoryCode('X');
+
+                if (NetworkServer.active)
+                {
+                    var rand = UnityEngine.Random.Range(0, 9);
+                    characterBody.AddTimedBuff(execomponent.GetDebuffByIndex(rand), 1f);
+
+                }
 
             }
 
             base.OnExit();
         }
 
-        private void Fire()
+        private void FireArrow()
         {
             if (!this.hasFired)
             {
                 this.hasFired = true;
 
-                
+                base.characterBody.AddSpreadBloom(1.5f);
+                EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, base.gameObject, this.muzzleString, false);
+                //Util.PlaySound(Sounds.SFXVulcan, base.gameObject);
+                base.PlayAnimation("Gesture, Override", "ShootBurst", "attackSpeed", this.duration);
 
                 if (base.isAuthority)
                 {
                     Ray aimRay = base.GetAimRay();
-                    //base.AddRecoil(-1f * Cannon.recoil, -2f * Cannon.recoil, -0.5f * Cannon.recoil, 0.5f * Cannon.recoil);
-
-                    base.characterBody.AddSpreadBloom(1.5f);
-                    EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, base.gameObject, this.muzzleString, false);
-                    //Util.PlaySound(Sounds.SFXCanon, base.gameObject);
-                    base.PlayAnimation("Gesture, Override", "EXEBusterAttack", "attackSpeed", this.duration);
+                    base.AddRecoil(-1f * DrkVulcan.recoil, -2f * DrkVulcan.recoil, -0.5f * DrkVulcan.recoil, 0.5f * DrkVulcan.recoil);
 
                     new BulletAttack
                     {
                         bulletCount = 1,
                         aimVector = aimRay.direction,
                         origin = aimRay.origin,
-                        damage = Cannon.damageCoefficient * this.damageStat,
+                        damage = DrkVulcan.damageCoefficient * this.damageStat,
                         damageColorIndex = DamageColorIndex.Default,
                         damageType = DamageType.Generic,
                         falloffModel = BulletAttack.FalloffModel.DefaultBullet,
-                        maxDistance = Cannon.range,
-                        force = Cannon.force,
+                        maxDistance = DrkVulcan.range,
+                        force = DrkVulcan.force,
                         hitMask = LayerIndex.CommonMasks.bullet,
                         minSpread = 0f,
                         maxSpread = 0f,
@@ -104,44 +121,17 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
                         sniper = false,
                         stopperMask = LayerIndex.CommonMasks.bullet,
                         weapon = null,
-                        tracerEffectPrefab = Cannon.tracerEffectPrefab,
+                        tracerEffectPrefab = DrkVulcan.tracerEffectPrefab,
                         spreadPitchScale = 0f,
                         spreadYawScale = 0f,
                         queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
-                        hitEffectPrefab = Cannon.hitEffectPrefab,
-                        hitCallback = BulletHitCallback,
+                        hitEffectPrefab = DrkVulcan.hitEffectPrefab,
                     }.Fire();
                 }
             }
         }
 
-        private bool BulletHitCallback(BulletAttack bulletAttack, ref BulletHit hitlnfo)
-        {
-            var result = BulletAttack.defaultHitCallback(bulletAttack, ref hitlnfo);
-            var hurtbox = hitlnfo.hitHurtBox;
-
-
-            if (hurtbox)
-            {
-
-
-                if (isAuthority)
-                    execomponent.UpdateEmotionalValue(1, 0, 0);
-
-
-            }
-            else
-            {
-
-                if (isAuthority)
-                    execomponent.UpdateEmotionalValue(-1, 0, 0);
-
-
-            }
-
-
-            return result;
-        }
+       
 
 
         public override void FixedUpdate()
@@ -150,7 +140,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
             if ((base.fixedAge >= this.fireDuration))
             {
-                Fire();
+                FireArrow();
             }
 
             if (base.fixedAge >= this.duration && base.isAuthority)
@@ -161,7 +151,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {
-            return InterruptPriority.Skill;
+            return InterruptPriority.Frozen;
         }
 
     }
