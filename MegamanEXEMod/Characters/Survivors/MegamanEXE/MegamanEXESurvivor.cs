@@ -43,6 +43,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
         internal static SkillDef BusterEXESkillDef;
 
+        internal static SkillDef AdvAirShotSkillDef;
         internal static SkillDef AdvBarr500SkillDef;
         internal static SkillDef AdvGigaCannonSkillDef;
         internal static SkillDef AdvGreatYoyoSkillDef;
@@ -352,6 +353,106 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             });
             CyberSwordSkillDef.stepCount = 2;
             CyberSwordSkillDef.stepGraceDuration = 0.5f;
+
+            #region ADVPROG
+
+            AdvAirShotSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_ADVAIRSHOT_NAME",
+                skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_ADVAIRSHOT_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_ADVAIRSHOT_DESCRIPTION",
+                skillIcon = EXEAssets.IconBarr500,
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.AdvAirShot)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 40f,
+                beginSkillCooldownOnSkillEnd = false,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = true,
+                interruptPriority = EntityStates.InterruptPriority.PrioritySkill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1
+            });
+
+            AdvBarr500SkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_ADVBARR500_NAME",
+                skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_ADVBARR500_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_ADVBARR500_DESCRIPTION",
+                skillIcon = EXEAssets.IconBarr500,
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.AdvBarr500)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 40f,
+                beginSkillCooldownOnSkillEnd = false,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = true,
+                interruptPriority = EntityStates.InterruptPriority.PrioritySkill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1
+            });
+
+            AdvGigaCannonSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_GIGACANNON_NAME",
+                skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_GIGACANNON_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_GIGACANNON_DESCRIPTION",
+                skillIcon = EXEAssets.IconGigaCannon,
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.AdvGigaCannon)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 40f,
+                beginSkillCooldownOnSkillEnd = false,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = true,
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = true,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1
+            });
+
+            AdvLifeSwordSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_LIFESWORD_NAME",
+                skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_LIFESWORD_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_LIFESWORD_DESCRIPTION",
+                skillIcon = EXEAssets.IconLifeSword,
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.AdvLifeSword)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 40f,
+                beginSkillCooldownOnSkillEnd = false,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = true,
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1
+            });
+
+            #endregion
 
             #region DRKCHIP
 
@@ -1471,7 +1572,6 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 if (NetworkServer.active)
                 {
                     sender.AddTimedBuff(RoR2Content.Buffs.Slow50, 5f);
-                    sender.AddTimedBuff(RoR2Content.Buffs.Poisoned, 5f);
                     sender.AddTimedBuff(DLC1Content.Buffs.Blinded, 8f);
                 }
 

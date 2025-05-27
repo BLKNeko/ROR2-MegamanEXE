@@ -66,6 +66,8 @@ namespace MegamanEXEMod.Modules.BaseStates
 
         protected bool RollDebuff = false;
 
+        protected int SwordModelID = 0;
+
         protected string chatMessage = "";
         protected string netNaviName = "";
         protected char chipMemoryCode = ' ';
@@ -95,6 +97,15 @@ namespace MegamanEXEMod.Modules.BaseStates
             attack.hitBoxGroup = FindHitBoxGroup(hitboxGroupName);
             attack.isCrit = RollCrit();
             attack.impactSound = impactSound;
+
+
+            execomponent.ChangeSwordArm(
+                GetModelTransform(),
+                GetModelTransform().GetComponent<CharacterModel>(),
+                GetModelTransform().GetComponent<CharacterModel>().GetComponent<ChildLocator>(),
+                ((int)characterBody.skinIndex),
+                SwordModelID);
+
         }
 
         protected virtual void PlayAttackAnimation()

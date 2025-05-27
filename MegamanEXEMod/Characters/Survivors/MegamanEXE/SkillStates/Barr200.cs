@@ -41,7 +41,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
             base.FixedUpdate();
 
 
-            if (!Barrier)
+            if (!Barrier && isAuthority)
             {
                 ApplyBarrier();
             }

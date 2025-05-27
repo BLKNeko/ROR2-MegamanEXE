@@ -59,6 +59,8 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
             chipMemoryCode = 'X';
 
+            SwordModelID = 1;
+
             //if (ZeroConfig.enableVoiceBool.Value)
             //{
             //    if (ZeroConfig.x4VoicesBool.Value)

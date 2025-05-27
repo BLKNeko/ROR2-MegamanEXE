@@ -1,5 +1,6 @@
 ﻿using EntityStates;
 using MegamanEXEMod.Survivors.MegamanEXE;
+using MegamanEXEMod.Survivors.MegamanEXE.Components;
 using RoR2;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -13,7 +14,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
         public static float damageCoefficient = 30f;
         public static float procCoefficient = 1f;
         public static float baseDuration = 0.5f;
-        public static float force = 3250f;
+        public static float force = 8250f;
         public static float recoil = 5f;
         public static float range = 256f;
         public static GameObject tracerEffectPrefab = Resources.Load<GameObject>("prefabs/effects/tracers/TracerBanditPistol");
@@ -36,6 +37,8 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
         private Animator animator;
         private string muzzleString;
 
+        private EXEBaseComponent execomponent;
+
         public override void OnEnter()
         {
             base.OnEnter();
@@ -43,10 +46,16 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
             this.fireDuration = 0.25f * this.duration;
             base.characterBody.SetAimTimer(2f);
             this.animator = base.GetModelAnimator();
-            this.muzzleString = "Weapon";
-            base.PlayAnimation("Gesture, Override", "ShootPose", "attackSpeed", this.duration);
+            this.muzzleString = "BusterMZ";
 
-            //////ArmHelper.ArmChanger(1);
+            execomponent = GetComponent<EXEBaseComponent>();
+
+            execomponent.ChangeBusterArm(
+                GetModelTransform(),
+                GetModelTransform().GetComponent<CharacterModel>(),
+                GetModelTransform().GetComponent<CharacterModel>().GetComponent<ChildLocator>(),
+                ((int)characterBody.skinIndex)
+                );
 
         }
 
@@ -64,15 +73,15 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
             {
                 this.hasFired = true;
 
-                base.characterBody.AddSpreadBloom(1.5f);
-                EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, base.gameObject, this.muzzleString, false);
-                //Util.PlaySound(Sounds.SFXCanon, base.gameObject);
-                base.PlayAnimation("Gesture, Override", "ShootBurst", "attackSpeed", this.duration);
-
                 if (base.isAuthority)
                 {
                     Ray aimRay = base.GetAimRay();
-                    base.AddRecoil(-1f * AdvGigaCannon.recoil, -2f * AdvGigaCannon.recoil, -0.5f * AdvGigaCannon.recoil, 0.5f * AdvGigaCannon.recoil);
+                    //base.AddRecoil(-1f * AdvGigaCannon.recoil, -2f * AdvGigaCannon.recoil, -0.5f * AdvGigaCannon.recoil, 0.5f * AdvGigaCannon.recoil);
+
+                    base.characterBody.AddSpreadBloom(1.5f);
+                    EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, base.gameObject, this.muzzleString, false);
+                    //Util.PlaySound(Sounds.SFXCanon, base.gameObject);
+                    PlayAnimation("Gesture, Override", "EXEBusterAttack", "attackSpeed", this.duration);
 
                     new BulletAttack
                     {

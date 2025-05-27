@@ -1,6 +1,8 @@
 ﻿using MegamanEXEMod.Modules;
 using MegamanEXEMod.Modules.BaseStates;
 using RoR2;
+using RoR2.Skills;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using static Wamp;
@@ -30,6 +32,9 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
         private float RedHpTimer = 0f;
         private float NaviChatTimer = 0f;
         private float RedHpTimerCooldown = 6.5f;
+
+        private float EvilBugTimer = 0f;
+        private float EvilBugCooldown = 8f;
 
         private string MemoryCode { get; set; }
 
@@ -75,8 +80,8 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
 
             EXEchildLocator = EXEBody.GetComponent<ModelLocator>().modelTransform.gameObject.GetComponent<CharacterModel>().GetComponent<ChildLocator>();
 
-            Debug.Log("EXEmodel: " + EXEmodel);
-            Debug.Log("EXEchildLocator: " + EXEchildLocator);
+            //Debug.Log("EXEmodel: " + EXEmodel);
+            //Debug.Log("EXEchildLocator: " + EXEchildLocator);
 
             //Debug.Log("footstepHandler: " + footstepHandler);
 
@@ -111,6 +116,52 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
             if (EXEConfig.NaviChatBool.Value)
                 NetNaviChat();
 
+            if (EXEBody.HasBuff(EXEBuffs.EvilBuff))
+                ChangeEvilBugs();
+
+        }
+
+        private void ChangeEvilBugs()
+        {
+
+            if (!EXEBody.hasAuthority)
+                return;
+
+
+
+            if (NetworkServer.active && EvilBugTimer >= EvilBugCooldown)
+            {
+
+                var rand = UnityEngine.Random.Range(0, 9);
+                var rand2 = UnityEngine.Random.Range(2, 5);
+                EXEBody.AddTimedBuff(GetDebuffByIndex(rand), rand2);
+
+
+                EvilBugTimer = 0f;
+            }
+            else
+            {
+                EvilBugTimer += Time.fixedDeltaTime;
+            }
+
+        }
+
+        private static BuffDef GetDebuffByIndex(int index)
+        {
+            BuffDef[] debuffs =
+            {
+                EXEBuffs.DarkDebuff1,
+                EXEBuffs.DarkDebuff2,
+                EXEBuffs.DarkDebuff3,
+                EXEBuffs.DarkDebuff4,
+                EXEBuffs.DarkDebuff5,
+                EXEBuffs.DarkDebuff6,
+                EXEBuffs.DarkDebuff7,
+                EXEBuffs.DarkDebuff8,
+                EXEBuffs.DarkDebuff9
+            };
+
+            return debuffs[Mathf.Clamp(index, 0, debuffs.Length - 1)];
         }
 
         private void UpdateEmotionState()
@@ -299,7 +350,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
         /// Seta o valor emocional do NetNavi
         /// </summary>
         /// <param name="value">Valor emocional que se tornara</param>
-        /// <param name="id">Qual valor sera setado, 0 = Emotion, 1 = Evil, 2 = DmgRec, 3 = todos</param>
+        /// <param name="id">Qual valor sera setado, 0 = Emotion, 1 = Evil, 2 = DmgRec, 3 = Reset</param>
         public void SetEmotionalValue(int value, int id)
         {
 
@@ -315,9 +366,9 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
                     DamageReceived = value;
                     break;
                 case 3:
-                    EmotionValue = value;
-                    EvilEmotionValue = value;
-                    DamageReceived = value;
+                    EmotionValue = 25;
+                    EvilEmotionValue = 0;
+                    DamageReceived = 0;
                     break;
 
             }
@@ -581,6 +632,17 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
             //logs
             Debug.Log("MemoryCode: " + MemoryCode);
 
+            AdvancedProgram();
+
+        }
+
+        public void SetMemoryCode(string letter)
+        {
+            MemoryCode = letter;
+
+            //logs
+            Debug.Log("MemoryCode: " + MemoryCode);
+
         }
 
         public int GetEmotionValue()
@@ -838,8 +900,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
         /// <summary>
         /// Muda o modelo do buster para diferentes cenarios
         /// </summary>
-        /// <param name="id"> 0 Buster </param>
-        public void ChangeBusterArm(Transform modelTransform, CharacterModel characterModel, ChildLocator childLocator, int skinId, int id)
+        public void ChangeBusterArm(Transform modelTransform, CharacterModel characterModel, ChildLocator childLocator, int skinId)
         {
             if (modelTransform)
             {
@@ -851,9 +912,74 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
                     childLocator.FindChildGameObject("ProtoBuster").SetActive(false);
                     childLocator.FindChildGameObject("RollBuster").SetActive(false);
                     childLocator.FindChildGameObject("BassBuster").SetActive(false);
+                    childLocator.FindChildGameObject("DiveEXEBuster").SetActive(false);
 
                     // 0 - Enable Buster
                     //
+
+                    if (skinId == 0)
+                    {
+                        childLocator.FindChildGameObject("ProtoBuster").SetActive(true);
+                    
+                        if(!EXEBody.HasBuff(EXEBuffs.EvilBuff))
+                            childLocator.FindChildGameObject("ProtoBuster").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.EXEMat;
+                        else
+                            childLocator.FindChildGameObject("ProtoBuster").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.DarkEXEMat;
+                    }
+                    if (skinId == 1)
+                    {
+                        childLocator.FindChildGameObject("ProtoBuster").SetActive(true);
+                        childLocator.FindChildGameObject("ProtoBuster").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.ProtoBusterMat;
+                    }
+                    if (skinId == 2)
+                    {
+                        childLocator.FindChildGameObject("RollBuster").SetActive(true);
+                        //childLocator.FindChildGameObject("RollBuster").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.RollBusterMat;
+                    }
+                    if (skinId == 3)
+                    {
+                        childLocator.FindChildGameObject("BassBuster").SetActive(true);
+                    
+                        if (!EXEBody.HasBuff(EXEBuffs.EvilBuff))
+                            childLocator.FindChildGameObject("BassBuster").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.BassMat;
+                        else
+                            childLocator.FindChildGameObject("BassBuster").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.DarkBassMat;
+                    }
+                    if (skinId == 4)
+                    {
+                        childLocator.FindChildGameObject("DiveEXEBuster").SetActive(true);
+                    
+                        if (!EXEBody.HasBuff(EXEBuffs.EvilBuff))
+                            childLocator.FindChildGameObject("DiveEXEBuster").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.DiveMat;
+                        else
+                            childLocator.FindChildGameObject("DiveEXEBuster").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.DarkDiveMat;
+                    }
+
+
+                }
+            }
+        }
+
+        /// <summary>
+        /// Muda o modelo da espada para diferentes cenarios
+        /// </summary>
+        /// <param name="id"> 0 CyberSword | 1 Dark | 2 GutsPunch </param>
+        public void ChangeSwordArm(Transform modelTransform, CharacterModel characterModel, ChildLocator childLocator, int skinId, int id)
+        {
+            if (modelTransform)
+            {
+
+                if (characterModel)
+                {
+
+                    childLocator.FindChildGameObject("EXEHandRMesh").SetActive(false);
+                    childLocator.FindChildGameObject("CYSword").SetActive(false);
+                    childLocator.FindChildGameObject("GutsPunch").SetActive(false);
+                    childLocator.FindChildGameObject("DiveEXESword").SetActive(false);
+
+                    // 0 - Enable Sword
+                    // 1 - Enable Dark
+                    // 2 - Enable GutsPunch
 
                     switch (id)
                     {
@@ -861,39 +987,87 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
 
                             if (skinId == 0)
                             {
-                                childLocator.FindChildGameObject("ProtoBuster").SetActive(true);
-                                childLocator.FindChildGameObject("ProtoBuster").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.EXEMat;
+                                childLocator.FindChildGameObject("CYSword").SetActive(true);
+
+                                if (!EXEBody.HasBuff(EXEBuffs.EvilBuff))
+                                    childLocator.FindChildGameObject("CYSword").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.EXESwordMat;
+                                else
+                                    childLocator.FindChildGameObject("CYSword").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.DarkEXESwordMat;
                             }
                             if (skinId == 1)
                             {
-                                childLocator.FindChildGameObject("ProtoBuster").SetActive(true);
-                                childLocator.FindChildGameObject("ProtoBuster").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.ProtoBusterMat;
+                                childLocator.FindChildGameObject("CYSword").SetActive(true);
+
+                                if (!EXEBody.HasBuff(EXEBuffs.EvilBuff))
+                                    childLocator.FindChildGameObject("CYSword").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.ProtoSwordMat;
+                                else
+                                    childLocator.FindChildGameObject("CYSword").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.DarkEXESwordMat;
                             }
                             if (skinId == 2)
                             {
-                                childLocator.FindChildGameObject("RollBuster").SetActive(true);
-                                childLocator.FindChildGameObject("RollBuster").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.RollBusterMat;
+                                childLocator.FindChildGameObject("CYSword").SetActive(true);
+
+                                if (!EXEBody.HasBuff(EXEBuffs.EvilBuff))
+                                    childLocator.FindChildGameObject("CYSword").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.RollSwordMat;
+                                else
+                                    childLocator.FindChildGameObject("CYSword").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.DarkEXESwordMat;
                             }
                             if (skinId == 3)
                             {
-                                childLocator.FindChildGameObject("BassBuster").SetActive(true);
-                                childLocator.FindChildGameObject("BassBuster").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.BassMat;
+                                childLocator.FindChildGameObject("CYSword").SetActive(true);
+
+                                if (!EXEBody.HasBuff(EXEBuffs.EvilBuff))
+                                    childLocator.FindChildGameObject("CYSword").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.BassSwordMat;
+                                else
+                                    childLocator.FindChildGameObject("CYSword").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.DarkEXESwordMat;
+                            }
+                            if (skinId == 4)
+                            {
+                                childLocator.FindChildGameObject("DiveEXESword").SetActive(true);
+
+                                if (!EXEBody.HasBuff(EXEBuffs.EvilBuff))
+                                    childLocator.FindChildGameObject("DiveEXESword").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.DiveMat;
+                                else
+                                    childLocator.FindChildGameObject("DiveEXESword").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.DarkDiveMat;
                             }
 
 
                             break;
 
+
                         case 1:
+
+                            if (skinId == 0)
+                            {
+                                childLocator.FindChildGameObject("CYSword").SetActive(true);
+                                childLocator.FindChildGameObject("CYSword").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.DarkEXESwordMat;
+                            }
+                            if (skinId == 1)
+                            {
+                                childLocator.FindChildGameObject("CYSword").SetActive(true);
+                                childLocator.FindChildGameObject("CYSword").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.DarkEXESwordMat;
+                            }
+                            if (skinId == 2)
+                            {
+                                childLocator.FindChildGameObject("CYSword").SetActive(true);
+                                childLocator.FindChildGameObject("CYSword").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.DarkEXESwordMat;
+                            }
+                            if (skinId == 3)
+                            {
+                                childLocator.FindChildGameObject("CYSword").SetActive(true);
+                                childLocator.FindChildGameObject("CYSword").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.DarkEXESwordMat;
+                            }
+                            if (skinId == 4)
+                            {
+                                childLocator.FindChildGameObject("DiveEXESword").SetActive(true);
+                                childLocator.FindChildGameObject("DiveEXESword").GetComponent<MeshRenderer>().sharedMaterial = EXEAssets.DarkDiveMat;
+                            }
+
+
                             break;
 
                         case 2:
-
-                            break;
-
-                        case 3:
-                            break;
-
-                        case 4:
+                            childLocator.FindChildGameObject("GutsPunch").SetActive(true);
                             break;
                     }
 
@@ -902,6 +1076,116 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
             }
         }
 
+        /// <summary>
+        /// Muda o modelo da espada e buster para maos
+        /// </summary>
+        public void ChangeHands(Transform modelTransform, CharacterModel characterModel, ChildLocator childLocator, int skinId)
+        {
+            if (modelTransform)
+            {
+
+                if (characterModel)
+                {
+
+                    childLocator.FindChildGameObject("CYSword").SetActive(false);
+                    childLocator.FindChildGameObject("GutsPunch").SetActive(false);
+                    childLocator.FindChildGameObject("DiveEXESword").SetActive(false);
+
+                    childLocator.FindChildGameObject("ProtoBuster").SetActive(false);
+                    childLocator.FindChildGameObject("RollBuster").SetActive(false);
+                    childLocator.FindChildGameObject("BassBuster").SetActive(false);
+                    childLocator.FindChildGameObject("DiveEXEBuster").SetActive(false);
+
+
+                    childLocator.FindChildGameObject("EXEHandRMesh").SetActive(true);
+                    childLocator.FindChildGameObject("EXEHandLMesh").SetActive(true);
+
+
+                }
+            }
+        }
+
+
+
+        private void AdvancedProgram()
+        {
+            if (!EXEBody.hasAuthority)
+                return;
+
+            RemoveAdvanceProgram();
+
+            if (MemoryCode.Length >= 2000)
+                MemoryCode = MemoryCode.Substring(MemoryCode.Length - 5);
+
+            // Lista de códigos e suas respectivas skills
+            Dictionary<string, SkillDef> codeToSkill = new Dictionary<string, SkillDef>()
+            {
+                { "AAAAA", MegamanEXESurvivor.AdvAirShotSkillDef },
+
+                { "SSS", MegamanEXESurvivor.AdvLifeSwordSkillDef },
+                { "SSSSS", MegamanEXESurvivor.AdvLifeSwordSkillDef },
+
+                { "CCC", MegamanEXESurvivor.AdvGigaCannonSkillDef },
+                { "CCCCC", MegamanEXESurvivor.AdvGigaCannonSkillDef },
+
+                { "VVV", MegamanEXESurvivor.AdvInfiniteVulcanSkillDef },
+                { "VVVVV", MegamanEXESurvivor.AdvInfiniteVulcanSkillDef },
+
+                { "BBB", MegamanEXESurvivor.AdvBarr500SkillDef },
+                { "BBBBB", MegamanEXESurvivor.AdvBarr500SkillDef },
+
+                { "YYY", MegamanEXESurvivor.AdvGreatYoyoSkillDef },
+                { "YYYYY", MegamanEXESurvivor.AdvGreatYoyoSkillDef }
+            };
+
+            // Verificar os últimos 3 e 5 caracteres
+            string last3 = MemoryCode.Length >= 3 ? MemoryCode.Substring(MemoryCode.Length - 3) : "";
+            string last5 = MemoryCode.Length >= 5 ? MemoryCode.Substring(MemoryCode.Length - 5) : "";
+
+            // Checar se algum dos códigos bate
+            foreach (var entry in codeToSkill)
+            {
+                if (last3 == entry.Key || last5 == entry.Key)
+                {
+                    EXEBody.skillLocator.special.SetSkillOverride(
+                        EXEBody.skillLocator.special,
+                        entry.Value,
+                        GenericSkill.SkillOverridePriority.Contextual
+                    );
+
+                    // Se quiser que apenas 1 skill seja aplicada por vez, pode dar break aqui
+                    break;
+                }
+            }
+        }
+
+        private void RemoveAdvanceProgram()
+        {
+            foreach (var skill in AdvanceSkillDefs)
+            {
+                EXEBody.skillLocator.special.UnsetSkillOverride(
+                    EXEBody.skillLocator.special,
+                    skill,
+                    GenericSkill.SkillOverridePriority.Contextual
+                );
+            }
+
+            EXEBody.skillLocator.special.SetSkillOverride(
+                EXEBody.skillLocator.special,
+                MegamanEXESurvivor.NoDataSkillDef,
+                GenericSkill.SkillOverridePriority.Contextual
+            );
+        }
+
+        private static readonly SkillDef[] AdvanceSkillDefs =
+        {
+            MegamanEXESurvivor.AdvAirShotSkillDef,
+            MegamanEXESurvivor.AdvBarr500SkillDef,
+            MegamanEXESurvivor.AdvGigaCannonSkillDef,
+            MegamanEXESurvivor.AdvGreatYoyoSkillDef,
+            MegamanEXESurvivor.AdvInfiniteVulcanSkillDef,
+            MegamanEXESurvivor.AdvLifeSwordSkillDef
+        };
 
     }
 }

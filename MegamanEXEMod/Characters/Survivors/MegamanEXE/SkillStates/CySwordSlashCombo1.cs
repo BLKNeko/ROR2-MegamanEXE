@@ -60,6 +60,12 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
             if (base.characterBody.skinIndex == 4)
                 swingEffectPrefab = EXEAssets.CyanSwordSwingVFX;
 
+            execomponent.ChangeSwordArm(
+                GetModelTransform(),
+                GetModelTransform().GetComponent<CharacterModel>(),
+                GetModelTransform().GetComponent<CharacterModel>().GetComponent<ChildLocator>(),
+                ((int)characterBody.skinIndex),
+                0);
 
             //if (ZeroConfig.enableVoiceBool.Value)
             //{

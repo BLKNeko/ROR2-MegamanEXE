@@ -40,8 +40,8 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
                 GetModelTransform(),
                 GetModelTransform().GetComponent<CharacterModel>(),
                 GetModelTransform().GetComponent<CharacterModel>().GetComponent<ChildLocator>(),
-                ((int)characterBody.skinIndex),
-                0);
+                ((int)characterBody.skinIndex)
+                );
 
         }
 

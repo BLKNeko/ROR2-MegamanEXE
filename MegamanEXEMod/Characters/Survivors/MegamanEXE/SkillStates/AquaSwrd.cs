@@ -53,6 +53,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
             chipMemoryCode = 'S';
 
+            SwordModelID = 0;
 
             //SetHitReset(true, 3);
 
