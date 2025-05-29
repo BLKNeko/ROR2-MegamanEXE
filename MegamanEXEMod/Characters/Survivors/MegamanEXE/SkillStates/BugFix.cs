@@ -78,7 +78,9 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
                 EffectManager.SimpleMuzzleFlash(EXEAssets.VfxRecov, gameObject, "BaseMZ", true);
 
-                execomponent.SetEmotionalValue(25, 0);
+                if(execomponent.GetEmotionValue() < 25f)
+                    execomponent.SetEmotionalValue(25, 0);
+
                 execomponent.SetEmotionalValue(0, 1);
 
                 execomponent.UpdateMemoryCode('X');

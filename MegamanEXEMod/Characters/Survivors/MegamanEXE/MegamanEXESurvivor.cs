@@ -379,6 +379,30 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 stockToConsume = 1
             });
 
+            SendChipSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_UTILITY_SENDCHIPS_NAME",
+                skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_UTILITY_SENDCHIPS_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_UTILITY_SENDCHIPS_DESCRIPTION",
+                skillIcon = EXEAssets.IconSendChip,
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.SendChip)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 5f,
+                beginSkillCooldownOnSkillEnd = false,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = true,
+                interruptPriority = EntityStates.InterruptPriority.Death,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = false,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1
+            });
+
             #region ADVPROG
 
             AdvAirShotSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
@@ -878,6 +902,30 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 stockToConsume = 1
             });
 
+            StepSwordSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_STEPSWORD_NAME",
+                skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_STEPSWORD_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_STEPSWORD_DESCRIPTION",
+                skillIcon = EXEAssets.IconStepSword,
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.StepSwordDash)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 2,
+                baseRechargeInterval = 20f,
+                beginSkillCooldownOnSkillEnd = false,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = true,
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 2,
+                requiredStock = 1,
+                stockToConsume = 1
+            });
+
             #endregion
 
             #region BUSTERCHIPS
@@ -1138,6 +1186,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
         {
             Skills.AddThirdExtraSkill(bodyPrefab, AirShotSkillDef);
             Skills.AddThirdExtraSkill(bodyPrefab, CannonSkillDef);
+            Skills.AddThirdExtraSkill(bodyPrefab, StepSwordSkillDef);
         }
         private void AddExtraFourthSkills()
         {
