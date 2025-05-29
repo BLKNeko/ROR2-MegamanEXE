@@ -24,6 +24,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
         public static GameObject yoyoProjectilePrefab;
         public static GameObject shockwaveProjectilePrefab;
         public static GameObject shotgunProjectilePrefab;
+        public static GameObject gutsPnchProjectilePrefab;
 
 
         public static Material EXEMat;
@@ -113,6 +114,8 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
         internal static GameObject VfxRage;
         internal static GameObject VfxEvil;
         internal static GameObject VfxDeleted;
+        internal static GameObject VfxSpreaderExplosion1;
+        internal static GameObject VfxSpreaderExplosion2;
 
         internal static GameObject BlueSwordSwingVFX;
         internal static GameObject CyanSwordSwingVFX;
@@ -158,6 +161,9 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             VfxEvil = _assetBundle.LoadEffect("VFXEnterEvil", true);
 
             VfxDeleted = _assetBundle.LoadEffect("DeathEffect", true);
+
+            VfxSpreaderExplosion1 = _assetBundle.LoadEffect("Explosion1VFX", false);
+            VfxSpreaderExplosion2 = _assetBundle.LoadEffect("Explosion2VFX", false);
 
 
             EXEMat = _assetBundle.LoadAsset<Material>("matMMEXE");
@@ -290,6 +296,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             CreateYoyoProjectile();
             CreateShockwaveProjectile();
             CreateShotgunProjectile();
+            CreateGutsPnchProjectile();
 
             Content.AddProjectilePrefab(bombProjectilePrefab);
             Content.AddProjectilePrefab(miniBombProjectilePrefab);
@@ -297,6 +304,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             Content.AddProjectilePrefab(yoyoProjectilePrefab);
             Content.AddProjectilePrefab(shockwaveProjectilePrefab);
             Content.AddProjectilePrefab(shotgunProjectilePrefab);
+            Content.AddProjectilePrefab(gutsPnchProjectilePrefab);
         }
 
         private static void CreateBombProjectile()
@@ -359,16 +367,16 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             thunderProjectilePrefab = Asset.CloneProjectilePrefab("MageLightningboltBasic", "ThunderProjectile");
 
             //remove their ProjectileImpactExplosion component and start from default values
-            UnityEngine.Object.Destroy(thunderProjectilePrefab.GetComponent<ProjectileImpactExplosion>());
-            ProjectileImpactExplosion ThunderImpactExplosion = thunderProjectilePrefab.AddComponent<ProjectileImpactExplosion>();
+            //UnityEngine.Object.Destroy(thunderProjectilePrefab.GetComponent<ProjectileImpactExplosion>());
+            //ProjectileImpactExplosion ThunderImpactExplosion = thunderProjectilePrefab.AddComponent<ProjectileImpactExplosion>();
 
-            ThunderImpactExplosion.blastRadius = 1f;
-            ThunderImpactExplosion.blastDamageCoefficient = 1f;
-            ThunderImpactExplosion.falloffModel = BlastAttack.FalloffModel.None;
-            ThunderImpactExplosion.destroyOnEnemy = true;
-            ThunderImpactExplosion.lifetime = 12f;
-            ThunderImpactExplosion.timerAfterImpact = true;
-            ThunderImpactExplosion.lifetimeAfterImpact = 0.1f;
+            //ThunderImpactExplosion.blastRadius = 1f;
+            //ThunderImpactExplosion.blastDamageCoefficient = 1f;
+            //ThunderImpactExplosion.falloffModel = BlastAttack.FalloffModel.None;
+            //ThunderImpactExplosion.destroyOnEnemy = true;
+            //ThunderImpactExplosion.lifetime = 12f;
+            //ThunderImpactExplosion.timerAfterImpact = true;
+            //ThunderImpactExplosion.lifetimeAfterImpact = 0.1f;
 
             thunderProjectilePrefab.GetComponent<ProjectileController>().procCoefficient = 1f;
             thunderProjectilePrefab.GetComponent<ProjectileDamage>().damage = 1f;
@@ -475,6 +483,38 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             //    bombController.ghostPrefab = _assetBundle.CreateProjectileGhostPrefab("HenryBombGhost");
 
             ShotgunController.startSound = "";
+        }
+
+        private static void CreateGutsPnchProjectile()
+        {
+            //highly recommend setting up projectiles in editor, but this is a quick and dirty way to prototype if you want
+            gutsPnchProjectilePrefab = Asset.CloneProjectilePrefab("FMJ", "GutsPnchProjectile");
+
+            //remove their ProjectileImpactExplosion component and start from default values
+            UnityEngine.Object.Destroy(gutsPnchProjectilePrefab.GetComponent<ProjectileImpactExplosion>());
+            ProjectileImpactExplosion gutsPnchImpactExplosion = gutsPnchProjectilePrefab.AddComponent<ProjectileImpactExplosion>();
+
+            gutsPnchImpactExplosion.blastRadius = 10f;
+            gutsPnchImpactExplosion.blastDamageCoefficient = 1f;
+            gutsPnchImpactExplosion.falloffModel = BlastAttack.FalloffModel.None;
+            gutsPnchImpactExplosion.destroyOnEnemy = true;
+            gutsPnchImpactExplosion.lifetime = 12f;
+            gutsPnchImpactExplosion.timerAfterImpact = true;
+            gutsPnchImpactExplosion.lifetimeAfterImpact = 0.1f;
+
+            gutsPnchProjectilePrefab.GetComponent<ProjectileController>().procCoefficient = 1f;
+            gutsPnchProjectilePrefab.GetComponent<ProjectileDamage>().damage = 1f;
+            gutsPnchProjectilePrefab.GetComponent<ProjectileDamage>().damageType |= DamageType.BypassArmor;
+            gutsPnchProjectilePrefab.GetComponent<ProjectileDamage>().damageType |= DamageType.BypassBlock;
+            gutsPnchProjectilePrefab.GetComponent<ProjectileDamage>().damageType |= DamageType.Stun1s;
+            gutsPnchProjectilePrefab.GetComponent<ProjectileDamage>().damageType |= DamageTypeCombo.Generic;
+
+            ProjectileController GutsPnchController = gutsPnchProjectilePrefab.GetComponent<ProjectileController>();
+
+            if (_assetBundle.LoadAsset<GameObject>("GutsShot") != null)
+                GutsPnchController.ghostPrefab = _assetBundle.CreateProjectileGhostPrefab("GutsShot");
+
+            GutsPnchController.startSound = "";
         }
 
         #endregion projectiles

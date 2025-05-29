@@ -58,7 +58,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 false);
 
             ReflectorBuff = Modules.Content.CreateAndAddBuff("ReflectorBuff",
-                EXEAssets.IconAtk30,
+                EXEAssets.IconReflector,
                 Color.white,
                 false,
                 false);
