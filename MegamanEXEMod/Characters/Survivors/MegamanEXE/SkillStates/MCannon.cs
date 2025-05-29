@@ -9,16 +9,16 @@ using static RoR2.BulletAttack;
 
 namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 {
-    public class HiCannon : BaseSkillState
+    public class MCannon : BaseSkillState
     {
         public static float damageCoefficient = 2.25f;
         public static float procCoefficient = 1f;
         public static float baseDuration = 0.5f;
-        public static float force = 1100f;
+        public static float force = 1250f;
         public static float recoil = 3f;
         public static float range = 256f;
         public static GameObject tracerEffectPrefab = Resources.Load<GameObject>("prefabs/effects/tracers/TracerBanditPistol");
-        public static GameObject hitEffectPrefab = Resources.Load<GameObject>("Prefabs/Effects/ImpactEffects/MissileExplosionVFX");
+        public static GameObject hitEffectPrefab = Resources.Load<GameObject>("Prefabs/Effects/ImpactEffects/MagmaOrbExplosion");
 
 
 

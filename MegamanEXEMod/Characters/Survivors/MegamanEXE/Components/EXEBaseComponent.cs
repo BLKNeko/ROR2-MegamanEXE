@@ -132,7 +132,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
             if (NetworkServer.active && EvilBugTimer >= EvilBugCooldown)
             {
 
-                var rand = UnityEngine.Random.Range(0, 9);
+                var rand = UnityEngine.Random.Range(0, 8);
                 var rand2 = UnityEngine.Random.Range(2, 5);
                 EXEBody.AddTimedBuff(GetDebuffByIndex(rand), rand2);
 
@@ -238,7 +238,9 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
                         EXEBody.AddTimedBuff(EXEBuffs.FullSyncBuff, 5f + EXEBody.level);
                     }
 
-                    EffectManager.SimpleMuzzleFlash(EXEAssets.VfxFullSync, base.gameObject, "CorePosition", true);
+                    EmotionValue = 30f;
+
+                    EffectManager.SimpleMuzzleFlash(EXEAssets.VfxFullSync, gameObject, "CoreFS", true);
 
                 }
 
@@ -808,7 +810,13 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
 
                 $"Starforce...? Sounds powerful... Is that a chip or something?",
 
-                $"Hey, {EXEBody.GetUserName()}! Try to get all the items we can!"
+                $"Hey, {EXEBody.GetUserName()}! Try to get all the items we can!",
+
+
+                //-- unrevised
+
+                $"A virus called Nightmare? Sorry i didnt remember anything like that..."
+
 
             };
 

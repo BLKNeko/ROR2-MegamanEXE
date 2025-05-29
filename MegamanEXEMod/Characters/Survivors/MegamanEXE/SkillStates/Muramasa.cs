@@ -8,19 +8,17 @@ using UnityEngine.Networking;
 
 namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 {
-    public class CySwordSlashCombo1 : BaseMeleeAttack
+    public class Muramasa : BaseMeleeAttack2
     {
-
-        EXEBaseComponent execomponent;
-
         public override void OnEnter()
         {
             hitboxGroupName = "EXESwordGroup";
 
-            damageType = DamageTypeCombo.GenericSecondary;
-            damageCoefficient = 1f;
+            damageType |= DamageTypeCombo.Generic;
+            damageType |= DamageType.BleedOnHit;
+            damageCoefficient = ((characterBody.maxHealth - characterBody.healthComponent.health) / 3);
             procCoefficient = 1f;
-            pushForce = 300f;
+            pushForce = 400f;
             bonusForce = Vector3.zero;
             baseDuration = 0.5f;
 
@@ -39,33 +37,25 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
             //swingSoundString = swingIndex % 2 == 0 ? XStaticValues.X_Slash3_SFX : XStaticValues.X_Slash2_SFX;
 
             hitSoundString = "";
-            //muzzleString = "SwordMuzzPos";
-            //muzzleString = "SwingLeft";
-            muzzleString = swingIndex % 2 == 0 ? "SwingLeft" : "SwingRight";
+            muzzleString = "SwingDown";
             playbackRateParam = "attackSpeed";
-            hitEffectPrefab = EXEAssets.swordHitImpactEffect;
+            hitEffectPrefab = Resources.Load<GameObject>("prefabs/effects/impacteffects/ImpactMercSwing");
 
             impactSound = EXEAssets.swordHitSoundEvent.index;
 
-            execomponent = GetComponent<EXEBaseComponent>();
+            swingEffectPrefab = EXEAssets.swordSwingEffect;
 
-            if (base.characterBody.skinIndex == 0)
-                swingEffectPrefab = EXEAssets.CyanSwordSwingVFX;
-            if (base.characterBody.skinIndex == 1)
-                swingEffectPrefab = EXEAssets.RedSwordSwingVFX;
-            if (base.characterBody.skinIndex == 2)
-                swingEffectPrefab = EXEAssets.PinkSwordSwingVFX;
-            if (base.characterBody.skinIndex == 3)
-                swingEffectPrefab = EXEAssets.PurpleSwordSwingVFX;
-            if (base.characterBody.skinIndex == 4)
-                swingEffectPrefab = EXEAssets.CyanSwordSwingVFX;
+            SetHitReset(true, 2);
 
-            execomponent.ChangeSwordArm(
-                GetModelTransform(),
-                GetModelTransform().GetComponent<CharacterModel>(),
-                GetModelTransform().GetComponent<CharacterModel>().GetComponent<ChildLocator>(),
-                ((int)characterBody.skinIndex),
-                0);
+            EMValue = 2;
+            EVValue = 0;
+            DMGValue = 0;
+
+            chipMemoryCode = 'S';
+
+            SwordModelID = 0;
+
+            //SetHitReset(true, 3);
 
             //if (ZeroConfig.enableVoiceBool.Value)
             //{
@@ -96,7 +86,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
         protected override void PlayAttackAnimation()
         {
             //PlayCrossfade("Gesture, Override", "Slash" + (1 + swingIndex), playbackRateParam, duration, 0.1f * duration);
-            base.PlayAnimation("Gesture, Override", "CYSlash" + (1 + swingIndex), "attackSpeed", this.duration);
+            base.PlayAnimation("FullBody, Override", "DarkSlashStart", "attackSpeed", this.duration);
         }
 
         protected virtual void PlaySwingEffect()
@@ -108,14 +98,12 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
         {
             base.OnHitEnemyAuthority();
 
-            if (isAuthority)
-                execomponent.UpdateEmotionalValue(2, 0, 0);
-
         }
 
         public override void OnExit()
         {
 
+            base.PlayAnimation("FullBody, Override", "BufferEmpty", "attackSpeed", this.duration);
             base.PlayAnimation("Gesture, Override", "BufferEmpty", "attackSpeed", this.duration);
 
             base.OnExit();

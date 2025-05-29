@@ -86,13 +86,13 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
         protected override void PlayAttackAnimation()
         {
             //PlayCrossfade("Gesture, Override", "Slash" + (1 + swingIndex), playbackRateParam, duration, 0.1f * duration);
-            base.PlayAnimation("Gesture, Override", "CYSlash" + (1 + swingIndex), "attackSpeed", this.duration);
+            base.PlayAnimation("FullBody, Override", "GutPunch", "attackSpeed", this.duration);
         }
 
-        protected virtual void PlaySwingEffect()
-        {
-            //EffectManager.SimpleMuzzleFlash(swingEffectPrefab, gameObject, muzzleString, true);
-        }
+        //protected virtual void PlaySwingEffect()
+        //{
+        //    //EffectManager.SimpleMuzzleFlash(swingEffectPrefab, gameObject, muzzleString, true);
+        //}
 
         protected override void OnHitEnemyAuthority()
         {

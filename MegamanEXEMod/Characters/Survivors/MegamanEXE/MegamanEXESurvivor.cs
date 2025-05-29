@@ -43,6 +43,8 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
         internal static SkillDef BusterEXESkillDef;
 
+        internal static SteppedSkillDef CyberSwordSkillDef;
+
         internal static SkillDef AdvAirShotSkillDef;
         internal static SkillDef AdvBarr500SkillDef;
         internal static SkillDef AdvGigaCannonSkillDef;
@@ -58,7 +60,6 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
         internal static SkillDef Barr200SkillDef;
         internal static SkillDef BugFixSkillDef;
         internal static SkillDef CannonSkillDef;
-        internal static SteppedSkillDef CyberSwordSkillDef;
         internal static SkillDef DrkBombSkillDef;
         internal static SkillDef DrkCannonSkillDef;
         internal static SkillDef DrkRecovSkillDef;
@@ -503,6 +504,78 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             #endregion
 
             #region DRKCHIP
+
+            DrkBombSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_DARKBOMB_NAME",
+                skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_DARKBOMB_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_DARKBOMB_DESCRIPTION",
+                skillIcon = EXEAssets.IconDrkBomb,
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.DrkBomb)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 8,
+                baseRechargeInterval = 15f,
+                beginSkillCooldownOnSkillEnd = false,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = true,
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 8,
+                requiredStock = 1,
+                stockToConsume = 1
+            });
+
+            DrkCannonSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_DARKCANNON_NAME",
+                skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_DARKCANNON_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_DARKCANNON_DESCRIPTION",
+                skillIcon = EXEAssets.IconDrkCannon,
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.DrkCannon)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 5,
+                baseRechargeInterval = 15f,
+                beginSkillCooldownOnSkillEnd = false,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = true,
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 5,
+                requiredStock = 1,
+                stockToConsume = 1
+            });
+
+            DrkRecovSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_DARKRECOV_NAME",
+                skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_DARKRECOV_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_DARKRECOV_DESCRIPTION",
+                skillIcon = EXEAssets.IconDrkRecov,
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.DrkRecov)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 20f,
+                beginSkillCooldownOnSkillEnd = false,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = true,
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1
+            });
 
             DrkSwordSkillDef = Skills.CreateSkillDef(new SkillDefInfo
             {
@@ -1051,12 +1124,15 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
         {
             Skills.AddFirstExtraSkill(bodyPrefab, DrkSwordSkillDef);
             Skills.AddFirstExtraSkill(bodyPrefab, AdvInfiniteVulcanSkillDef);
+            Skills.AddFirstExtraSkill(bodyPrefab, DrkBombSkillDef);
+            Skills.AddFirstExtraSkill(bodyPrefab, DrkCannonSkillDef);
         }
         private void AddExtraSecondSkills()
         {
             Skills.AddSecondExtraSkill(bodyPrefab, AquaSwrdSkillDef);
             Skills.AddSecondExtraSkill(bodyPrefab, ElecSwrdSkillDef);
             Skills.AddSecondExtraSkill(bodyPrefab, FireSwrdSkillDef);
+            Skills.AddSecondExtraSkill(bodyPrefab, GutPunchSkillDef);
         }
         private void AddExtraThirdSkills()
         {
@@ -1067,6 +1143,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
         {
             Skills.AddFourthExtraSkill(bodyPrefab, BugFixSkillDef);
             Skills.AddFourthExtraSkill(bodyPrefab, InvisSkillDef);
+            Skills.AddFourthExtraSkill(bodyPrefab, DrkRecovSkillDef);
         }
 
         #endregion
@@ -1708,7 +1785,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             if (sender.HasBuff(EXEBuffs.RageBuff))
             {
                 args.damageMultAdd += 3f;
-                args.moveSpeedMultAdd += 0.5f;
+                args.moveSpeedMultAdd += 0.3f;
 
             }
 
@@ -1717,7 +1794,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             {
                 args.damageMultAdd -= 0.2f;
                 args.armorAdd -= sender.baseArmor * 0.8f;
-                args.moveSpeedMultAdd += 0.5f;
+                args.moveSpeedMultAdd += 0.3f;
 
             }
 

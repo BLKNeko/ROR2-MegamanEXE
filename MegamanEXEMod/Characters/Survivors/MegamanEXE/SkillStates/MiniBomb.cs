@@ -10,7 +10,7 @@ using static UnityEngine.ParticleSystem.PlaybackState;
 
 namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 {
-    public class DrkBomb : BaseSkillState
+    public class MiniBomb : BaseSkillState
     {
         public float damageCoefficient = EXEStaticValues.swordDamageCoefficient;
         public float baseDuration = 0.5f;
@@ -54,16 +54,9 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
             if (isAuthority)
             {
-                execomponent.UpdateEmotionalValue(-1, 1, 0);
+                execomponent.UpdateEmotionalValue(1, 0, 0);
 
                 execomponent.UpdateMemoryCode('X');
-
-                if (NetworkServer.active)
-                {
-                    var rand = UnityEngine.Random.Range(0, 9);
-                    characterBody.AddTimedBuff(execomponent.GetDebuffByIndex(rand), 5f);
-
-                }
 
             }
 
@@ -97,7 +90,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
                     MiniBombProjectille.force = force;
                     MiniBombProjectille.crit = RollCrit();
                     //XBusterMediumProjectille.speedOverride = XBusterMediumProjectille.speedOverride * 0.8f;
-                    MiniBombProjectille.damageColorIndex = DamageColorIndex.Void;
+                    MiniBombProjectille.damageColorIndex = DamageColorIndex.Default;
 
                     ProjectileManager.instance.FireProjectile(MiniBombProjectille);
 

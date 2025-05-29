@@ -1,22 +1,27 @@
 ﻿using EntityStates;
+using ExtraSkillSlots;
 using MegamanEXEMod.Modules.BaseStates;
 using MegamanEXEMod.Survivors.MegamanEXE;
 using MegamanEXEMod.Survivors.MegamanEXE.Components;
 using RoR2;
 using RoR2.Projectile;
+using RoR2.Skills;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 using static UnityEngine.ParticleSystem.PlaybackState;
 
 namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 {
-    public class DrkBomb : BaseSkillState
+    public class ShotGun : BaseSkillState
     {
-        public float damageCoefficient = EXEStaticValues.swordDamageCoefficient;
+        public float damageCoefficient = 1.4f;
         public float baseDuration = 0.5f;
         public float recoil = 1f;
-        private float force = 2000f;
         public static GameObject tracerEffectPrefab = Resources.Load<GameObject>("Prefabs/Effects/Tracers/TracerToolbotRebar");
+
+        public static float force = 1000f;
 
         private float duration;
         private float fireDuration;
@@ -38,15 +43,14 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
             execomponent = GetComponent<EXEBaseComponent>();
 
-            execomponent.ChangeHands(
-                GetModelTransform(),
-                GetModelTransform().GetComponent<CharacterModel>(),
-                GetModelTransform().GetComponent<CharacterModel>().GetComponent<ChildLocator>(),
-                ((int)characterBody.skinIndex)
-                );
+            execomponent.ChangeBusterArm(
+            GetModelTransform(),
+            GetModelTransform().GetComponent<CharacterModel>(),
+            GetModelTransform().GetComponent<CharacterModel>().GetComponent<ChildLocator>(),
+            ((int)characterBody.skinIndex)
+            );
 
 
-            base.PlayAnimation("Gesture, Override", "EXEGranade", "attackSpeed", this.duration);
         }
 
         public override void OnExit()
@@ -54,19 +58,10 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
             if (isAuthority)
             {
-                execomponent.UpdateEmotionalValue(-1, 1, 0);
+                execomponent.UpdateEmotionalValue(1, 0, 0);
 
                 execomponent.UpdateMemoryCode('X');
-
-                if (NetworkServer.active)
-                {
-                    var rand = UnityEngine.Random.Range(0, 9);
-                    characterBody.AddTimedBuff(execomponent.GetDebuffByIndex(rand), 5f);
-
-                }
-
             }
-
 
             base.OnExit();
         }
@@ -83,23 +78,22 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
                     base.characterBody.AddSpreadBloom(0.15f);
                     Ray aimRay = base.GetAimRay();
                     EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FireBarrage.effectPrefab, base.gameObject, this.muzzleString, false);
-                    //Util.PlaySound(Modules.Sounds.vileFragDrop, base.gameObject);
-                    //EffectManager.SimpleMuzzleFlash(EntityStates.Mage.Weapon.FireLaserbolt.impactEffectPrefab, base.gameObject, this.muzzleString, false);
 
-                    //ProjectileManager.instance.FireProjectile(Modules.Projectiles.MiniBombProjectile, aimRay.origin, Util.QuaternionSafeLookRotation(aimRay.direction), base.gameObject, this.damageCoefficient * this.damageStat, 0f, Util.CheckRoll(this.critStat, base.characterBody.master), DamageColorIndex.Default, null, -1f);
+                    //Util.PlaySound(Sounds.SFXGun, this.gameObject);
+                    base.PlayAnimation("Gesture, Override", "EXEBusterAttack", "attackSpeed", this.duration);
+                    //ProjectileManager.instance.FireProjectile(Modules.Projectiles.ShotGunProjectile, aimRay.origin, Util.QuaternionSafeLookRotation(aimRay.direction), base.gameObject, this.damageCoefficient * this.damageStat, 0f, Util.CheckRoll(this.critStat, base.characterBody.master), DamageColorIndex.Default, null, -1f);
 
-                    FireProjectileInfo MiniBombProjectille = new FireProjectileInfo();
-                    MiniBombProjectille.projectilePrefab = EXEAssets.miniBombProjectilePrefab;
-                    MiniBombProjectille.position = aimRay.origin;
-                    MiniBombProjectille.rotation = Util.QuaternionSafeLookRotation(aimRay.direction);
-                    MiniBombProjectille.owner = gameObject;
-                    MiniBombProjectille.damage = damageCoefficient;
-                    MiniBombProjectille.force = force;
-                    MiniBombProjectille.crit = RollCrit();
-                    //XBusterMediumProjectille.speedOverride = XBusterMediumProjectille.speedOverride * 0.8f;
-                    MiniBombProjectille.damageColorIndex = DamageColorIndex.Void;
+                    FireProjectileInfo ShotgunProjectille = new FireProjectileInfo();
+                    ShotgunProjectille.projectilePrefab = EXEAssets.shotgunProjectilePrefab;
+                    ShotgunProjectille.position = aimRay.origin;
+                    ShotgunProjectille.rotation = Util.QuaternionSafeLookRotation(aimRay.direction);
+                    ShotgunProjectille.owner = gameObject;
+                    ShotgunProjectille.damage = damageCoefficient;
+                    ShotgunProjectille.force = force;
+                    ShotgunProjectille.crit = RollCrit();
+                    ShotgunProjectille.damageColorIndex = DamageColorIndex.Default;
 
-                    ProjectileManager.instance.FireProjectile(MiniBombProjectille);
+                    ProjectileManager.instance.FireProjectile(ShotgunProjectille);
 
                 }
             }

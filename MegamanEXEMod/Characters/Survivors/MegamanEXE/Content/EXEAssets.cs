@@ -19,6 +19,11 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
         //projectiles
         public static GameObject bombProjectilePrefab;
+        public static GameObject miniBombProjectilePrefab;
+        public static GameObject thunderProjectilePrefab;
+        public static GameObject yoyoProjectilePrefab;
+        public static GameObject shockwaveProjectilePrefab;
+        public static GameObject shotgunProjectilePrefab;
 
 
         public static Material EXEMat;
@@ -280,7 +285,18 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
         private static void CreateProjectiles()
         {
             CreateBombProjectile();
+            CreateMiniBombProjectile();
+            CreateThunderProjectile();
+            CreateYoyoProjectile();
+            CreateShockwaveProjectile();
+            CreateShotgunProjectile();
+
             Content.AddProjectilePrefab(bombProjectilePrefab);
+            Content.AddProjectilePrefab(miniBombProjectilePrefab);
+            Content.AddProjectilePrefab(thunderProjectilePrefab);
+            Content.AddProjectilePrefab(yoyoProjectilePrefab);
+            Content.AddProjectilePrefab(shockwaveProjectilePrefab);
+            Content.AddProjectilePrefab(shotgunProjectilePrefab);
         }
 
         private static void CreateBombProjectile()
@@ -309,6 +325,158 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             
             bombController.startSound = "";
         }
+
+        private static void CreateMiniBombProjectile()
+        {
+            //highly recommend setting up projectiles in editor, but this is a quick and dirty way to prototype if you want
+            miniBombProjectilePrefab = Asset.CloneProjectilePrefab("CommandoGrenadeProjectile", "MiniBombProjectile");
+
+            //remove their ProjectileImpactExplosion component and start from default values
+            //UnityEngine.Object.Destroy(miniBombProjectilePrefab.GetComponent<ProjectileImpactExplosion>());
+            //ProjectileImpactExplosion MiniBombImpactExplosion = miniBombProjectilePrefab.AddComponent<ProjectileImpactExplosion>();
+
+            //MiniBombImpactExplosion.blastRadius = 10f;
+            //MiniBombImpactExplosion.blastDamageCoefficient = 1f;
+            //MiniBombImpactExplosion.falloffModel = BlastAttack.FalloffModel.None;
+            //MiniBombImpactExplosion.destroyOnEnemy = true;
+            //MiniBombImpactExplosion.lifetime = 12f;
+            ////MiniBombImpactExplosion.impactEffect = bombExplosionEffect;
+            ////MiniBombImpactExplosion.lifetimeExpiredSound = Content.CreateAndAddNetworkSoundEventDef("HenryBombExplosion");
+            //MiniBombImpactExplosion.timerAfterImpact = true;
+            //MiniBombImpactExplosion.lifetimeAfterImpact = 0.1f;
+
+            ProjectileController miniBombController = bombProjectilePrefab.GetComponent<ProjectileController>();
+
+            //if (_assetBundle.LoadAsset<GameObject>("HenryBombGhost") != null)
+            //    bombController.ghostPrefab = _assetBundle.CreateProjectileGhostPrefab("HenryBombGhost");
+
+            miniBombController.startSound = "";
+        }
+
+        private static void CreateThunderProjectile()
+        {
+            //highly recommend setting up projectiles in editor, but this is a quick and dirty way to prototype if you want
+            thunderProjectilePrefab = Asset.CloneProjectilePrefab("MageLightningboltBasic", "ThunderProjectile");
+
+            //remove their ProjectileImpactExplosion component and start from default values
+            UnityEngine.Object.Destroy(thunderProjectilePrefab.GetComponent<ProjectileImpactExplosion>());
+            ProjectileImpactExplosion ThunderImpactExplosion = thunderProjectilePrefab.AddComponent<ProjectileImpactExplosion>();
+
+            ThunderImpactExplosion.blastRadius = 1f;
+            ThunderImpactExplosion.blastDamageCoefficient = 1f;
+            ThunderImpactExplosion.falloffModel = BlastAttack.FalloffModel.None;
+            ThunderImpactExplosion.destroyOnEnemy = true;
+            ThunderImpactExplosion.lifetime = 12f;
+            ThunderImpactExplosion.timerAfterImpact = true;
+            ThunderImpactExplosion.lifetimeAfterImpact = 0.1f;
+
+            thunderProjectilePrefab.GetComponent<ProjectileController>().procCoefficient = 1f;
+            thunderProjectilePrefab.GetComponent<ProjectileDamage>().damage = 1f;
+            thunderProjectilePrefab.GetComponent<ProjectileDamage>().damageType |= DamageType.Shock5s;
+            thunderProjectilePrefab.GetComponent<ProjectileDamage>().damageType |= DamageTypeCombo.Generic;
+
+            ProjectileController ThunderController = thunderProjectilePrefab.GetComponent<ProjectileController>();
+
+            //if (_assetBundle.LoadAsset<GameObject>("HenryBombGhost") != null)
+            //    bombController.ghostPrefab = _assetBundle.CreateProjectileGhostPrefab("HenryBombGhost");
+
+            ThunderController.startSound = "";
+        }
+
+        private static void CreateYoyoProjectile()
+        {
+            //highly recommend setting up projectiles in editor, but this is a quick and dirty way to prototype if you want
+            yoyoProjectilePrefab = Asset.CloneProjectilePrefab("Sawmerang", "YoyoProjectile");
+
+            //remove their ProjectileImpactExplosion component and start from default values
+            UnityEngine.Object.Destroy(yoyoProjectilePrefab.GetComponent<ProjectileImpactExplosion>());
+            ProjectileImpactExplosion YoyoImpactExplosion = yoyoProjectilePrefab.AddComponent<ProjectileImpactExplosion>();
+
+            YoyoImpactExplosion.blastRadius = 1f;
+            YoyoImpactExplosion.blastDamageCoefficient = 1f;
+            YoyoImpactExplosion.falloffModel = BlastAttack.FalloffModel.None;
+            YoyoImpactExplosion.destroyOnEnemy = true;
+            YoyoImpactExplosion.lifetime = 12f;
+            YoyoImpactExplosion.timerAfterImpact = true;
+            YoyoImpactExplosion.lifetimeAfterImpact = 0.1f;
+
+            yoyoProjectilePrefab.GetComponent<ProjectileController>().procCoefficient = 1f;
+            yoyoProjectilePrefab.GetComponent<ProjectileDamage>().damage = 1f;
+            yoyoProjectilePrefab.GetComponent<ProjectileDamage>().damageType |= DamageType.BypassArmor;
+            yoyoProjectilePrefab.GetComponent<ProjectileDamage>().damageType |= DamageType.BypassBlock;
+            yoyoProjectilePrefab.GetComponent<ProjectileDamage>().damageType |= DamageTypeCombo.Generic;
+
+            ProjectileController YoyoController = yoyoProjectilePrefab.GetComponent<ProjectileController>();
+
+            //if (_assetBundle.LoadAsset<GameObject>("HenryBombGhost") != null)
+            //    bombController.ghostPrefab = _assetBundle.CreateProjectileGhostPrefab("HenryBombGhost");
+
+            YoyoController.startSound = "";
+        }
+
+        private static void CreateShockwaveProjectile()
+        {
+            //highly recommend setting up projectiles in editor, but this is a quick and dirty way to prototype if you want
+            shockwaveProjectilePrefab = Asset.CloneProjectilePrefab("ArchWispGroundCannon", "ShockwaveProjectile");
+
+            //remove their ProjectileImpactExplosion component and start from default values
+            UnityEngine.Object.Destroy(shockwaveProjectilePrefab.GetComponent<ProjectileImpactExplosion>());
+            ProjectileImpactExplosion ShockwaveImpactExplosion = shockwaveProjectilePrefab.AddComponent<ProjectileImpactExplosion>();
+
+            ShockwaveImpactExplosion.blastRadius = 10f;
+            ShockwaveImpactExplosion.blastDamageCoefficient = 1f;
+            ShockwaveImpactExplosion.falloffModel = BlastAttack.FalloffModel.None;
+            ShockwaveImpactExplosion.destroyOnEnemy = true;
+            ShockwaveImpactExplosion.lifetime = 12f;
+            ShockwaveImpactExplosion.timerAfterImpact = true;
+            ShockwaveImpactExplosion.lifetimeAfterImpact = 0.1f;
+
+            shockwaveProjectilePrefab.GetComponent<ProjectileController>().procCoefficient = 1f;
+            shockwaveProjectilePrefab.GetComponent<ProjectileDamage>().damage = 1f;
+            shockwaveProjectilePrefab.GetComponent<ProjectileDamage>().damageType |= DamageType.BypassArmor;
+            shockwaveProjectilePrefab.GetComponent<ProjectileDamage>().damageType |= DamageType.BypassBlock;
+            shockwaveProjectilePrefab.GetComponent<ProjectileDamage>().damageType |= DamageType.Stun1s;
+            shockwaveProjectilePrefab.GetComponent<ProjectileDamage>().damageType |= DamageTypeCombo.Generic;
+
+            ProjectileController ShockwaveController = shockwaveProjectilePrefab.GetComponent<ProjectileController>();
+
+            //if (_assetBundle.LoadAsset<GameObject>("HenryBombGhost") != null)
+            //    bombController.ghostPrefab = _assetBundle.CreateProjectileGhostPrefab("HenryBombGhost");
+
+            ShockwaveController.startSound = "";
+        }
+
+        private static void CreateShotgunProjectile()
+        {
+            //highly recommend setting up projectiles in editor, but this is a quick and dirty way to prototype if you want
+            shotgunProjectilePrefab = Asset.CloneProjectilePrefab("FMJ", "ShotgunProjectile");
+
+            //remove their ProjectileImpactExplosion component and start from default values
+            UnityEngine.Object.Destroy(shotgunProjectilePrefab.GetComponent<ProjectileImpactExplosion>());
+            ProjectileImpactExplosion ShotgunImpactExplosion = shotgunProjectilePrefab.AddComponent<ProjectileImpactExplosion>();
+
+            ShotgunImpactExplosion.blastRadius = 10f;
+            ShotgunImpactExplosion.blastDamageCoefficient = 1f;
+            ShotgunImpactExplosion.falloffModel = BlastAttack.FalloffModel.None;
+            ShotgunImpactExplosion.destroyOnEnemy = true;
+            ShotgunImpactExplosion.lifetime = 12f;
+            ShotgunImpactExplosion.timerAfterImpact = true;
+            ShotgunImpactExplosion.lifetimeAfterImpact = 0.1f;
+
+            shotgunProjectilePrefab.GetComponent<ProjectileController>().procCoefficient = 1f;
+            shotgunProjectilePrefab.GetComponent<ProjectileDamage>().damage = 1f;
+            shotgunProjectilePrefab.GetComponent<ProjectileDamage>().damageType |= DamageType.BypassArmor;
+            shotgunProjectilePrefab.GetComponent<ProjectileDamage>().damageType |= DamageType.BypassBlock;
+            shotgunProjectilePrefab.GetComponent<ProjectileDamage>().damageType |= DamageTypeCombo.Generic;
+
+            ProjectileController ShotgunController = shotgunProjectilePrefab.GetComponent<ProjectileController>();
+
+            //if (_assetBundle.LoadAsset<GameObject>("HenryBombGhost") != null)
+            //    bombController.ghostPrefab = _assetBundle.CreateProjectileGhostPrefab("HenryBombGhost");
+
+            ShotgunController.startSound = "";
+        }
+
         #endregion projectiles
     }
 }
