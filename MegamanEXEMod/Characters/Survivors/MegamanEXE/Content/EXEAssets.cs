@@ -3,6 +3,8 @@ using UnityEngine;
 using MegamanEXEMod.Modules;
 using System;
 using RoR2.Projectile;
+using R2API;
+using MegamanEXEMod.Survivors.MegamanEXE.Components;
 
 namespace MegamanEXEMod.Survivors.MegamanEXE
 {
@@ -25,6 +27,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
         public static GameObject shockwaveProjectilePrefab;
         public static GameObject shotgunProjectilePrefab;
         public static GameObject gutsPnchProjectilePrefab;
+        public static GameObject exeTurretProjectilePrefab;
 
 
         public static Material EXEMat;
@@ -123,6 +126,10 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
         internal static GameObject PinkSwordSwingVFX;
         internal static GameObject PurpleSwordSwingVFX;
         internal static GameObject YellowSwordSwingVFX;
+
+
+        internal static GameObject AllyBodyPrefab;
+        internal static GameObject AllyMasterPrefab;
 
 
         //EMOTE API
@@ -253,6 +260,57 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             CreateEffects();
 
             CreateProjectiles();
+
+            CreateAllyPrefab();
+        }
+
+        public static void CreateAllyPrefab()
+        {
+            // Clonar o corpo da torreta (ou Commando se quiser que pareça mais um personagem)
+            GameObject baseBody = LegacyResourcesAPI.Load<GameObject>("prefabs/characterbodies/EngiTurretBody");
+            AllyBodyPrefab = PrefabAPI.InstantiateClone(baseBody, "MyAllyBody", true);
+            //AllyBodyPrefab = _assetBundle.LoadAsset<GameObject>("EXETurret");
+
+            // Pega o ModelLocator do prefab
+            ModelLocator modelLocator = AllyBodyPrefab.GetComponent<ModelLocator>();
+
+            // Destrói o modelo antigo
+            GameObject oldModel = modelLocator.modelTransform.gameObject;
+            UnityEngine.Object.DestroyImmediate(oldModel);
+
+            // Instancia seu novo modelo (deve ser um prefab seu carregado nos assets)
+            GameObject newModel = UnityEngine.Object.Instantiate(_assetBundle.LoadAsset<GameObject>("EXETurret"), AllyBodyPrefab.transform);
+
+            // Atualiza o modelLocator
+            modelLocator.modelTransform = newModel.transform;
+            modelLocator.modelBaseTransform = newModel.transform; // ou algum filho específico, se quiser
+
+            // Acessa o SkillLocator da torreta
+            SkillLocator skillLocator = AllyBodyPrefab.GetComponent<SkillLocator>();
+
+            // Substitui a habilidade primária por uma que você já tem
+            skillLocator.primary.skillFamily.variants[0].skillDef = MegamanEXESurvivor.BusterTurretSkillDef;
+
+
+            // Ajustar stats (opcional)
+            CharacterBody body = AllyBodyPrefab.GetComponent<CharacterBody>();
+            body.baseMaxHealth = 200f;
+            body.baseDamage = 15f;
+            body.baseMoveSpeed = 0f; // parado como uma torreta
+            body.baseAttackSpeed = 1.5f;
+            body.isChampion = false;
+
+            // Clonar o master da torreta
+            GameObject baseMaster = LegacyResourcesAPI.Load<GameObject>("prefabs/charactermasters/EngiTurretMaster");
+            AllyMasterPrefab = PrefabAPI.InstantiateClone(baseMaster, "MyAllyMaster", true);
+
+            // Definir que o master usa nosso body
+            CharacterMaster master = AllyMasterPrefab.GetComponent<CharacterMaster>();
+            master.bodyPrefab = AllyBodyPrefab;
+
+            // Registrar no catálogo
+            BodyCatalog.getAdditionalEntries += list => list.Add(AllyBodyPrefab);
+            MasterCatalog.getAdditionalEntries += list => list.Add(AllyMasterPrefab);
         }
 
         #region effects
@@ -297,6 +355,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             CreateShockwaveProjectile();
             CreateShotgunProjectile();
             CreateGutsPnchProjectile();
+            CreateEXETurretProjectile();
 
             Content.AddProjectilePrefab(bombProjectilePrefab);
             Content.AddProjectilePrefab(miniBombProjectilePrefab);
@@ -305,6 +364,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             Content.AddProjectilePrefab(shockwaveProjectilePrefab);
             Content.AddProjectilePrefab(shotgunProjectilePrefab);
             Content.AddProjectilePrefab(gutsPnchProjectilePrefab);
+            Content.AddProjectilePrefab(exeTurretProjectilePrefab);
         }
 
         private static void CreateBombProjectile()
@@ -332,6 +392,37 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 bombController.ghostPrefab = _assetBundle.CreateProjectileGhostPrefab("HenryBombGhost");
             
             bombController.startSound = "";
+        }
+
+        private static void CreateEXETurretProjectile()
+        {
+            //highly recommend setting up projectiles in editor, but this is a quick and dirty way to prototype if you want
+            exeTurretProjectilePrefab = Asset.CloneProjectilePrefab("FMJ", "EXETurretProjectile");
+
+            //remove their ProjectileImpactExplosion component and start from default values
+            UnityEngine.Object.Destroy(exeTurretProjectilePrefab.GetComponent<ProjectileImpactExplosion>());
+            //ProjectileImpactExplosion bombImpactExplosion = bombProjectilePrefab.AddComponent<ProjectileImpactExplosion>();
+
+            //bombImpactExplosion.blastRadius = 16f;
+            //bombImpactExplosion.blastDamageCoefficient = 1f;
+            //bombImpactExplosion.falloffModel = BlastAttack.FalloffModel.None;
+            //bombImpactExplosion.destroyOnEnemy = true;
+            //bombImpactExplosion.lifetime = 12f;
+            //bombImpactExplosion.impactEffect = bombExplosionEffect;
+            //bombImpactExplosion.lifetimeExpiredSound = Content.CreateAndAddNetworkSoundEventDef("HenryBombExplosion");
+            //bombImpactExplosion.timerAfterImpact = true;
+            //bombImpactExplosion.lifetimeAfterImpact = 0.1f;
+
+            exeTurretProjectilePrefab.GetComponent<ProjectileSimple>().lifetime = 10f;
+
+            exeTurretProjectilePrefab.AddComponent<EXETurretComponent>();
+
+            ProjectileController EXETurretController = exeTurretProjectilePrefab.GetComponent<ProjectileController>();
+
+            if (_assetBundle.LoadAsset<GameObject>("EXETurret") != null)
+                EXETurretController.ghostPrefab = _assetBundle.CreateProjectileGhostPrefab("EXETurret");
+
+            EXETurretController.startSound = "";
         }
 
         private static void CreateMiniBombProjectile()

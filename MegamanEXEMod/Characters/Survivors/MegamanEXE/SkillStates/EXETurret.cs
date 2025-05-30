@@ -1,0 +1,132 @@
+﻿using EntityStates;
+using ExtraSkillSlots;
+using MegamanEXEMod.Modules.BaseStates;
+using MegamanEXEMod.Survivors.MegamanEXE;
+using MegamanEXEMod.Survivors.MegamanEXE.Components;
+using RoR2;
+using RoR2.Projectile;
+using RoR2.Skills;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.Networking;
+using static UnityEngine.ParticleSystem.PlaybackState;
+
+namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
+{
+    public class EXETurret : BaseSkillState
+    {
+        public float damageCoefficient = 1.4f;
+        public float baseDuration = 0.5f;
+        public float recoil = 1f;
+        public static GameObject tracerEffectPrefab = Resources.Load<GameObject>("Prefabs/Effects/Tracers/TracerToolbotRebar");
+
+        public static float force = 1000f;
+
+        private float duration;
+        private float fireDuration;
+        private bool hasFired;
+        private Animator animator;
+        private string muzzleString;
+        private string muzzleString2;
+
+        private EXEBaseComponent execomponent;
+
+        public override void OnEnter()
+        {
+            base.OnEnter();
+            this.duration = this.baseDuration;
+            this.fireDuration = 0.25f * this.duration;
+            base.characterBody.SetAimTimer(2f);
+            this.animator = base.GetModelAnimator();
+            this.muzzleString = "BusterMZ";
+
+            execomponent = GetComponent<EXEBaseComponent>();
+
+            execomponent.ChangeBusterArm(
+            GetModelTransform(),
+            GetModelTransform().GetComponent<CharacterModel>(),
+            GetModelTransform().GetComponent<CharacterModel>().GetComponent<ChildLocator>(),
+            ((int)characterBody.skinIndex)
+            );
+
+
+        }
+
+        public override void OnExit()
+        {
+
+            if (isAuthority)
+            {
+                execomponent.UpdateEmotionalValue(1, 0, 0);
+
+                execomponent.UpdateMemoryCode('X');
+            }
+
+            base.OnExit();
+        }
+
+        private void FireES()
+        {
+            if (!this.hasFired)
+            {
+                this.hasFired = true;
+
+                if (base.isAuthority)
+                {
+
+                    base.characterBody.AddSpreadBloom(0.15f);
+                    Ray aimRay = base.GetAimRay();
+                    EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FireBarrage.effectPrefab, base.gameObject, this.muzzleString, false);
+
+                    //Util.PlaySound(Sounds.SFXGun, this.gameObject);
+                    base.PlayAnimation("Gesture, Override", "EXEBusterAttack", "attackSpeed", this.duration);
+                    //ProjectileManager.instance.FireProjectile(Modules.Projectiles.ShotGunProjectile, aimRay.origin, Util.QuaternionSafeLookRotation(aimRay.direction), base.gameObject, this.damageCoefficient * this.damageStat, 0f, Util.CheckRoll(this.critStat, base.characterBody.master), DamageColorIndex.Default, null, -1f);
+
+                    Vector3 spawnPos = aimRay.origin + aimRay.direction * 3f;
+
+                    // Faz um raycast para baixo
+                    if (Physics.Raycast(spawnPos, Vector3.down, out RaycastHit hitInfo, 100f, LayerIndex.world.mask))
+                    {
+                        spawnPos = hitInfo.point;
+                        spawnPos.y += 0.5f;
+                    }
+
+                    FireProjectileInfo ShotgunProjectille = new FireProjectileInfo();
+                    ShotgunProjectille.projectilePrefab = EXEAssets.exeTurretProjectilePrefab;
+                    ShotgunProjectille.position = spawnPos;
+                    ShotgunProjectille.rotation = Util.QuaternionSafeLookRotation(aimRay.direction);
+                    ShotgunProjectille.owner = gameObject;
+                    ShotgunProjectille.damage = damageCoefficient;
+                    ShotgunProjectille.force = force;
+                    ShotgunProjectille.crit = RollCrit();
+                    ShotgunProjectille.damageColorIndex = DamageColorIndex.Default;
+                    ShotgunProjectille.speedOverride = 0f;
+
+                    ProjectileManager.instance.FireProjectile(ShotgunProjectille);
+
+                }
+            }
+        }
+
+        public override void FixedUpdate()
+        {
+            base.FixedUpdate();
+
+            if (base.fixedAge >= this.fireDuration)
+            {
+                FireES();
+            }
+
+            if (base.fixedAge >= this.duration && base.isAuthority)
+            {
+                this.outer.SetNextStateToMain();
+            }
+        }
+
+        public override InterruptPriority GetMinimumInterruptPriority()
+        {
+            return InterruptPriority.Skill;
+        }
+    }
+}

@@ -44,6 +44,9 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
         internal static SkillDef BusterEXESkillDef;
 
+        internal static SkillDef TurretTestSkillDef;
+        internal static SkillDef BusterTurretSkillDef;
+
         internal static SteppedSkillDef CyberSwordSkillDef;
 
         internal static SkillDef AdvAirShotSkillDef;
@@ -321,6 +324,66 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 fullRestockOnAssign = true,
                 dontAllowPastMaxStocks = false,
                 mustKeyPress = false,
+                beginSkillCooldownOnSkillEnd = false,
+
+                isCombatSkill = true,
+                canceledFromSprinting = false,
+                cancelSprintingOnActivation = false,
+                forceSprintDuringState = false,
+            });
+
+            BusterTurretSkillDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = "BusterTorret",
+                skillNameToken = MMEXE_PREFIX + "WEAPON_ZSABER_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "WEAPON_ZSABER_DESCRIPTION",
+                skillIcon = EXEAssets.IconBusterEXE,
+
+                activationState = new EntityStates.SerializableEntityStateType(typeof(BusterTorret)),
+                activationStateMachineName = "Weapon",
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+
+                baseRechargeInterval = 3f,
+                baseMaxStock = 1,
+
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+
+                resetCooldownTimerOnUse = false,
+                fullRestockOnAssign = true,
+                dontAllowPastMaxStocks = false,
+                mustKeyPress = false,
+                beginSkillCooldownOnSkillEnd = false,
+
+                isCombatSkill = true,
+                canceledFromSprinting = false,
+                cancelSprintingOnActivation = false,
+                forceSprintDuringState = false,
+            });
+
+            TurretTestSkillDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = "BusterEXE",
+                skillNameToken = MMEXE_PREFIX + "WEAPON_ZSABER_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "WEAPON_ZSABER_DESCRIPTION",
+                //skillIcon = EXEAssets.IconBusterEXE,
+
+                activationState = new EntityStates.SerializableEntityStateType(typeof(EXETurret)),
+                activationStateMachineName = "Weapon",
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+
+                baseRechargeInterval = 2f,
+                baseMaxStock = 5,
+
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+
+                resetCooldownTimerOnUse = false,
+                fullRestockOnAssign = true,
+                dontAllowPastMaxStocks = false,
+                mustKeyPress = true,
                 beginSkillCooldownOnSkillEnd = false,
 
                 isCombatSkill = true,
@@ -1605,6 +1668,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
         private void AddExtraFirstSkills()
         {
+            Skills.AddFirstExtraSkill(bodyPrefab, TurretTestSkillDef);
             Skills.AddFirstExtraSkill(bodyPrefab, DrkSwordSkillDef);
             Skills.AddFirstExtraSkill(bodyPrefab, AdvInfiniteVulcanSkillDef);
             Skills.AddFirstExtraSkill(bodyPrefab, DrkBombSkillDef);
@@ -2223,13 +2287,19 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
             Debug.Log("Enter Hook");
 
-            if (self == null && damageInfo == null && damageInfo.attacker == null)
+            if (self == null || damageInfo == null)
                 return;
 
-            Debug.Log("self " + self);
-            Debug.Log("self name " + self.name);
-            Debug.Log("damageInfo " + damageInfo);
-            Debug.Log("damageInfo.attacker " + damageInfo.attacker);
+            if (damageInfo.inflictor == null || damageInfo.attacker == null)
+                return;
+
+            if (self.GetComponent<CharacterBody>() == null)
+                return;
+
+            //Debug.Log("self " + self);
+            //Debug.Log("self name " + self.name);
+            //Debug.Log("damageInfo " + damageInfo);
+            //Debug.Log("damageInfo.attacker " + damageInfo.attacker);
 
             //Se nao tiver o BUFF do REFLECTOR sofre o dano normalmente e tem a penalidade emocional.
             if (!damageInfo.attacker.name.Contains("MegamanEXE") && self.name.Contains("MegamanEXE") && !self.GetComponent<CharacterBody>().HasBuff(EXEBuffs.ReflectorBuff))
