@@ -1,4 +1,5 @@
 ﻿using RoR2;
+using RoR2.Projectile;
 using System;
 using System.Linq;
 using UnityEngine;
@@ -10,16 +11,19 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
     {
         public float lifetime = 10f;
         public float scanRange = 30f;
-        public float fireInterval = 0.5f;
+        public float fireInterval = 0.25f;
         public GameObject projectilePrefab;
         public Transform firePoint;
 
         private Vector3 direction;
+        private Vector3 shootDir;
         private Vector3 originEXE;
 
         private float fireTimer;
 
         private Animator animator;
+
+        private ProjectileController projectileController;
 
         void Awake()
         {
@@ -28,6 +32,25 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
 
             // Caso o Animator esteja em um filho, use:
             //animator = GetComponentInChildren<Animator>();
+
+            projectileController = GetComponent<ProjectileController>();
+
+            
+
+            if (!firePoint)
+            {
+                GameObject fp = new GameObject("FirePoint");
+                fp.transform.parent = transform;
+                fp.transform.localPosition = Vector3.up * 1.5f + Vector3.forward * 0.5f; // Ajuste conforme sua turret
+                firePoint = fp.transform;
+            }
+
+            //if (!GetComponent<TeamComponent>())
+            //{
+            //    var teamComponent = gameObject.AddComponent<TeamComponent>();
+            //    teamComponent.teamIndex = TeamIndex.Player; // ou outro time se for necessário
+            //}
+
         }
 
         void Start()
@@ -39,19 +62,30 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
         {
             fireTimer -= Time.fixedDeltaTime;
 
-            // Busca inimigos
             HurtBox target = FindTarget();
 
             if (target)
             {
-                // Rotaciona em direção ao alvo
-                direction = target.transform.position - transform.position;
-                direction.y = 0;
+                var characterBody = target.healthComponent?.body;
+                Vector3 targetPosition;
+
+                if (characterBody != null)
+                {
+                    targetPosition = characterBody.corePosition;
+                }
+                else
+                {
+                    // Fallback para o centro do collider da hitbox
+                    targetPosition = target.transform.position + target.collider.bounds.center - target.collider.transform.position;
+                }
+
+                shootDir = (targetPosition - projectileController.transform.position).normalized;
+                direction = new Vector3(shootDir.x, 0, shootDir.z); // Só gira no eixo Y
 
                 if (direction != Vector3.zero)
                 {
                     Quaternion targetRotation = Quaternion.LookRotation(direction);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * 10f);
                 }
 
                 if (fireTimer <= 0f)
@@ -66,31 +100,22 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
         {
             if (target)
             {
-                //GameObject proj = Instantiate(projectilePrefab, firePoint.position, Quaternion.LookRotation(firePoint.forward));
-                // Aqui você pode adicionar dano, efeitos, etc
-
-                originEXE = gameObject.transform.position;
-                originEXE.y += 3f;
-
-                //animator.Play("Shoots");
-
                 new BulletAttack
                 {
                     bulletCount = 1,
-                    aimVector = direction,
-                    origin = originEXE,
-                    damage = 1f,
+                    aimVector = shootDir,
+                    origin = firePoint.position,
+                    damage = 5f,
                     damageColorIndex = DamageColorIndex.Default,
-                    damageType = DamageTypeCombo.GenericPrimary,
+                    damageType = DamageType.Generic,
                     falloffModel = BulletAttack.FalloffModel.None,
-                    maxDistance = 500,
-                    force = 800,
+                    maxDistance = 1000f,
+                    force = 800f,
                     hitMask = LayerIndex.CommonMasks.bullet,
                     minSpread = 0f,
                     maxSpread = 0f,
-                    //isCrit = RollCrit(),
+                    isCrit = false,
                     owner = gameObject,
-                    //muzzleName = muzzleString,
                     smartCollision = true,
                     procChainMask = default,
                     procCoefficient = 1f,
@@ -104,7 +129,6 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
                     queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
                     hitEffectPrefab = EntityStates.Commando.CommandoWeapon.FireShotgun.hitEffectPrefab,
                 }.Fire();
-
             }
         }
 
@@ -113,9 +137,9 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
             BullseyeSearch search = new BullseyeSearch();
             search.teamMaskFilter = TeamMask.GetUnprotectedTeams(TeamIndex.Player);
             search.maxDistanceFilter = scanRange;
-            search.searchOrigin = transform.position;
+            search.searchOrigin = firePoint.position;
             search.sortMode = BullseyeSearch.SortMode.Distance;
-            search.filterByLoS = false;
+            search.filterByLoS = true; // Agora só alvos com linha de visão
             search.RefreshCandidates();
 
             return search.GetResults().FirstOrDefault();

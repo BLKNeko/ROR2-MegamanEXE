@@ -146,7 +146,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
             spreaderBlast.baseDamage = damageCoefficient * damageStat;
             spreaderBlast.baseForce = 800f;
             spreaderBlast.position = gameObject.transform.position;
-            spreaderBlast.radius = 15f;
+            spreaderBlast.radius = 20f;
             spreaderBlast.bonusForce = new Vector3(1f, 1f, 1f);
             spreaderBlast.damageType |= DamageType.Generic;
             spreaderBlast.damageColorIndex = DamageColorIndex.Default;
