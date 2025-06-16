@@ -12,7 +12,7 @@ using UnityEngine.Networking;
 
 namespace MegamanEXEMod.Modules.BaseStates
 {
-    public class SpawnState : GenericCharacterSpawnState
+    public class SpawnStateEXE : GenericCharacterSpawnState
     {
         private float duration;
         public float baseDuration = 1f;

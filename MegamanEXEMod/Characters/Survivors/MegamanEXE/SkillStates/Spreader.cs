@@ -77,7 +77,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
                     base.characterBody.AddSpreadBloom(1.5f);
                     EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, base.gameObject, this.muzzleString, false);
-                    //Util.PlaySound(Sounds.SFXCanon, base.gameObject);
+                    AkSoundEngine.PostEvent(EXEStaticValues.SFXGun, this.gameObject);
                     base.PlayAnimation("Gesture, Override", "EXEBusterAttack", "attackSpeed", this.duration);
 
                     new BulletAttack

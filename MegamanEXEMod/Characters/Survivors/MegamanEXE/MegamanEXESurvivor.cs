@@ -2,6 +2,7 @@
 using EmotesAPI;
 using EntityStates.AffixVoid;
 using MegamanEXEMod.Modules;
+using MegamanEXEMod.Modules.BaseStates;
 using MegamanEXEMod.Modules.Characters;
 using MegamanEXEMod.Survivors.MegamanEXE.Components;
 using MegamanEXEMod.Survivors.MegamanEXE.SkillStates;
@@ -268,7 +269,10 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             //the main "Body" state machine has some special properties
             Prefabs.AddMainEntityStateMachine(bodyPrefab, "Body", typeof(EntityStates.GenericCharacterMain), typeof(EntityStates.SpawnTeleporterState));
             //if you set up a custom main characterstate, set it up here
-                //don't forget to register custom entitystates in your HenryStates.cs
+            //don't forget to register custom entitystates in your HenryStates.cs
+
+            bodyPrefab.GetComponent<CharacterDeathBehavior>().deathState = new EntityStates.SerializableEntityStateType(typeof(DeathStateEXE));
+            bodyPrefab.GetComponent<EntityStateMachine>().initialStateType = new EntityStates.SerializableEntityStateType(typeof(SpawnStateEXE));
 
             Prefabs.AddEntityStateMachine(bodyPrefab, "Weapon");
             Prefabs.AddEntityStateMachine(bodyPrefab, "Weapon2");

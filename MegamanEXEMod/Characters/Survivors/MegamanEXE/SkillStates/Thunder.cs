@@ -76,7 +76,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
                     Ray aimRay = base.GetAimRay();
                     EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FireBarrage.effectPrefab, base.gameObject, this.muzzleString, false);
                     //EffectManager.SimpleMuzzleFlash(EntityStates.Mage.Weapon.FireLaserbolt.impactEffectPrefab, base.gameObject, this.muzzleString, false);
-                    //Util.PlaySound(Sounds.SFXThunder, base.gameObject);
+                    AkSoundEngine.PostEvent(EXEStaticValues.SFXThunder, this.gameObject);
 
                     base.PlayAnimation("Gesture, Override", "EXEBusterAttack", "attackSpeed", this.duration);
                     //ProjectileManager.instance.FireProjectile(Modules.Projectiles.ThunderProjectile, aimRay.origin, Util.QuaternionSafeLookRotation(aimRay.direction), base.gameObject, this.damageCoefficient * this.damageStat, 0f, Util.CheckRoll(this.critStat, base.characterBody.master), DamageColorIndex.Default, null, -1f);

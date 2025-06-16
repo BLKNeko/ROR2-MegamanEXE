@@ -179,14 +179,14 @@ namespace MegamanEXEMod.Modules.BaseStates
             switch (level)
             {
                 case 1:
-                    //Util.PlaySound(XStaticValues.charging, base.gameObject);
-                    AkSoundEngine.PostEvent(3358936867, this.gameObject);
+                    Util.PlaySound(EXEStaticValues.BusterCharging, base.gameObject);
                     EffectManager.SimpleMuzzleFlash(EXEAssets.VfxChargeeffect1C, base.gameObject, "CorePosition", true);
                     break;
 
                 case 2:
-                    //Util.PlaySound(XStaticValues.fullCharge, base.gameObject);
-                    AkSoundEngine.PostEvent(992292707, this.gameObject);
+                    if(!chargeFullSFX)
+                        Util.PlaySound(EXEStaticValues.BusterCharged, base.gameObject);
+
                     EffectManager.SimpleMuzzleFlash(EXEAssets.VfxChargeeffect2C, base.gameObject, "CorePosition", true);
                     break;
 

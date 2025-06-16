@@ -20,7 +20,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
         {
             base.OnEnter();
 
-            //Util.PlaySound(Sounds.SFXRecov, base.gameObject);
+            AkSoundEngine.PostEvent(EXEStaticValues.SFXRecov, this.gameObject);
             EffectManager.SimpleMuzzleFlash(EXEAssets.VfxRecov, base.gameObject, "CorePosition", true);
 
             execomponent = GetComponent<EXEBaseComponent>();

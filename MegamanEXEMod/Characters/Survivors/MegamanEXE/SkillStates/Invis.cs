@@ -21,7 +21,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
         {
             base.OnEnter();
 
-            //Util.PlaySound(Sounds.SFXInvis, base.gameObject);
+            AkSoundEngine.PostEvent(EXEStaticValues.SFXInvis, this.gameObject);
 
             execomponent = GetComponent<EXEBaseComponent>();
 

@@ -24,7 +24,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
         {
             extraskillLocator = base.GetComponent<ExtraSkillLocator>();
 
-            //Util.PlaySound(Sounds.SFXChipConfirm, base.gameObject);
+            AkSoundEngine.PostEvent(EXEStaticValues.SFXChipConfirm, this.gameObject);
 
             base.OnEnter();
         }

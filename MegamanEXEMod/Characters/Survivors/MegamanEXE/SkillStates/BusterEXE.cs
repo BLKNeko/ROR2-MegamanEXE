@@ -70,7 +70,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
                     characterBody.AddSpreadBloom(0.4f);
                     EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, gameObject, muzzleString, false);
-                    //Util.PlaySound(XStaticValues.X_Simple_Bullet, gameObject);
+                    Util.PlaySound(EXEStaticValues.BusterEXE, gameObject);
                     PlayAnimation("Gesture, Override", "EXEBusterAttack", "attackSpeed", this.duration);
 
                     Ray aimRay = GetAimRay();
@@ -124,7 +124,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
                     characterBody.AddSpreadBloom(0.4f);
                     EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, gameObject, muzzleString, false);
-                    //Util.PlaySound(XStaticValues.X_Simple_Bullet, gameObject);
+                    Util.PlaySound(EXEStaticValues.BusterEXE, gameObject);
                     PlayAnimation("Gesture, Override", "EXEBusterAttack", "attackSpeed", this.duration);
 
                     Ray aimRay = GetAimRay();
@@ -175,7 +175,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
                     characterBody.AddSpreadBloom(0.4f);
                     EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, gameObject, muzzleString, false);
-                    //Util.PlaySound(XStaticValues.X_Simple_Bullet, gameObject);
+                    Util.PlaySound(EXEStaticValues.BusterEXE, gameObject);
                     PlayAnimation("Gesture, Override", "EXEBusterAttack", "attackSpeed", this.duration);
 
                     Ray aimRay = GetAimRay();

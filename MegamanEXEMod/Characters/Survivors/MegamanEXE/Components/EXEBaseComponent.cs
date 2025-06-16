@@ -31,7 +31,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
 
         private float RedHpTimer = 0f;
         private float NaviChatTimer = 0f;
-        private float RedHpTimerCooldown = 6.5f;
+        private float RedHpTimerCooldown = 3.5f;
 
         private float EvilBugTimer = 0f;
         private float EvilBugCooldown = 8f;
@@ -302,7 +302,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
 
             if (isWeak && RedHpTimer < 0f)
             {
-                //Util.PlaySound(Sounds.SFXRedHP, base.gameObject);
+                AkSoundEngine.PostEvent(EXEStaticValues.SFXRedHP, this.gameObject);
 
                 RedHpTimer = RedHpTimerCooldown;
 
