@@ -1,5 +1,6 @@
 ﻿using EntityStates;
 using MegamanEXEMod.Survivors.MegamanEXE;
+using MegamanEXEMod.Survivors.MegamanEXE.Components;
 using RoR2;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -14,6 +15,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
         private Animator animator;
 
+        private EXEBaseComponent execomponent;
 
 
         public override void OnEnter()
@@ -21,6 +23,9 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
             base.OnEnter();
             this.animator = base.GetModelAnimator();
 
+            execomponent = GetComponent<EXEBaseComponent>();
+
+            AkSoundEngine.PostEvent(EXEStaticValues.SFXRecov, this.gameObject);
 
         }
 
@@ -29,7 +34,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
             if (NetworkServer.active)
             {
-                base.characterBody.AddTimedBuff(EXEBuffs.Attack30Buff, 20f);
+                //base.characterBody.AddTimedBuff(EXEBuffs.Attack77Buff, 15f);
             }
 
             Attack = true;
@@ -57,7 +62,20 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
         public override void OnExit()
         {
 
-            ////SyncNetworkExe.MemoryCode = ////SyncNetworkExe.MemoryCode + "X";
+            if (isAuthority)
+            {
+                execomponent.UpdateEmotionalValue(-1, 3, 0);
+
+                execomponent.UpdateMemoryCode('X');
+
+                if (NetworkServer.active)
+                {
+                    var rand = UnityEngine.Random.Range(0, 9);
+                    characterBody.AddTimedBuff(execomponent.GetDebuffByIndex(rand), 7f);
+
+                }
+
+            }
 
             base.OnExit();
         }

@@ -21,6 +21,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
             base.OnEnter();
             this.animator = base.GetModelAnimator();
 
+            AkSoundEngine.PostEvent(EXEStaticValues.SFXRecov, this.gameObject);
 
         }
 

@@ -34,7 +34,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
             attackRecoil = 0.5f;
             hitHopVelocity = 5f;
 
-            //swingSoundString = swingIndex % 2 == 0 ? XStaticValues.X_Slash3_SFX : XStaticValues.X_Slash2_SFX;
+            swingSoundString = EXEStaticValues.SwordSwing;
 
             hitSoundString = "";
             muzzleString = "SwingLeft";

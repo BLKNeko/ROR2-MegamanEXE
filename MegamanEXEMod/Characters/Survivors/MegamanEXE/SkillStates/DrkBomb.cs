@@ -83,7 +83,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
                     base.characterBody.AddSpreadBloom(0.15f);
                     Ray aimRay = base.GetAimRay();
                     EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FireBarrage.effectPrefab, base.gameObject, this.muzzleString, false);
-                    //Util.PlaySound(Modules.Sounds.vileFragDrop, base.gameObject);
+                    AkSoundEngine.PostEvent(EXEStaticValues.SFXTossItem, this.gameObject);
                     //EffectManager.SimpleMuzzleFlash(EntityStates.Mage.Weapon.FireLaserbolt.impactEffectPrefab, base.gameObject, this.muzzleString, false);
 
                     //ProjectileManager.instance.FireProjectile(Modules.Projectiles.MiniBombProjectile, aimRay.origin, Util.QuaternionSafeLookRotation(aimRay.direction), base.gameObject, this.damageCoefficient * this.damageStat, 0f, Util.CheckRoll(this.critStat, base.characterBody.master), DamageColorIndex.Default, null, -1f);

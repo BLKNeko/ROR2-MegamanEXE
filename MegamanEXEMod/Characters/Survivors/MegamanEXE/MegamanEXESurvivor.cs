@@ -46,7 +46,6 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
         internal static SkillDef BusterEXESkillDef;
 
         internal static SkillDef TurretTestSkillDef;
-        internal static SkillDef BusterTurretSkillDef;
 
         internal static SteppedSkillDef CyberSwordSkillDef;
 
@@ -102,8 +101,8 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             bodyNameToken = MMEXE_PREFIX + "NAME",
             subtitleNameToken = MMEXE_PREFIX + "SUBTITLE",
 
-            characterPortrait = assetBundle.LoadAsset<Texture>("texHenryIcon"),
-            bodyColor = Color.white,
+            characterPortrait = EXEAssets.IconEXETex,
+            bodyColor = new Color(0.3f, 0.55f, 0.99f),
             sortPosition = 100,
 
             crosshair = Asset.LoadCrosshair("Standard"),
@@ -189,9 +188,9 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 }
         };
 
-        public override UnlockableDef characterUnlockableDef => HenryUnlockables.characterUnlockableDef;
+        public override UnlockableDef characterUnlockableDef => EXEUnlockables.characterUnlockableDef;
         
-        public override ItemDisplaysBase itemDisplays => new HenryItemDisplays();
+        public override ItemDisplaysBase itemDisplays => new EXEItemDisplays();
 
         //set in base classes
         public override AssetBundle assetBundle { get; protected set; }
@@ -216,12 +215,12 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
         public override void InitializeCharacter()
         {
             //need the character unlockable before you initialize the survivordef
-            HenryUnlockables.Init();
+            EXEUnlockables.Init();
 
             base.InitializeCharacter();
 
             EXEConfig.Init();
-            HenryStates.Init();
+            EXEStates.Init();
             EXETokens.Init();
 
             EXEAssets.Init(assetBundle);
@@ -318,36 +317,6 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 interruptPriority = EntityStates.InterruptPriority.Skill,
 
                 baseRechargeInterval = 0f,
-                baseMaxStock = 1,
-
-                rechargeStock = 1,
-                requiredStock = 1,
-                stockToConsume = 1,
-
-                resetCooldownTimerOnUse = false,
-                fullRestockOnAssign = true,
-                dontAllowPastMaxStocks = false,
-                mustKeyPress = false,
-                beginSkillCooldownOnSkillEnd = false,
-
-                isCombatSkill = true,
-                canceledFromSprinting = false,
-                cancelSprintingOnActivation = false,
-                forceSprintDuringState = false,
-            });
-
-            BusterTurretSkillDef = Skills.CreateSkillDef(new SkillDefInfo
-            {
-                skillName = "BusterTorret",
-                skillNameToken = MMEXE_PREFIX + "WEAPON_ZSABER_NAME",
-                skillDescriptionToken = MMEXE_PREFIX + "WEAPON_ZSABER_DESCRIPTION",
-                skillIcon = EXEAssets.IconBusterEXE,
-
-                activationState = new EntityStates.SerializableEntityStateType(typeof(BusterTorret)),
-                activationStateMachineName = "Weapon",
-                interruptPriority = EntityStates.InterruptPriority.Skill,
-
-                baseRechargeInterval = 3f,
                 baseMaxStock = 1,
 
                 rechargeStock = 1,
@@ -481,7 +450,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_ADVAIRSHOT_NAME",
                 skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_ADVAIRSHOT_NAME",
                 skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_ADVAIRSHOT_DESCRIPTION",
-                skillIcon = EXEAssets.IconBarr500,
+                skillIcon = EXEAssets.IconAdvAirShot,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.AdvAirShot)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -804,7 +773,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_ATK20_NAME",
                 skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_ATK20_NAME",
                 skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_ATK20_DESCRIPTION",
-                //skillIcon = EXEAssets.IconAtk30,
+                skillIcon = EXEAssets.IconAtk20,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Attack20)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -1041,7 +1010,6 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
             #endregion
 
-
             #region SwordChips
 
             AquaSwrdSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
@@ -1245,7 +1213,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_GUTSPNCHSHOT_NAME",
                 skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_GUTSPNCHSHOT_NAME",
                 skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_GUTSPNCHSHOT_DESCRIPTION",
-                //skillIcon = EXEAssets.IconHiCannon,
+                skillIcon = EXEAssets.IconGutPunchShot,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.GutsPnchShot)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 5,
@@ -1365,7 +1333,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_SPREADER_NAME",
                 skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_SPREADER_NAME",
                 skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_SPREADER_DESCRIPTION",
-                //skillIcon = EXEAssets.IconShotgun,
+                skillIcon = EXEAssets.IconSpreader,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Spreader)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 5,
@@ -1476,6 +1444,34 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 mustKeyPress = true,
                 cancelSprintingOnActivation = true,
                 rechargeStock = 3,
+                requiredStock = 1,
+                stockToConsume = 1
+            });
+
+            #endregion
+
+            #region BOMBCHIPS
+
+            MiniBombSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_MINIBOMB_NAME",
+                skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_MINIBOMB_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_MINIBOMB_DESCRIPTION",
+                skillIcon = EXEAssets.IconMiniBomb,
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.MiniBomb)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 5,
+                baseRechargeInterval = 15f,
+                beginSkillCooldownOnSkillEnd = false,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = true,
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 5,
                 requiredStock = 1,
                 stockToConsume = 1
             });
@@ -1693,6 +1689,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             Skills.AddThirdExtraSkill(bodyPrefab, CannonSkillDef);
             Skills.AddThirdExtraSkill(bodyPrefab, StepSwordSkillDef);
             Skills.AddThirdExtraSkill(bodyPrefab, ShokWaveSkillDef);
+            Skills.AddThirdExtraSkill(bodyPrefab, MiniBombSkillDef);
         }
         private void AddExtraFourthSkills()
         {
@@ -1717,7 +1714,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             #region DefaultSkin
             //this creates a SkinDef with all default fields
             SkinDef defaultSkin = Skins.CreateSkinDef(MMEXE_PREFIX + "MMEXE_SKIN_NAME",
-                assetBundle.LoadAsset<Sprite>("texMainSkin"),
+                EXEAssets.IconEXE,
                 defaultRendererinfos,
                 prefabCharacterModel.gameObject);
 
@@ -1819,7 +1816,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
             ////creating a new skindef as we did before
             SkinDef protoSkin = Modules.Skins.CreateSkinDef(MMEXE_PREFIX + "PROTO_SKIN_NAME",
-                assetBundle.LoadAsset<Sprite>("texMasteryAchievement"),
+                EXEAssets.IconProtoman,
                 defaultRendererinfos,
                 prefabCharacterModel.gameObject);
 
@@ -1921,7 +1918,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
             ////creating a new skindef as we did before
             SkinDef rollSkin = Modules.Skins.CreateSkinDef(MMEXE_PREFIX + "ROLL_SKIN_NAME",
-                assetBundle.LoadAsset<Sprite>("texMasteryAchievement"),
+                EXEAssets.IconRoll,
                 defaultRendererinfos,
                 prefabCharacterModel.gameObject);
 
@@ -2022,7 +2019,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
             ////creating a new skindef as we did before
             SkinDef bassSkin = Modules.Skins.CreateSkinDef(MMEXE_PREFIX + "BASS_SKIN_NAME",
-                assetBundle.LoadAsset<Sprite>("texMasteryAchievement"),
+                EXEAssets.IconBass,
                 defaultRendererinfos,
                 prefabCharacterModel.gameObject);
 
@@ -2123,7 +2120,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
             ////creating a new skindef as we did before
             SkinDef diveSkin = Modules.Skins.CreateSkinDef(MMEXE_PREFIX + "DIVEEXE_SKIN_NAME",
-                assetBundle.LoadAsset<Sprite>("texMasteryAchievement"),
+                EXEAssets.IconEXEDive,
                 defaultRendererinfos,
                 prefabCharacterModel.gameObject);
 
@@ -2270,7 +2267,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             //Modules.Prefabs.CloneDopplegangerMaster(bodyPrefab, masterName, "Merc");
 
             //how to set up AI in code
-            HenryAI.Init(bodyPrefab, masterName);
+            EXEAI.Init(bodyPrefab, masterName);
 
             //how to load a master set up in unity, can be an empty gameobject with just AISkillDriver components
             //assetBundle.LoadMaster(bodyPrefab, masterName);

@@ -41,6 +41,10 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
         public static readonly string SFXDeleted = "Play_Megaman_Deleted_vocals";
         public static readonly string SFXBugFix = "Play_EXE_BugFix";
         public static readonly string SFXGun = "Play_EXE_gun";
+        public static readonly string SFXDenied = "Play_EXEDenied";
+        public static readonly string SFXTossItem = "Play_EXETossItem";
+        public static readonly string SFXAreaGrab = "Play_EXEAreaGrab";
+        public static readonly string SFXBombExplosion = "Play_EXEBombExplosion";
 
 
     }

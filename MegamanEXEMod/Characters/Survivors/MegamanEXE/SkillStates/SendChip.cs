@@ -102,6 +102,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
             MegamanEXESurvivor.FstGaugeSkillDef,
 
             MegamanEXESurvivor.GutPunchSkillDef,
+            MegamanEXESurvivor.GutPnchShotSkillDef,
 
             MegamanEXESurvivor.HiCannonSkillDef,
 

@@ -48,7 +48,6 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
 
 
-            //Util.PlaySound(Modules.Sounds.vileFragDrop, base.gameObject);
             base.PlayAnimation("Gesture, Override", "ShootPose", "attackSpeed", this.duration);
         }
 
@@ -73,6 +72,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
                     Ray aimRay = base.GetAimRay();
                     EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FireBarrage.effectPrefab, base.gameObject, this.muzzleString, false);
                     //EffectManager.SimpleMuzzleFlash(EntityStates.Mage.Weapon.FireLaserbolt.impactEffectPrefab, base.gameObject, this.muzzleString, false);
+                    AkSoundEngine.PostEvent(EXEStaticValues.SFXGun, this.gameObject);
 
                     base.PlayAnimation("Gesture, Override", "EXEBusterAttack", "attackSpeed", this.duration);
                     //ProjectileManager.instance.FireProjectile(Modules.Projectiles.YoyoProjectile, aimRay.origin, Util.QuaternionSafeLookRotation(aimRay.direction), base.gameObject, this.damageCoefficient * this.damageStat, 0f, Util.CheckRoll(this.critStat, base.characterBody.master), DamageColorIndex.Default, null, -1f);

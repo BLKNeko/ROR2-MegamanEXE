@@ -52,6 +52,13 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
         public static Material ProtoBusterMat;
         public static Material RollBusterMat;
 
+        public static Texture IconEXETex;
+
+        public static Sprite IconEXE;
+        public static Sprite IconProtoman;
+        public static Sprite IconRoll;
+        public static Sprite IconBass;
+        public static Sprite IconEXEDive;
 
         public static Sprite IconAirShot;
         public static Sprite IconAquaSwrd;
@@ -73,6 +80,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
         public static Sprite IconAnxious;
         public static Sprite IconAtk10;
+        public static Sprite IconAtk20;
         public static Sprite IconAtk30;
         public static Sprite IconBarr200;
         public static Sprite IconDrkBomb;
@@ -83,6 +91,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
         public static Sprite IconEvil;
         public static Sprite IconFullSync;
         public static Sprite IconGutPunch;
+        public static Sprite IconGutPunchShot;
         public static Sprite IconNormal;
         public static Sprite IconRage;
         public static Sprite IconRecov300;
@@ -106,6 +115,10 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
         public static Sprite IconReflector;
 
         public static Sprite IconStepSword;
+
+        public static Sprite IconAdvAirShot;
+
+        public static Sprite IconSpreader;
 
         internal static GameObject VfxChargeeffect1C;
         internal static GameObject VfxChargeeffect2C;
@@ -194,8 +207,16 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             ProtoBusterMat = _assetBundle.LoadAsset<Material>("matProtoBuster");
             RollBusterMat = _assetBundle.LoadAsset<Material>("matRBuster");
 
+            IconEXETex = _assetBundle.LoadAsset<Texture>("TexEXE");
+
+            IconEXE = _assetBundle.LoadAsset<Sprite>("IconEXE");
+            IconProtoman = _assetBundle.LoadAsset<Sprite>("IconProtoman");
+            IconRoll = _assetBundle.LoadAsset<Sprite>("IconRoll");
+            IconBass = _assetBundle.LoadAsset<Sprite>("IconBass");
+            IconEXEDive = _assetBundle.LoadAsset<Sprite>("IconEXEDive");
 
 
+            IconAdvAirShot = _assetBundle.LoadAsset<Sprite>("IconAdvAirShot");
             IconAirShot = _assetBundle.LoadAsset<Sprite>("IconAirShot");
             IconAquaSwrd = _assetBundle.LoadAsset<Sprite>("IconAquaSwrd");
             IconBarr100 = _assetBundle.LoadAsset<Sprite>("IconBarr100");
@@ -218,6 +239,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
             IconAnxious = _assetBundle.LoadAsset<Sprite>("IconAnxious");
             IconAtk10 = _assetBundle.LoadAsset<Sprite>("IconAtk10");
+            IconAtk20 = _assetBundle.LoadAsset<Sprite>("IconAtk20");
             IconAtk30 = _assetBundle.LoadAsset<Sprite>("IconAtk30");
             IconBarr200 = _assetBundle.LoadAsset<Sprite>("IconBarr200");
             IconDrkBomb = _assetBundle.LoadAsset<Sprite>("IconDrkBomb");
@@ -228,6 +250,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             IconEvil = _assetBundle.LoadAsset<Sprite>("IconEvil");
             IconFullSync = _assetBundle.LoadAsset<Sprite>("IconFullSync");
             IconGutPunch = _assetBundle.LoadAsset<Sprite>("IconGutPunch");
+            IconGutPunchShot = _assetBundle.LoadAsset<Sprite>("IconGutPunchShot");
             IconNormal = _assetBundle.LoadAsset<Sprite>("IconNormal");
             IconRage = _assetBundle.LoadAsset<Sprite>("IconRage");
             IconRecov300 = _assetBundle.LoadAsset<Sprite>("IconRecov300");
@@ -253,6 +276,8 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
             IconStepSword = _assetBundle.LoadAsset<Sprite>("IconStepSword");
 
+            IconSpreader = _assetBundle.LoadAsset<Sprite>("IconSpreader");
+
 
 
 
@@ -261,57 +286,57 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
             CreateProjectiles();
 
-            CreateAllyPrefab();
+            //CreateAllyPrefab();
         }
 
-        public static void CreateAllyPrefab()
-        {
-            // Clonar o corpo da torreta (ou Commando se quiser que pareça mais um personagem)
-            GameObject baseBody = LegacyResourcesAPI.Load<GameObject>("prefabs/characterbodies/EngiTurretBody");
-            AllyBodyPrefab = PrefabAPI.InstantiateClone(baseBody, "MyAllyBody", true);
-            //AllyBodyPrefab = _assetBundle.LoadAsset<GameObject>("EXETurret");
+        //public static void CreateAllyPrefab()
+        //{
+        //    // Clonar o corpo da torreta (ou Commando se quiser que pareça mais um personagem)
+        //    GameObject baseBody = LegacyResourcesAPI.Load<GameObject>("prefabs/characterbodies/EngiTurretBody");
+        //    AllyBodyPrefab = PrefabAPI.InstantiateClone(baseBody, "MyAllyBody", true);
+        //    //AllyBodyPrefab = _assetBundle.LoadAsset<GameObject>("EXETurret");
 
-            // Pega o ModelLocator do prefab
-            ModelLocator modelLocator = AllyBodyPrefab.GetComponent<ModelLocator>();
+        //    // Pega o ModelLocator do prefab
+        //    ModelLocator modelLocator = AllyBodyPrefab.GetComponent<ModelLocator>();
 
-            // Destrói o modelo antigo
-            GameObject oldModel = modelLocator.modelTransform.gameObject;
-            UnityEngine.Object.DestroyImmediate(oldModel);
+        //    // Destrói o modelo antigo
+        //    GameObject oldModel = modelLocator.modelTransform.gameObject;
+        //    UnityEngine.Object.DestroyImmediate(oldModel);
 
-            // Instancia seu novo modelo (deve ser um prefab seu carregado nos assets)
-            GameObject newModel = UnityEngine.Object.Instantiate(_assetBundle.LoadAsset<GameObject>("EXETurret"), AllyBodyPrefab.transform);
+        //    // Instancia seu novo modelo (deve ser um prefab seu carregado nos assets)
+        //    GameObject newModel = UnityEngine.Object.Instantiate(_assetBundle.LoadAsset<GameObject>("EXETurret"), AllyBodyPrefab.transform);
 
-            // Atualiza o modelLocator
-            modelLocator.modelTransform = newModel.transform;
-            modelLocator.modelBaseTransform = newModel.transform; // ou algum filho específico, se quiser
+        //    // Atualiza o modelLocator
+        //    modelLocator.modelTransform = newModel.transform;
+        //    modelLocator.modelBaseTransform = newModel.transform; // ou algum filho específico, se quiser
 
-            // Acessa o SkillLocator da torreta
-            SkillLocator skillLocator = AllyBodyPrefab.GetComponent<SkillLocator>();
+        //    // Acessa o SkillLocator da torreta
+        //    SkillLocator skillLocator = AllyBodyPrefab.GetComponent<SkillLocator>();
 
-            // Substitui a habilidade primária por uma que você já tem
-            skillLocator.primary.skillFamily.variants[0].skillDef = MegamanEXESurvivor.BusterTurretSkillDef;
+        //    // Substitui a habilidade primária por uma que você já tem
+        //    skillLocator.primary.skillFamily.variants[0].skillDef = MegamanEXESurvivor.BusterTurretSkillDef;
 
 
-            // Ajustar stats (opcional)
-            CharacterBody body = AllyBodyPrefab.GetComponent<CharacterBody>();
-            body.baseMaxHealth = 200f;
-            body.baseDamage = 15f;
-            body.baseMoveSpeed = 0f; // parado como uma torreta
-            body.baseAttackSpeed = 1.5f;
-            body.isChampion = false;
+        //    // Ajustar stats (opcional)
+        //    CharacterBody body = AllyBodyPrefab.GetComponent<CharacterBody>();
+        //    body.baseMaxHealth = 200f;
+        //    body.baseDamage = 15f;
+        //    body.baseMoveSpeed = 0f; // parado como uma torreta
+        //    body.baseAttackSpeed = 1.5f;
+        //    body.isChampion = false;
 
-            // Clonar o master da torreta
-            GameObject baseMaster = LegacyResourcesAPI.Load<GameObject>("prefabs/charactermasters/EngiTurretMaster");
-            AllyMasterPrefab = PrefabAPI.InstantiateClone(baseMaster, "MyAllyMaster", true);
+        //    // Clonar o master da torreta
+        //    GameObject baseMaster = LegacyResourcesAPI.Load<GameObject>("prefabs/charactermasters/EngiTurretMaster");
+        //    AllyMasterPrefab = PrefabAPI.InstantiateClone(baseMaster, "MyAllyMaster", true);
 
-            // Definir que o master usa nosso body
-            CharacterMaster master = AllyMasterPrefab.GetComponent<CharacterMaster>();
-            master.bodyPrefab = AllyBodyPrefab;
+        //    // Definir que o master usa nosso body
+        //    CharacterMaster master = AllyMasterPrefab.GetComponent<CharacterMaster>();
+        //    master.bodyPrefab = AllyBodyPrefab;
 
-            // Registrar no catálogo
-            BodyCatalog.getAdditionalEntries += list => list.Add(AllyBodyPrefab);
-            MasterCatalog.getAdditionalEntries += list => list.Add(AllyMasterPrefab);
-        }
+        //    // Registrar no catálogo
+        //    BodyCatalog.getAdditionalEntries += list => list.Add(AllyBodyPrefab);
+        //    MasterCatalog.getAdditionalEntries += list => list.Add(AllyMasterPrefab);
+        //}
 
         #region effects
         private static void CreateEffects()

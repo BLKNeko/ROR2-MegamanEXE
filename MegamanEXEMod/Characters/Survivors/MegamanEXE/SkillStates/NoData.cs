@@ -23,7 +23,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
             base.OnEnter();
             this.animator = base.GetModelAnimator();
 
-            //Util.PlaySound(Sounds.SFXRecov, base.gameObject);
+            Util.PlaySound(EXEStaticValues.SFXDenied, base.gameObject);
 
         }
 

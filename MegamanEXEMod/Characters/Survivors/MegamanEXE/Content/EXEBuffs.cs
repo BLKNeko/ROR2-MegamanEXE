@@ -12,7 +12,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
         internal static BuffDef Attack10Buff;
         internal static BuffDef Attack20Buff;
         internal static BuffDef Attack30Buff;
-        internal static BuffDef Attack77Buff;
+        internal static BuffDef AttackDRKBuff;
         internal static BuffDef ReflectorBuff;
 
         internal static BuffDef FullSyncBuff;
@@ -45,13 +45,19 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 false,
                 false);
 
+            Attack20Buff = Modules.Content.CreateAndAddBuff("Attack20Buff",
+                EXEAssets.IconAtk20,
+                Color.white,
+                false,
+                false);
+
             Attack30Buff = Modules.Content.CreateAndAddBuff("Attack30Buff",
                 EXEAssets.IconAtk30,
                 Color.white,
                 false,
                 false);
 
-            Attack77Buff = Modules.Content.CreateAndAddBuff("Attack30Buff",
+            AttackDRKBuff = Modules.Content.CreateAndAddBuff("AttackDRKBuff",
                 EXEAssets.IconAtk30,
                 Color.white,
                 false,
