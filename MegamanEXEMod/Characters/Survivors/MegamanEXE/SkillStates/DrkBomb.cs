@@ -54,7 +54,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
             if (isAuthority)
             {
-                execomponent.UpdateEmotionalValue(-1, 1, 0);
+                execomponent.UpdateEmotionalValue(-2, 5, 0);
 
                 execomponent.UpdateMemoryCode('X');
 

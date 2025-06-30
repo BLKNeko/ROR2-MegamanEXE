@@ -21,7 +21,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
             base.OnEnter();
 
             AkSoundEngine.PostEvent(EXEStaticValues.SFXRecov, this.gameObject);
-            EffectManager.SimpleMuzzleFlash(EXEAssets.VfxRecov, base.gameObject, "CorePosition", true);
+            EffectManager.SimpleMuzzleFlash(EXEAssets.VfxRecov, base.gameObject, "BaseMZ", true);
 
             execomponent = GetComponent<EXEBaseComponent>();
 
@@ -66,7 +66,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
         {
             if (isAuthority)
             {
-                execomponent.UpdateEmotionalValue(-1, 1, 0);
+                execomponent.UpdateEmotionalValue(-5, 10, 0);
 
                 execomponent.UpdateMemoryCode('X');
 

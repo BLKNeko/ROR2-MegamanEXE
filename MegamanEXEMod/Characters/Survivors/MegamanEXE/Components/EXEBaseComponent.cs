@@ -394,9 +394,9 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
 
 
             //logs
-            Debug.Log("Emotion: " + EmotionValue);
-            Debug.Log("Dark: " + EvilEmotionValue);
-            Debug.Log("DmgR: " + DamageReceived);
+            //Debug.Log("Emotion: " + EmotionValue);
+            //Debug.Log("Dark: " + EvilEmotionValue);
+            //Debug.Log("DmgR: " + DamageReceived);
 
         }
 
@@ -653,7 +653,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
             
 
             //logs
-            Debug.Log("MemoryCode: " + MemoryCode);
+            //Debug.Log("MemoryCode: " + MemoryCode);
 
             AdvancedProgram();
 
@@ -664,7 +664,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
             MemoryCode = letter;
 
             //logs
-            Debug.Log("MemoryCode: " + MemoryCode);
+            //Debug.Log("MemoryCode: " + MemoryCode);
 
         }
 

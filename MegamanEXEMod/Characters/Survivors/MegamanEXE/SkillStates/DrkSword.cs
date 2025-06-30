@@ -51,8 +51,8 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
             SetHitReset(true, 2);
 
-            EMValue = -1;
-            EVValue = 10;
+            EMValue = -2;
+            EVValue = 5;
             DMGValue = 0;
 
             RollDebuff = true;

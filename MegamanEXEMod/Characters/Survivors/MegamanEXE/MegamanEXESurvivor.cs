@@ -287,7 +287,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             Skills.CreateSecondExtraSkillFamily(bodyPrefab);
             Skills.CreateThirdExtraSkillFamily(bodyPrefab);
             Skills.CreateFourthExtraSkillFamily(bodyPrefab);
-            //AddPassiveSkill();
+            AddPassiveSkill();
 
             CreateSkillDefs();
 
@@ -1490,47 +1490,47 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 enabled = true,
                 skillNameToken = MMEXE_PREFIX + "PASSIVE_NAME",
                 skillDescriptionToken = MMEXE_PREFIX + "PASSIVE_DESCRIPTION",
-                keywordToken = "KEYWORD_STUNNING",
-                icon = assetBundle.LoadAsset<Sprite>("texPassiveIcon"),
+                //keywordToken = "KEYWORD_STUNNING",
+                icon = EXEAssets.IconPassive,
             };
 
             //option 2. a new SkillFamily for a passive, used if you want multiple selectable passives
-            GenericSkill passiveGenericSkill = Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, "PassiveSkill");
-            SkillDef passiveSkillDef1 = Skills.CreateSkillDef(new SkillDefInfo
-            {
-                skillName = "HenryPassive",
-                skillNameToken = MMEXE_PREFIX + "PASSIVE_NAME",
-                skillDescriptionToken = MMEXE_PREFIX + "PASSIVE_DESCRIPTION",
-                keywordTokens = new string[] { "KEYWORD_AGILE" },
-                skillIcon = assetBundle.LoadAsset<Sprite>("texPassiveIcon"),
+            //GenericSkill passiveGenericSkill = Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, "PassiveSkill");
+            //SkillDef passiveSkillDef1 = Skills.CreateSkillDef(new SkillDefInfo
+            //{
+            //    skillName = "HenryPassive",
+            //    skillNameToken = MMEXE_PREFIX + "PASSIVE_NAME",
+            //    skillDescriptionToken = MMEXE_PREFIX + "PASSIVE_DESCRIPTION",
+            //    keywordTokens = new string[] { "KEYWORD_AGILE" },
+            //    skillIcon = assetBundle.LoadAsset<Sprite>("texPassiveIcon"),
 
-                //unless you're somehow activating your passive like a skill, none of the following is needed.
-                //but that's just me saying things. the tools are here at your disposal to do whatever you like with
+            //    //unless you're somehow activating your passive like a skill, none of the following is needed.
+            //    //but that's just me saying things. the tools are here at your disposal to do whatever you like with
 
-                //activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Shoot)),
-                //activationStateMachineName = "Weapon1",
-                //interruptPriority = EntityStates.InterruptPriority.Skill,
+            //    //activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Shoot)),
+            //    //activationStateMachineName = "Weapon1",
+            //    //interruptPriority = EntityStates.InterruptPriority.Skill,
 
-                //baseRechargeInterval = 1f,
-                //baseMaxStock = 1,
+            //    //baseRechargeInterval = 1f,
+            //    //baseMaxStock = 1,
 
-                //rechargeStock = 1,
-                //requiredStock = 1,
-                //stockToConsume = 1,
+            //    //rechargeStock = 1,
+            //    //requiredStock = 1,
+            //    //stockToConsume = 1,
 
-                //resetCooldownTimerOnUse = false,
-                //fullRestockOnAssign = true,
-                //dontAllowPastMaxStocks = false,
-                //mustKeyPress = false,
-                //beginSkillCooldownOnSkillEnd = false,
+            //    //resetCooldownTimerOnUse = false,
+            //    //fullRestockOnAssign = true,
+            //    //dontAllowPastMaxStocks = false,
+            //    //mustKeyPress = false,
+            //    //beginSkillCooldownOnSkillEnd = false,
 
-                //isCombatSkill = true,
-                //canceledFromSprinting = false,
-                //cancelSprintingOnActivation = false,
-                //forceSprintDuringState = false,
+            //    //isCombatSkill = true,
+            //    //canceledFromSprinting = false,
+            //    //cancelSprintingOnActivation = false,
+            //    //forceSprintDuringState = false,
 
-            });
-            Skills.AddSkillsToFamily(passiveGenericSkill.skillFamily, passiveSkillDef1);
+            //});
+            //Skills.AddSkillsToFamily(passiveGenericSkill.skillFamily, passiveSkillDef1);
         }
 
         //if this is your first look at skilldef creation, take a look at Secondary first
@@ -2290,7 +2290,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
             if (!self || !self.gameObject) return;
 
-            Debug.Log($"CharacterModel GameObject name: {self.gameObject.name}");
+            //Debug.Log($"CharacterModel GameObject name: {self.gameObject.name}");
 
             // Usa o nome exato do GameObject da seleção
             if (self.gameObject.name == "MegamanEXEDisplay(Clone)") // ou use StartsWith/Equals se for mais preciso
