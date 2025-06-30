@@ -1,23 +1,17 @@
 ﻿using EntityStates;
-using MegamanEXEMod.Modules.BaseStates;
 using MegamanEXEMod.Survivors.MegamanEXE;
-using MegamanEXEMod.Survivors.MegamanEXE.Components;
 using RoR2;
-using RoR2.Projectile;
 using UnityEngine;
 using UnityEngine.Networking;
-using static UnityEngine.ParticleSystem.PlaybackState;
 
 namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 {
-    public class Yoyo : BaseSkillState
+    public class AdvGreatYoyo_old : BaseSkillState
     {
-        public float damageCoefficient = EXEStaticValues.YoyoSkillDefDamageCoefficient;
+        public float damageCoefficient = 10f;
         public float baseDuration = 0.5f;
         public float recoil = 1f;
         public static GameObject tracerEffectPrefab = Resources.Load<GameObject>("Prefabs/Effects/Tracers/TracerToolbotRebar");
-
-        public static float force = 1000f;
 
         private float duration;
         private float fireDuration;
@@ -25,8 +19,6 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
         private Animator animator;
         private string muzzleString;
         private string muzzleString2;
-
-        private EXEBaseComponent execomponent;
 
         public override void OnEnter()
         {
@@ -37,24 +29,17 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
             this.animator = base.GetModelAnimator();
             this.muzzleString = "BusterMZ";
 
-            execomponent = GetComponent<EXEBaseComponent>();
-
-            execomponent.ChangeBusterArm(
-                GetModelTransform(),
-                GetModelTransform().GetComponent<CharacterModel>(),
-                GetModelTransform().GetComponent<CharacterModel>().GetComponent<ChildLocator>(),
-                ((int)characterBody.skinIndex)
-                );
+            ////ArmHelper.ArmChanger(1);
 
 
-
+            //Util.PlaySound(Modules.Sounds.vileFragDrop, base.gameObject);
             base.PlayAnimation("Gesture, Override", "ShootPose", "attackSpeed", this.duration);
         }
 
         public override void OnExit()
         {
 
-            execomponent.UpdateMemoryCode('Y');
+            ////SyncNetworkExe.MemoryCode = ////SyncNetworkExe.MemoryCode + "X";
 
             base.OnExit();
         }
@@ -65,30 +50,22 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
             {
                 this.hasFired = true;
 
+                base.characterBody.AddSpreadBloom(0.15f);
+                Ray aimRay = base.GetAimRay();
+                EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FireBarrage.effectPrefab, base.gameObject, this.muzzleString, false);
+                //EffectManager.SimpleMuzzleFlash(EntityStates.Mage.Weapon.FireLaserbolt.impactEffectPrefab, base.gameObject, this.muzzleString, false);
+
+                Vector3 raygun1 = new Vector3(aimRay.direction.x + 0.2f, aimRay.direction.y, aimRay.direction.z);
+                Vector3 raygun2 = new Vector3(aimRay.direction.x - 0.2f, aimRay.direction.y, aimRay.direction.z);
+
                 if (base.isAuthority)
                 {
+                    base.PlayAnimation("Gesture, Override", "ShootBurst", "attackSpeed", this.duration);
 
-                    base.characterBody.AddSpreadBloom(0.15f);
-                    Ray aimRay = base.GetAimRay();
-                    EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FireBarrage.effectPrefab, base.gameObject, this.muzzleString, false);
-                    //EffectManager.SimpleMuzzleFlash(EntityStates.Mage.Weapon.FireLaserbolt.impactEffectPrefab, base.gameObject, this.muzzleString, false);
-                    AkSoundEngine.PostEvent(EXEStaticValues.SFXGun, this.gameObject);
+                    //ProjectileManager.instance.FireProjectile(Modules.Projectiles.YoyoProjectile, aimRay.origin, Util.QuaternionSafeLookRotation(raygun1.normalized), base.gameObject, this.damageCoefficient * this.damageStat, 0f, Util.CheckRoll(this.critStat, base.characterBody.master), DamageColorIndex.Default, null, -1f);
+                    //ProjectileManager.instance.FireProjectile(Modules.Projectiles.YoyoProjectile, aimRay.origin, Util.QuaternionSafeLookRotation(raygun2.normalized), base.gameObject, this.damageCoefficient * this.damageStat, 0f, Util.CheckRoll(this.critStat, base.characterBody.master), DamageColorIndex.Default, null, -1f);
 
-                    base.PlayAnimation("Gesture, Override", "EXEBusterAttack", "attackSpeed", this.duration);
                     //ProjectileManager.instance.FireProjectile(Modules.Projectiles.YoyoProjectile, aimRay.origin, Util.QuaternionSafeLookRotation(aimRay.direction), base.gameObject, this.damageCoefficient * this.damageStat, 0f, Util.CheckRoll(this.critStat, base.characterBody.master), DamageColorIndex.Default, null, -1f);
-
-                    FireProjectileInfo YoyoProjectille = new FireProjectileInfo();
-                    YoyoProjectille.projectilePrefab = EXEAssets.yoyoProjectilePrefab;
-                    YoyoProjectille.position = aimRay.origin;
-                    YoyoProjectille.rotation = Util.QuaternionSafeLookRotation(aimRay.direction);
-                    YoyoProjectille.owner = gameObject;
-                    YoyoProjectille.damage = damageCoefficient * damageStat;
-                    YoyoProjectille.force = force;
-                    YoyoProjectille.crit = RollCrit();
-                    YoyoProjectille.damageColorIndex = DamageColorIndex.Luminous;
-
-                    ProjectileManager.instance.FireProjectile(YoyoProjectille);
-
                 }
             }
         }

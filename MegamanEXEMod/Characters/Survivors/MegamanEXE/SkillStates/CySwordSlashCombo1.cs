@@ -18,7 +18,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
             hitboxGroupName = "EXESwordGroup";
 
             damageType = DamageTypeCombo.GenericSecondary;
-            damageCoefficient = 1f;
+            damageCoefficient = EXEStaticValues.CyberSwordDamageCoefficient;
             procCoefficient = 1f;
             pushForce = 300f;
             bonusForce = Vector3.zero;

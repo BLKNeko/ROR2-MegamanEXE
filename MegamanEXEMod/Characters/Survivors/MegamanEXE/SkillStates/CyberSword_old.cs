@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 
 namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 {
-    public class CyberSword : BaseSkillState
+    public class CyberSword_old : BaseSkillState
     {
         public static float damageCoefficient = 3f;
         public static float buffDamageCoefficient = 1f;
@@ -35,7 +35,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
         {
             base.OnEnter();
             this.duration = this.baseDuration / this.attackSpeedStat;
-            this.earlyExitDuration = CyberSword.baseEarlyExit / this.attackSpeedStat;
+            this.earlyExitDuration = CyberSword_old.baseEarlyExit / this.attackSpeedStat;
             this.hasFired = false;
             this.animator = base.GetModelAnimator();
             base.StartAimMode(0.5f + this.duration, false);
@@ -63,7 +63,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
             forwardDirection = aimRay.direction;
 
 
-            float dmg = CyberSword.damageCoefficient;
+            float dmg = CyberSword_old.damageCoefficient;
 
             this.attack = new OverlapAttack();
             this.attack.damageType = DamageType.Generic;
@@ -72,7 +72,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
             this.attack.teamIndex = base.GetTeam();
             this.attack.damage = dmg * this.damageStat;
             this.attack.procCoefficient = 1;
-            this.attack.hitEffectPrefab = CyberSword.hitEffectPrefab;
+            this.attack.hitEffectPrefab = CyberSword_old.hitEffectPrefab;
             this.attack.forceVector = forwardDirection;
             this.attack.pushAwayForce = 300f;
             this.attack.hitBoxGroup = hitBoxGroup;
@@ -104,7 +104,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
                 if (base.isAuthority)
                 {
-                    base.AddRecoil(-1f * CyberSword.attackRecoil, -2f * CyberSword.attackRecoil, -0.5f * CyberSword.attackRecoil, 0.5f * CyberSword.attackRecoil);
+                    base.AddRecoil(-1f * CyberSword_old.attackRecoil, -2f * CyberSword_old.attackRecoil, -0.5f * CyberSword_old.attackRecoil, 0.5f * CyberSword_old.attackRecoil);
 
                     Ray aimRay = base.GetAimRay();
 
@@ -117,7 +117,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
                         {
                             if (base.characterMotor && !base.characterMotor.isGrounded)
                             {
-                                base.SmallHop(base.characterMotor, CyberSword.hitHopVelocity);
+                                base.SmallHop(base.characterMotor, CyberSword_old.hitHopVelocity);
                             }
 
                             this.hasHopped = true;

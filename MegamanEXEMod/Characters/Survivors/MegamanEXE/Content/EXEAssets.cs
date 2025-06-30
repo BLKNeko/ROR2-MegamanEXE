@@ -528,6 +528,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             yoyoProjectilePrefab.GetComponent<ProjectileDamage>().damage = 1f;
             yoyoProjectilePrefab.GetComponent<ProjectileDamage>().damageType |= DamageType.BypassArmor;
             yoyoProjectilePrefab.GetComponent<ProjectileDamage>().damageType |= DamageType.BypassBlock;
+            yoyoProjectilePrefab.GetComponent<ProjectileDamage>().damageType |= DamageType.BleedOnHit;
             yoyoProjectilePrefab.GetComponent<ProjectileDamage>().damageType |= DamageTypeCombo.Generic;
 
             ProjectileController YoyoController = yoyoProjectilePrefab.GetComponent<ProjectileController>();

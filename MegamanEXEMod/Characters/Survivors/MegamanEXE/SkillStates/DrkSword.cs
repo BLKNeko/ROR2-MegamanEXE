@@ -19,7 +19,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
             damageType |= DamageType.BypassArmor;
             damageType |= DamageType.BypassBlock;
             damageType |= DamageType.PoisonOnHit;
-            damageCoefficient = 1f;
+            damageCoefficient = EXEStaticValues.DrkSwordSkillDefDamageCoefficient;
             procCoefficient = 1f;
             pushForce = 2000f;
             bonusForce = Vector3.zero;

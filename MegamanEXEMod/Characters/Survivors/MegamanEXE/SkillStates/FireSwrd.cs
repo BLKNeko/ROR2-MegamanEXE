@@ -16,7 +16,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
             damageType |= DamageTypeCombo.Generic;
             damageType |= DamageType.IgniteOnHit;
-            damageCoefficient = 5.5f;
+            damageCoefficient = EXEStaticValues.FireSwrdSkillDefDamageCoefficient;
             procCoefficient = 1f;
             pushForce = 500f;
             bonusForce = Vector3.zero;

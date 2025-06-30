@@ -12,7 +12,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 {
     public class MiniBomb : BaseSkillState
     {
-        public float damageCoefficient = EXEStaticValues.swordDamageCoefficient;
+        public float damageCoefficient = EXEStaticValues.MiniBombSkillDefDamageCoefficient;
         public float baseDuration = 0.5f;
         public float recoil = 1f;
         private float force = 2000f;
@@ -86,7 +86,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
                     MiniBombProjectille.position = aimRay.origin;
                     MiniBombProjectille.rotation = Util.QuaternionSafeLookRotation(aimRay.direction);
                     MiniBombProjectille.owner = gameObject;
-                    MiniBombProjectille.damage = damageCoefficient;
+                    MiniBombProjectille.damage = damageCoefficient * damageStat;
                     MiniBombProjectille.force = force;
                     MiniBombProjectille.crit = RollCrit();
                     //XBusterMediumProjectille.speedOverride = XBusterMediumProjectille.speedOverride * 0.8f;

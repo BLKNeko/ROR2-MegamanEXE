@@ -16,7 +16,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 {
     public class ShotGun : BaseSkillState
     {
-        public float damageCoefficient = 1.4f;
+        public float damageCoefficient = EXEStaticValues.ShotGunSkillDefDamageCoefficient;
         public float baseDuration = 0.5f;
         public float recoil = 1f;
         public static GameObject tracerEffectPrefab = Resources.Load<GameObject>("Prefabs/Effects/Tracers/TracerToolbotRebar");
@@ -88,7 +88,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
                     ShotgunProjectille.position = aimRay.origin;
                     ShotgunProjectille.rotation = Util.QuaternionSafeLookRotation(aimRay.direction);
                     ShotgunProjectille.owner = gameObject;
-                    ShotgunProjectille.damage = damageCoefficient;
+                    ShotgunProjectille.damage = damageCoefficient * damageStat;
                     ShotgunProjectille.force = force;
                     ShotgunProjectille.crit = RollCrit();
                     ShotgunProjectille.damageColorIndex = DamageColorIndex.Default;

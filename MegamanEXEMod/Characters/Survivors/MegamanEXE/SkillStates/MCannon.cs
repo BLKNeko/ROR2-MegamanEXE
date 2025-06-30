@@ -11,7 +11,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 {
     public class MCannon : BaseSkillState
     {
-        public static float damageCoefficient = 2.25f;
+        public static float damageCoefficient = EXEStaticValues.MCannonSkillDefDamageCoefficient;
         public static float procCoefficient = 1f;
         public static float baseDuration = 0.5f;
         public static float force = 1250f;

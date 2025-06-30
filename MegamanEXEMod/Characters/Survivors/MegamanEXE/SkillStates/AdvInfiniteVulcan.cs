@@ -9,7 +9,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 {
     public class AdvInfiniteVulcan : BaseSkillState
     {
-        public static float damageCoefficient = 1.4f;
+        public static float damageCoefficient = EXEStaticValues.AdvInfiniteVulcanSkillDefDamageCoefficient;
         public static float procCoefficient = 1f;
         public static float baseDuration = 0.12f;
         public static float force = 1000f;

@@ -10,7 +10,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 {
     public class Spreader : BaseSkillState
     {
-        public static float damageCoefficient = 1.5f;
+        public static float damageCoefficient = EXEStaticValues.SpreaderSkillDefDamageCoefficient;
         public static float procCoefficient = 1f;
         public static float baseDuration = 0.5f;
         public static float force = 1000f;
@@ -55,7 +55,11 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
             if (isAuthority)
             {
-                execomponent.UpdateMemoryCode('C');
+                if (isAuthority)
+                {
+
+                    execomponent.UpdateMemoryCode('X');
+                }
 
             }
 

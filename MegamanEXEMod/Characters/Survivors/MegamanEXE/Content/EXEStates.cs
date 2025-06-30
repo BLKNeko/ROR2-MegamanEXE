@@ -17,7 +17,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
             Modules.Content.AddEntityState(typeof(BusterEXE));
             Modules.Content.AddEntityState(typeof(EXETurret));
-            Modules.Content.AddEntityState(typeof(CyberSword));
+            Modules.Content.AddEntityState(typeof(CyberSword_old));
             Modules.Content.AddEntityState(typeof(AdvAirShot));
             Modules.Content.AddEntityState(typeof(AdvBarr500));
             Modules.Content.AddEntityState(typeof(AdvGigaCannon));

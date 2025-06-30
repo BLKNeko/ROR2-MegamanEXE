@@ -12,7 +12,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 {
     public class Thunder : BaseSkillState
     {
-        public float damageCoefficient = 1.45f;
+        public float damageCoefficient = EXEStaticValues.ThunderSkillDefDamageCoefficient;
         public float baseDuration = 0.5f;
         public float recoil = 1f;
         public static GameObject tracerEffectPrefab = Resources.Load<GameObject>("Prefabs/Effects/Tracers/TracerToolbotRebar");
@@ -86,7 +86,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
                     ThunderProjectille.position = aimRay.origin;
                     ThunderProjectille.rotation = Util.QuaternionSafeLookRotation(aimRay.direction);
                     ThunderProjectille.owner = gameObject;
-                    ThunderProjectille.damage = damageCoefficient;
+                    ThunderProjectille.damage = damageCoefficient * damageStat;
                     ThunderProjectille.force = force;
                     ThunderProjectille.crit = RollCrit();
                     ThunderProjectille.damageColorIndex = DamageColorIndex.Luminous;

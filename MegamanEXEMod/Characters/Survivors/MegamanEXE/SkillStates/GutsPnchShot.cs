@@ -12,7 +12,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 {
     public class GutsPnchShot : BaseSkillState
     {
-        public float damageCoefficient = 1.45f;
+        public float damageCoefficient = EXEStaticValues.GutPnchShotSkillDefDamageCoefficient;
         public float baseDuration = 0.5f;
         public float recoil = 1f;
         public static GameObject tracerEffectPrefab = Resources.Load<GameObject>("Prefabs/Effects/Tracers/TracerToolbotRebar");
@@ -86,7 +86,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
                     GutsPnchProjectille.position = aimRay.origin;
                     GutsPnchProjectille.rotation = Util.QuaternionSafeLookRotation(aimRay.direction);
                     GutsPnchProjectille.owner = gameObject;
-                    GutsPnchProjectille.damage = damageCoefficient;
+                    GutsPnchProjectille.damage = damageCoefficient * damageStat;
                     GutsPnchProjectille.force = force;
                     GutsPnchProjectille.crit = RollCrit();
                     GutsPnchProjectille.damageColorIndex = DamageColorIndex.Default;

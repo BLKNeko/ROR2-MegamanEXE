@@ -10,10 +10,10 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 {
     public class AirShot : BaseSkillState
     {
-        public static float damageCoefficient = 1.2f;
+        public static float damageCoefficient = EXEStaticValues.AirShotSkillDefDamageCoefficient;
         public static float procCoefficient = 1f;
         public static float baseDuration = 0.2f;
-        public static float force = 15000f;
+        public static float force = 8000f;
         public static float recoil = 3f;
         public static float range = 256f;
         public static GameObject tracerEffectPrefab = Resources.Load<GameObject>("prefabs/effects/tracers/TracerBanditPistol");

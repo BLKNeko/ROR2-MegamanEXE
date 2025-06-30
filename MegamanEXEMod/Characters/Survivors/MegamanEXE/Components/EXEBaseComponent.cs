@@ -31,7 +31,9 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
 
         private float RedHpTimer = 0f;
         private float NaviChatTimer = 0f;
-        private float RedHpTimerCooldown = 3.5f;
+        private float RedHpTimerCooldown = 3f;
+
+        private float VulcanLetterCount = 0f;
 
         private float EvilBugTimer = 0f;
         private float EvilBugCooldown = 8f;
@@ -629,7 +631,26 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
 
         public void UpdateMemoryCode(char letter)
         {
-            MemoryCode += letter;
+
+            if(letter == 'V')
+            {
+
+                VulcanLetterCount++;
+
+                if(VulcanLetterCount >= 10)
+                {
+                    MemoryCode += letter;
+                    VulcanLetterCount = 0f;
+                }
+
+
+            }
+            else
+            {
+                MemoryCode += letter;
+            }
+
+            
 
             //logs
             Debug.Log("MemoryCode: " + MemoryCode);
@@ -812,10 +833,9 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.Components
 
                 $"Hey, {EXEBody.GetUserName()}! Try to get all the items we can!",
 
+                $"A virus called Nightmare? Sorry, I don't remember anything like that..."
 
                 //-- unrevised
-
-                $"A virus called Nightmare? Sorry i didnt remember anything like that..."
 
 
             };

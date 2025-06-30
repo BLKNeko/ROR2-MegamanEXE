@@ -12,6 +12,10 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
         public const float bombDamageCoefficient = 16f;
 
+        public const float EXEBusterDamageCoefficient = 1f;
+
+        public const float CyberSwordDamageCoefficient = 3f;
+
 
         //CHIP DAMAGES
 
@@ -20,7 +24,51 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
         public static readonly float XFullChargeDamageCoefficient = EXEConfig.fullChargeMultiplierFloat.Value;
 
-        public const float EXEBusterDamageCoefficient = 1f;
+        
+
+        public const float AdvAirShotSkillDefDamageCoefficient = 12f; 
+        public const float AdvGigaCannonSkillDefDamageCoefficient = 30f; 
+        public const float AdvGreatYoyoSkillDefDamageCoefficient = 10f; 
+        public const float AdvInfiniteVulcanSkillDefDamageCoefficient = 1.4f; 
+        public const float AdvLifeSwordSkillDefDamageCoefficient = 40f; 
+
+        public const float AirShotSkillDefDamageCoefficient = 1.2f; 
+        public const float AquaSwrdSkillDefDamageCoefficient = 5.75f; 
+
+        public const float CannonSkillDefDamageCoefficient = 1.5f; 
+
+        public const float DrkBombSkillDefDamageCoefficient = 20f; 
+        public const float DrkCannonSkillDefDamageCoefficient = 30f; 
+        public const float DrkSwordSkillDefDamageCoefficient = 40f; 
+        public const float DrkVulcanSkillDefDamageCoefficient = 2.5f; 
+
+        public const float ElecSwrdSkillDefDamageCoefficient = 5.25f; 
+
+        public const float FireSwrdSkillDefDamageCoefficient = 5.5f; 
+
+        public const float GutPunchSkillDefDamageCoefficient = 4f; 
+        public const float GutPnchShotSkillDefDamageCoefficient = 3f; 
+
+        public const float HiCannonSkillDefDamageCoefficient = 2.25f; 
+
+        public const float MCannonSkillDefDamageCoefficient = 3.4f; 
+        public const float MiniBombSkillDefDamageCoefficient = 1.5f; 
+        public const float MuramasaSkillDefDamageCoefficient = 1f; 
+
+
+        public const float ReflectorSkillDefDamageCoefficient = 3f; 
+
+        public const float ShokWaveSkillDefDamageCoefficient = 1.8f; 
+        public const float ShotGunSkillDefDamageCoefficient = 1.4f; 
+        public const float SpreaderSkillDefDamageCoefficient = 1.5f; 
+        public const float StepSwordSkillDefDamageCoefficient = 5.5f; 
+        public const float SuprVulcSkillDefDamageCoefficient = 1.5f; 
+
+        public const float ThunderSkillDefDamageCoefficient = 1.45f; 
+
+        public const float VulcanSkillDefDamageCoefficient = 1.2f; 
+
+        public const float YoyoSkillDefDamageCoefficient = 1.5f;
 
 
 

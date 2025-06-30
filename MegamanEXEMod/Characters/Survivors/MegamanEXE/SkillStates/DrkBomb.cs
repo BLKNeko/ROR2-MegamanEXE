@@ -12,7 +12,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 {
     public class DrkBomb : BaseSkillState
     {
-        public float damageCoefficient = EXEStaticValues.swordDamageCoefficient;
+        public float damageCoefficient = EXEStaticValues.DrkBombSkillDefDamageCoefficient;
         public float baseDuration = 0.5f;
         public float recoil = 1f;
         private float force = 2000f;

@@ -16,7 +16,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
             damageType |= DamageTypeCombo.Generic;
             damageType |= DamageType.Freeze2s;
-            damageCoefficient = 1f;
+            damageCoefficient = EXEStaticValues.AquaSwrdSkillDefDamageCoefficient;
             procCoefficient = 1f;
             pushForce = 500f;
             bonusForce = Vector3.zero;

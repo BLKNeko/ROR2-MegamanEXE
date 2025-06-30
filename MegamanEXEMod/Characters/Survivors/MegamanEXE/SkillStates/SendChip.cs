@@ -116,9 +116,10 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
             MegamanEXESurvivor.Recov50SkillDef,
             MegamanEXESurvivor.ReflectorSkillDef,
 
-            MegamanEXESurvivor.SendChipSkillDef,
+            //MegamanEXESurvivor.SendChipSkillDef,
             MegamanEXESurvivor.ShokWaveSkillDef,
             MegamanEXESurvivor.ShotGunSkillDef,
+            MegamanEXESurvivor.SpreaderSkillDef,
             MegamanEXESurvivor.StepSwordSkillDef,
             MegamanEXESurvivor.SuprVulcSkillDef,
 

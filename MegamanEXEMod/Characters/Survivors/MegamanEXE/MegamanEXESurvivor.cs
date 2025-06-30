@@ -101,7 +101,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             bodyNameToken = MMEXE_PREFIX + "NAME",
             subtitleNameToken = MMEXE_PREFIX + "SUBTITLE",
 
-            characterPortrait = EXEAssets.IconEXETex,
+            characterPortrait = assetBundle.LoadAsset<Texture>("TexEXE"),
             bodyColor = new Color(0.3f, 0.55f, 0.99f),
             sortPosition = 100,
 
@@ -308,8 +308,8 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             BusterEXESkillDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = "BusterEXE",
-                skillNameToken = MMEXE_PREFIX + "WEAPON_ZSABER_NAME",
-                skillDescriptionToken = MMEXE_PREFIX + "WEAPON_ZSABER_DESCRIPTION",
+                skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_PRIMARY_EXEBUSTER_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_PRIMARY_EXEBUSTER_DESCRIPTION",
                 skillIcon = EXEAssets.IconBusterEXE,
 
                 activationState = new EntityStates.SerializableEntityStateType(typeof(BusterEXE)),
@@ -428,7 +428,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.SendChip)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 5f,
+                baseRechargeInterval = 10f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -753,7 +753,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Attack10)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 20f,
+                baseRechargeInterval = 30f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -777,7 +777,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Attack20)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 20f,
+                baseRechargeInterval = 30f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -801,7 +801,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Attack30)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 20f,
+                baseRechargeInterval = 30f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -825,7 +825,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Barr100)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 2,
-                baseRechargeInterval = 20f,
+                baseRechargeInterval = 30f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -849,7 +849,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Barr200)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 2,
-                baseRechargeInterval = 20f,
+                baseRechargeInterval = 30f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -873,7 +873,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.BugFix)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 20f,
+                baseRechargeInterval = 30f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -897,7 +897,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.FstGauge)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 20f,
+                baseRechargeInterval = 30f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -921,7 +921,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Invis)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 15f,
+                baseRechargeInterval = 30f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -945,7 +945,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Recov300)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 20f,
+                baseRechargeInterval = 30f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -969,7 +969,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Recov50)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 20f,
+                baseRechargeInterval = 30f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -993,7 +993,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Reflector)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 2,
-                baseRechargeInterval = 15f,
+                baseRechargeInterval = 30f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -1045,7 +1045,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.ElecSwrd)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 3,
-                baseRechargeInterval = 20f,
+                baseRechargeInterval = 15f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -1069,7 +1069,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.FireSwrd)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 3,
-                baseRechargeInterval = 20f,
+                baseRechargeInterval = 30f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -1093,7 +1093,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.GutPunch)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 2,
-                baseRechargeInterval = 20f,
+                baseRechargeInterval = 40f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -1117,7 +1117,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Muramasa)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 15f,
+                baseRechargeInterval = 40f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -1141,7 +1141,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.StepSwordDash)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 2,
-                baseRechargeInterval = 20f,
+                baseRechargeInterval = 50f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -1169,7 +1169,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.AirShot)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 5,
-                baseRechargeInterval = 15f,
+                baseRechargeInterval = 20f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -1193,7 +1193,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Cannon)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 5,
-                baseRechargeInterval = 15f,
+                baseRechargeInterval = 30f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -1217,7 +1217,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.GutsPnchShot)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 5,
-                baseRechargeInterval = 15f,
+                baseRechargeInterval = 40f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -1241,7 +1241,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.HiCannon)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 5,
-                baseRechargeInterval = 15f,
+                baseRechargeInterval = 35f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -1265,7 +1265,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.MCannon)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 3,
-                baseRechargeInterval = 15f,
+                baseRechargeInterval = 40f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -1289,7 +1289,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.ShokWav)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 2,
-                baseRechargeInterval = 20f,
+                baseRechargeInterval = 40f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -1313,7 +1313,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.ShotGun)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 5,
-                baseRechargeInterval = 15f,
+                baseRechargeInterval = 20f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -1337,7 +1337,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Spreader)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 5,
-                baseRechargeInterval = 15f,
+                baseRechargeInterval = 20f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -1361,7 +1361,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.SuprVulc)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 30,
-                baseRechargeInterval = 20f,
+                baseRechargeInterval = 50f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -1385,7 +1385,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Thunder)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 3,
-                baseRechargeInterval = 15f,
+                baseRechargeInterval = 30f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -1409,7 +1409,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Vulcan)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 15,
-                baseRechargeInterval = 15f,
+                baseRechargeInterval = 35f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -1433,7 +1433,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Yoyo)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 3,
-                baseRechargeInterval = 15f,
+                baseRechargeInterval = 35f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -1674,6 +1674,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             Skills.AddFirstExtraSkill(bodyPrefab, DrkBombSkillDef);
             Skills.AddFirstExtraSkill(bodyPrefab, DrkCannonSkillDef);
             Skills.AddFirstExtraSkill(bodyPrefab, GutPnchShotSkillDef);
+            Skills.AddFirstExtraSkill(bodyPrefab, AdvGreatYoyoSkillDef);
         }
         private void AddExtraSecondSkills()
         {
@@ -2286,7 +2287,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
         {
             orig(self, damageInfo);
 
-            Debug.Log("Enter Hook");
+            //Debug.Log("Enter Hook");
 
             if (self == null || damageInfo == null)
                 return;
@@ -2317,7 +2318,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
                 ReflectorProjectille.position = self.transform.position;
                 ReflectorProjectille.rotation = Util.QuaternionSafeLookRotation(direction);
                 ReflectorProjectille.owner = self.GetComponent<CharacterBody>().gameObject;
-                ReflectorProjectille.damage = EXEStaticValues.swordDamageCoefficient * self.GetComponent<CharacterBody>().damage;
+                ReflectorProjectille.damage = (EXEStaticValues.ReflectorSkillDefDamageCoefficient * self.GetComponent<CharacterBody>().damage) + damageInfo.damage;
                 ReflectorProjectille.force = 1000;
                 ReflectorProjectille.crit = self.GetComponent<CharacterBody>().RollCrit();
                 ReflectorProjectille.damageColorIndex = DamageColorIndex.Default;

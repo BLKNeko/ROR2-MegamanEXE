@@ -16,7 +16,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
             damageType |= DamageTypeCombo.Generic;
             damageType |= DamageType.Stun1s;
-            damageCoefficient = 4f;
+            damageCoefficient = EXEStaticValues.GutPunchSkillDefDamageCoefficient;
             procCoefficient = 1f;
             pushForce = 15000f;
             bonusForce = characterDirection.forward;
@@ -43,7 +43,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
             impactSound = EXEAssets.swordHitSoundEvent.index;
 
-            //swingEffectPrefab = EXEAssets.RedSwordSwingVFX;
+            swingEffectPrefab = EXEAssets.swordSwingEffect;
 
             SetHitReset(true, 2);
 

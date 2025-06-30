@@ -11,7 +11,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 {
     public class SuprVulc : BaseSkillState
     {
-        public static float damageCoefficient = 1.5f;
+        public static float damageCoefficient = EXEStaticValues.SuprVulcSkillDefDamageCoefficient;
         public static float procCoefficient = 1f;
         public static float baseDuration = 0.1f;
         public static float force = 1250f;
@@ -53,10 +53,10 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
         public override void OnExit()
         {
 
-            //SyncNetworkExe.MemoryCode = SyncNetworkExe.MemoryCode + "V";
-
-            //execomponent.UpdateMemoryCode('V');
-            //SyncNetworkExe.VulcanLetter++;
+            if (isAuthority)
+            {
+                execomponent.UpdateMemoryCode('V');
+            }
 
             base.OnExit();
         }

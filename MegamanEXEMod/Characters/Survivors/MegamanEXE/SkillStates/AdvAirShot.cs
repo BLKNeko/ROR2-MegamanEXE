@@ -10,7 +10,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 {
     public class AdvAirShot : BaseSkillState
     {
-        public static float damageCoefficient = 12f;
+        public static float damageCoefficient = EXEStaticValues.AdvAirShotSkillDefDamageCoefficient;
         public static float procCoefficient = 1f;
         public static float baseDuration = 0.2f;
         public static float force = 99999f;
@@ -81,7 +81,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
                         bulletCount = 1,
                         aimVector = aimRay.direction,
                         origin = aimRay.origin,
-                        damage = AirShot.damageCoefficient * this.damageStat,
+                        damage = damageCoefficient * this.damageStat,
                         damageColorIndex = DamageColorIndex.Default,
                         damageType = DamageType.Generic,
                         falloffModel = BulletAttack.FalloffModel.DefaultBullet,

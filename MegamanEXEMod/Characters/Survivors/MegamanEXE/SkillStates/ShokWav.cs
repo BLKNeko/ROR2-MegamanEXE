@@ -16,7 +16,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 {
     public class ShokWav : BaseSkillState
     {
-        public float damageCoefficient = 1.8f;
+        public float damageCoefficient = EXEStaticValues.ShokWaveSkillDefDamageCoefficient;
         public float baseDuration = 0.5f;
         public float recoil = 1f;
         public static GameObject tracerEffectPrefab = Resources.Load<GameObject>("Prefabs/Effects/Tracers/TracerToolbotRebar");
@@ -88,7 +88,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
                     ShockwaveProjectille.position = aimRay.origin;
                     ShockwaveProjectille.rotation = Util.QuaternionSafeLookRotation(aimRay.direction);
                     ShockwaveProjectille.owner = gameObject;
-                    ShockwaveProjectille.damage = damageCoefficient;
+                    ShockwaveProjectille.damage = damageCoefficient * damageStat;
                     ShockwaveProjectille.force = force;
                     ShockwaveProjectille.crit = RollCrit();
                     ShockwaveProjectille.damageColorIndex = DamageColorIndex.Default;

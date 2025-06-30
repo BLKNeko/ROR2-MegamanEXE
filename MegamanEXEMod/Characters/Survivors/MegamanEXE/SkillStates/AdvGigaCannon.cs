@@ -11,7 +11,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 {
     public class AdvGigaCannon : BaseSkillState
     {
-        public static float damageCoefficient = 30f;
+        public static float damageCoefficient = EXEStaticValues.AdvGigaCannonSkillDefDamageCoefficient;
         public static float procCoefficient = 1f;
         public static float baseDuration = 0.5f;
         public static float force = 8250f;

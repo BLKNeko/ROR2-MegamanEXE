@@ -16,7 +16,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
 
             damageType |= DamageTypeCombo.Generic;
             damageType |= DamageType.Shock5s;
-            damageCoefficient = 5.25f;
+            damageCoefficient = EXEStaticValues.ElecSwrdSkillDefDamageCoefficient;
             procCoefficient = 1f;
             pushForce = 500f;
             bonusForce = Vector3.zero;
