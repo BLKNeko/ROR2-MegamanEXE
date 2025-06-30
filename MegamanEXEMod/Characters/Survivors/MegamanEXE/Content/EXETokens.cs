@@ -144,8 +144,8 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             Language.Add($"{prefix}_MEGAMAN_EXE_BODY_CHIP_DRKRECOV_NAME", "Dark Recover");
             Language.Add($"{prefix}_MEGAMAN_EXE_BODY_CHIP_DRKRECOV_DESCRIPTION", "Dark Chip: Recovers HP but introduces multiple bugs.");
 
-            Language.Add($"{prefix}_MEGAMAN_EXE_BODY_CHIP_DRKSWORD_NAME", "Dark Sword");
-            Language.Add($"{prefix}_MEGAMAN_EXE_BODY_CHIP_DRKSWORD_DESCRIPTION", "Dark Chip: A corrupted sword with devastating power.");
+            Language.Add($"{prefix}_MEGAMAN_EXE_BODY_CHIP_DRKSWRD_NAME", "Dark Sword");
+            Language.Add($"{prefix}_MEGAMAN_EXE_BODY_CHIP_DRKSWRD_DESCRIPTION", "Dark Chip: A corrupted sword with devastating power.");
 
             Language.Add($"{prefix}_MEGAMAN_EXE_BODY_CHIP_DRKVULCAN_NAME", "Dark Vulcan");
             Language.Add($"{prefix}_MEGAMAN_EXE_BODY_CHIP_DRKVULCAN_DESCRIPTION", "Dark Chip: Fires multiple corrupted bullets in rapid succession.");
@@ -163,7 +163,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             Language.Add($"{prefix}_MEGAMAN_EXE_BODY_CHIP_GUTPUNCH_DESCRIPTION", "A heavy punch that knocks enemies back.");
 
             Language.Add($"{prefix}_MEGAMAN_EXE_BODY_CHIP_GUTPNCHSHOT_NAME", "Gut Punch Shot");
-            Language.Add($"{prefix}_MEGAMAN_EXE_BODY_CHIP_GUTPNCHSHOT_DESCRIPTION", "Punch followed by a short-range blast.");
+            Language.Add($"{prefix}_MEGAMAN_EXE_BODY_CHIP_GUTPNCHSHOT_DESCRIPTION", "Shoot an Punch like projectile.");
 
             Language.Add($"{prefix}_MEGAMAN_EXE_BODY_CHIP_HICANNON_NAME", "HiCannon");
             Language.Add($"{prefix}_MEGAMAN_EXE_BODY_CHIP_HICANNON_DESCRIPTION", "Stronger version of Cannon, fires a powerful blast.");

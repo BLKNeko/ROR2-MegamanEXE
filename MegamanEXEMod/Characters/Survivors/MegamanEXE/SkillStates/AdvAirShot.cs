@@ -55,7 +55,7 @@ namespace MegamanEXEMod.Survivors.MegamanEXE.SkillStates
             ////SyncNetworkExe.MemoryCode = ////SyncNetworkExe.MemoryCode + "X";
             
             //Verificar de criar um AdvAirshot
-            execomponent.UpdateMemoryCode('A');
+            //execomponent.UpdateMemoryCode('A');
 
             base.OnExit();
         }

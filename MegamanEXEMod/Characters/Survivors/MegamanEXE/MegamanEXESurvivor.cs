@@ -595,9 +595,9 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
             DrkBombSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_DARKBOMB_NAME",
-                skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_DARKBOMB_NAME",
-                skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_DARKBOMB_DESCRIPTION",
+                skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_DRKBOMB_NAME",
+                skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_DRKBOMB_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_DRKBOMB_DESCRIPTION",
                 skillIcon = EXEAssets.IconDrkBomb,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.DrkBomb)),
                 activationStateMachineName = "Weapon",
@@ -619,9 +619,9 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
             DrkCannonSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_DARKCANNON_NAME",
-                skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_DARKCANNON_NAME",
-                skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_DARKCANNON_DESCRIPTION",
+                skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_DRKCANNON_NAME",
+                skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_DRKCANNON_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_DRKCANNON_DESCRIPTION",
                 skillIcon = EXEAssets.IconDrkCannon,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.DrkCannon)),
                 activationStateMachineName = "Weapon",
@@ -667,9 +667,9 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
             DrkRecovSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_DARKRECOV_NAME",
-                skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_DARKRECOV_NAME",
-                skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_DARKRECOV_DESCRIPTION",
+                skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_DRKRECOV_NAME",
+                skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_DRKRECOV_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_DRKRECOV_DESCRIPTION",
                 skillIcon = EXEAssets.IconDrkRecov,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.DrkRecov)),
                 activationStateMachineName = "Weapon",
@@ -746,9 +746,9 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
             Attack10SkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_ATK10_NAME",
-                skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_ATK10_NAME",
-                skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_ATK30_DESCRIPTION",
+                skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_ATTACK10_NAME",
+                skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_ATTACK10_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_ATTACK10_DESCRIPTION",
                 skillIcon = EXEAssets.IconAtk10,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Attack10)),
                 activationStateMachineName = "Weapon",
@@ -770,9 +770,9 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
             Attack20SkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_ATK20_NAME",
-                skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_ATK20_NAME",
-                skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_ATK20_DESCRIPTION",
+                skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_ATTACK20_NAME",
+                skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_ATTACK20_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_ATTACK20_DESCRIPTION",
                 skillIcon = EXEAssets.IconAtk20,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Attack20)),
                 activationStateMachineName = "Weapon",
@@ -794,9 +794,9 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
             Attack30SkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_ATK30_NAME",
-                skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_ATK30_NAME",
-                skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_ATK10_DESCRIPTION",
+                skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_ATTACK30_NAME",
+                skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_ATTACK30_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_ATTACK30_DESCRIPTION",
                 skillIcon = EXEAssets.IconAtk30,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Attack30)),
                 activationStateMachineName = "Weapon",
@@ -1210,9 +1210,9 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
             GutPnchShotSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_GUTSPNCHSHOT_NAME",
-                skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_GUTSPNCHSHOT_NAME",
-                skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_GUTSPNCHSHOT_DESCRIPTION",
+                skillName = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_GUTPNCHSHOT_NAME",
+                skillNameToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_GUTPNCHSHOT_NAME",
+                skillDescriptionToken = MMEXE_PREFIX + "_MEGAMAN_EXE_BODY_CHIP_GUTPNCHSHOT_DESCRIPTION",
                 skillIcon = EXEAssets.IconGutPunchShot,
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.GutsPnchShot)),
                 activationStateMachineName = "Weapon",
@@ -1668,13 +1668,12 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
 
         private void AddExtraFirstSkills()
         {
-            Skills.AddFirstExtraSkill(bodyPrefab, TurretTestSkillDef);
-            Skills.AddFirstExtraSkill(bodyPrefab, DrkSwordSkillDef);
-            Skills.AddFirstExtraSkill(bodyPrefab, AdvInfiniteVulcanSkillDef);
-            Skills.AddFirstExtraSkill(bodyPrefab, DrkBombSkillDef);
+            //Skills.AddFirstExtraSkill(bodyPrefab, TurretTestSkillDef);
+            Skills.AddFirstExtraSkill(bodyPrefab, YoyoSkillDef);
             Skills.AddFirstExtraSkill(bodyPrefab, DrkCannonSkillDef);
+            Skills.AddFirstExtraSkill(bodyPrefab, DrkBombSkillDef);
+            Skills.AddFirstExtraSkill(bodyPrefab, MiniBombSkillDef);
             Skills.AddFirstExtraSkill(bodyPrefab, GutPnchShotSkillDef);
-            Skills.AddFirstExtraSkill(bodyPrefab, AdvGreatYoyoSkillDef);
         }
         private void AddExtraSecondSkills()
         {
@@ -1682,22 +1681,23 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             Skills.AddSecondExtraSkill(bodyPrefab, ElecSwrdSkillDef);
             Skills.AddSecondExtraSkill(bodyPrefab, FireSwrdSkillDef);
             Skills.AddSecondExtraSkill(bodyPrefab, GutPunchSkillDef);
-            Skills.AddSecondExtraSkill(bodyPrefab, SpreaderSkillDef);
+            Skills.AddSecondExtraSkill(bodyPrefab, MuramasaSkillDef);
         }
         private void AddExtraThirdSkills()
         {
             Skills.AddThirdExtraSkill(bodyPrefab, AirShotSkillDef);
             Skills.AddThirdExtraSkill(bodyPrefab, CannonSkillDef);
-            Skills.AddThirdExtraSkill(bodyPrefab, StepSwordSkillDef);
+            Skills.AddThirdExtraSkill(bodyPrefab, SpreaderSkillDef);
             Skills.AddThirdExtraSkill(bodyPrefab, ShokWaveSkillDef);
-            Skills.AddThirdExtraSkill(bodyPrefab, MiniBombSkillDef);
+            Skills.AddThirdExtraSkill(bodyPrefab, ShotGunSkillDef);
         }
         private void AddExtraFourthSkills()
         {
-            Skills.AddFourthExtraSkill(bodyPrefab, BugFixSkillDef);
+            Skills.AddFourthExtraSkill(bodyPrefab, Attack10SkillDef);
             Skills.AddFourthExtraSkill(bodyPrefab, InvisSkillDef);
-            Skills.AddFourthExtraSkill(bodyPrefab, DrkRecovSkillDef);
+            Skills.AddFourthExtraSkill(bodyPrefab, Recov50SkillDef);
             Skills.AddFourthExtraSkill(bodyPrefab, ReflectorSkillDef);
+            Skills.AddFourthExtraSkill(bodyPrefab, Barr100SkillDef);
         }
 
         #endregion
@@ -2281,6 +2281,22 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             On.RoR2.SurvivorCatalog.Init += SurvivorCatalog_Init;
             CustomEmotesAPI.animChanged += CustomEmotesAPI_animChanged;
             On.RoR2.CharacterMaster.OnBodyStart += RestoreHPAfterRespawn;
+            On.RoR2.CharacterModel.Awake += CharacterModel_Awake;
+        }
+
+        private void CharacterModel_Awake(On.RoR2.CharacterModel.orig_Awake orig, CharacterModel self)
+        {
+            orig(self);
+
+            if (!self || !self.gameObject) return;
+
+            Debug.Log($"CharacterModel GameObject name: {self.gameObject.name}");
+
+            // Usa o nome exato do GameObject da seleção
+            if (self.gameObject.name == "MegamanEXEDisplay(Clone)") // ou use StartsWith/Equals se for mais preciso
+            {
+                Util.PlaySound(EXEStaticValues.SFXChipConfirm, self.gameObject);
+            }
         }
 
         private void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo damageInfo)
