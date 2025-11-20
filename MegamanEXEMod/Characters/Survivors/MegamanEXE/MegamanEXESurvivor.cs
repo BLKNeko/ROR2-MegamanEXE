@@ -265,6 +265,12 @@ namespace MegamanEXEMod.Survivors.MegamanEXE
             //omit all this if you want to just keep theirs
             Prefabs.ClearEntityStateMachines(bodyPrefab);
 
+            CharacterBody body = bodyPrefab.GetComponent<CharacterBody>();
+            if (body)
+            {
+                body.vehicleIdleStateMachine = null;
+            }
+
             //the main "Body" state machine has some special properties
             Prefabs.AddMainEntityStateMachine(bodyPrefab, "Body", typeof(EntityStates.GenericCharacterMain), typeof(EntityStates.SpawnTeleporterState));
             //if you set up a custom main characterstate, set it up here

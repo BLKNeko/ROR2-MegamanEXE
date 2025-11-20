@@ -29,6 +29,7 @@ place the dll in your plugins folder or extract to a folder inside plugins.
 |EXE DIVE|![](https://i.imgur.com/oAH1R4B.png)|
 
 # Changelog
+- V 1.1.1 Probably Fix for Alloy Collective update.
 - V 1.1.0 Update for SOTS, Add RiskOfOption and EmoteAPI compatibility, add skins and some adjusts.
 - V 1.0.2 Fixed bug on CheckDMG hook
 - V 1.0.0 Posted
